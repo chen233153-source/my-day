@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="היום שלי">
+<meta name="theme-color" content="#4b34b8">
+<title>היום שלי</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ עכשיו ============ -->
+  <section class="view" id="v-now"></section>
+
+  <!-- ============ הרגלים ============ -->
+  <section class="view hide" id="v-habits"></section>
+
+  <!-- ============ תודות ============ -->
+  <section class="view hide" id="v-gratitude"></section>
+
+  <!-- ============ המצפן ============ -->
+  <section class="view hide" id="v-compass"></section>
+
+  <!-- ============ היועצת ============ -->
+  <section class="view hide" id="v-advisor"></section>
+
+  <!-- ============ ניווט ============ -->
+  <nav class="nav">
+    <button class="item active" data-go="now">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.4V12l3 2"/></svg>
+      <span>עכשיו</span>
+    </button>
+    <button class="item" data-go="habits">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.8" y="3.8" width="16.4" height="16.4" rx="5"/><path d="M8.2 12.2l2.6 2.6 5-5.4"/></svg>
+      <span>הרגלים</span>
+    </button>
+    <div class="fab-slot"></div>
+    <button class="item" data-go="gratitude">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 5.6a4.6 4.6 0 0 0-6.5 0L12 7.5l-1.9-1.9a4.6 4.6 0 1 0-6.5 6.5l8.4 8.4 8.4-8.4a4.6 4.6 0 0 0 0-6.5z"/></svg>
+      <span>תודות</span>
+    </button>
+    <button class="item" data-go="compass">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.4"/><path d="M15.2 8.8l-2 4.4-4.4 2 2-4.4z"/></svg>
+      <span>המצפן</span>
+    </button>
+  </nav>
+  <button class="fab" data-go="advisor" aria-label="היועצת">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.2c0 3.9 3.6 7 8 7a9 9 0 0 0 2.6-.4l4.8 1.6-1.3-3.8a6.6 6.6 0 0 0 1.9-4.4c0-3.9-3.6-7-8-7s-8 3.1-8 7z"/></svg>
+  </button>
+
+</div>
+
+<!-- ============ גיליון תחתון ============ -->
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet"><div class="grab"></div><div id="sheet-body"></div></div>
+
+<!-- ============ מסך מלא ============ -->
+<div class="full" id="full"><div id="full-body" style="display:flex;flex-direction:column;align-items:center;width:100%"></div></div>
+
+<!-- ============ הודעה קופצת ============ -->
+<div class="toast" id="toast"></div>
+
+<script src="knowledge.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

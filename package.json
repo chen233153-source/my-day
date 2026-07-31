@@ -1,0 +1,15 @@
+{
+  "name": "my-day",
+  "version": "1.0.0",
+  "description": "אפליקציה אישית לחן, בנויה מתוך 14 המדריכים שבכספת האובסידיאן. עברית מלאה, RTL, עובדת אופליין, כל הנתונים נשמרים על המכשיר בלבד.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "playwright-core": "^1.62.0"
+  }
+}

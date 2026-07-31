@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>שורת הטאבים · תקריב</title>
+<style>
+  body{margin:0;background:#f6f5f3;color:#1c1b19;
+    font-family:-apple-system,"Assistant",system-ui,sans-serif;padding:26px}
+  h1{font-size:24px;margin:0 0 22px}
+  .row{display:flex;flex-direction:column;gap:26px}
+  figure{margin:0;width:604px}
+  /* חלון שמראה רק את 300 הפיקסלים התחתונים של המסך, בהגדלה */
+  .clip{width:604px;height:465px;overflow:hidden}
+  .win{width:390px;height:300px;overflow:hidden;position:relative;
+    border:1px solid #e0ddd7;border-radius:18px;
+    transform:scale(1.55);transform-origin:top right}
+  .win iframe{width:390px;height:844px;border:0;position:absolute;top:-544px;left:0}
+  figcaption{font-size:16px;font-weight:700;margin-top:10px}
+</style>
+</head>
+<body>
+<h1>שורת הטאבים · תקריב על השליש התחתון</h1>
+<div class="row">
+  <figure><div class="clip"><div class="win"><iframe src="v1.html?z=1"></iframe></div></div>
+    <figcaption>1 · זכוכית צפה</figcaption></figure>
+  <figure><div class="clip"><div class="win"><iframe src="v2.html?z=1"></iframe></div></div>
+    <figcaption>2 · זכוכית ברוחב מלא</figcaption></figure>
+  <figure><div class="clip"><div class="win"><iframe src="v3.html?z=1"></iframe></div></div>
+    <figcaption>3 · זכוכית סגולה כהה</figcaption></figure>
+</div>
+</body>
+</html>

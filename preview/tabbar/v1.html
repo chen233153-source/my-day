@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>זכוכית צפה · היום שלי - יום</title>
+<link rel="stylesheet" href="../design/habit-flow.css">
+<style>
+
+  .tab{ font-size:11.5px; font-weight:700; letter-spacing:.01em; gap:5px; }
+  .tab svg{ width:22px; height:22px; }
+  .fab{ width:64px; height:64px; }
+  .fab svg{ width:26px; height:26px; }
+
+  /* גלולה מרוחפת, זכוכית בהירה. העיגול לבן ויוצא כמעט לחצי מעל השורה. */
+  .tab-bar{
+    left:14px; right:14px; bottom:16px; height:72px;
+    border-radius:28px;
+    background: linear-gradient(160deg,
+      color-mix(in oklch, var(--surface) 24%, transparent),
+      color-mix(in oklch, var(--fg) 24%, transparent));
+    backdrop-filter: blur(24px) saturate(170%);
+    -webkit-backdrop-filter: blur(24px) saturate(170%);
+    border:1px solid color-mix(in oklch, var(--surface) 28%, transparent);
+    box-shadow:
+      0 18px 44px color-mix(in oklch, var(--fg) 34%, transparent),
+      inset 0 1px 0 color-mix(in oklch, var(--surface) 38%, transparent);
+    color: color-mix(in oklch, var(--surface) 76%, transparent);
+    overflow: visible;
+  }
+  .tab.active{ color: var(--surface); }
+  .fab{
+    margin-bottom:66px;
+    background: linear-gradient(155deg, #ffffff, #eae4fb);
+    color: var(--accent);
+    border:0;
+    box-shadow:
+      0 16px 32px color-mix(in oklch, var(--fg) 40%, transparent),
+      0 0 0 6px color-mix(in oklch, var(--accent) 30%, transparent);
+  }
+</style>
+</head>
+<body>
+<main class="phone" data-od-id="today-day-screen">
+  <section class="content with-tabs">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label">שני, 27 ביולי</span>
+    </div>
+
+    <header class="heading" data-od-id="day-greeting">
+      <h1 data-od-id="screen-title">מיכל, מה קורה</h1>
+      <p class="subtitle">אני אדם שכותב</p>
+    </header>
+
+    <div class="scroll" data-od-id="day-body">
+      <div class="hero-card" data-od-id="now-action">
+        <strong>הדבר של עכשיו</strong>
+        <p>לכתוב 500 מילים לפרק השני</p>
+        <button class="cta" data-od-id="start-now">להתחיל</button>
+      </div>
+
+      <div class="quiet" data-od-id="what-else-today">
+        <span class="quiet-label">מה עוד היום</span>
+        <p>לשלוח את ההצעה ללקוח</p>
+        <p>לקבוע שיחה עם דנה</p>
+      </div>
+    </div>
+
+    <div class="bottom" data-od-id="doors">
+      <div class="pill-row">
+        <button class="pill lg" data-od-id="door-stuck">תקועה</button>
+        <button class="pill lg" data-od-id="door-calm">רגיעה</button>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-4 6-2-3"/></svg><span>המצפן</span></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4 6l1 1 2-2"/><path d="M4 12l1 1 2-2"/></svg><span>משימות</span></button>
+    <button class="fab" aria-label="שיחה"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8 14a6 6 0 118 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z"/></svg><span>הרגלים</span></button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>היום שלי</span></button>
+  </nav>
+</main>
+</body>
+</html>
