@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8"><title>אימות התיקונים</title>
+<style>body{font-family:-apple-system,"Assistant",system-ui;padding:14px;background:#f6f5f3}
+iframe{width:390px;height:844px;border:0;position:absolute;left:-9999px}</style></head><body>
+<pre id="out">בודק...</pre>
+<script>
+const NAMES=['02-onboarding-identity','03-onboarding-goals','04-onboarding-evening',
+'onboarding-break-habit','26-habits-editor','07-now-action','compass-home','calm-ground',
+'stuck-summary','25-habits','calm-ladder','morning-build','06-now-morning-full-v2',
+'gratitude','gratitude-empty','gratitude-writing','action-block','stuck-question',
+'stuck-choice','today-day','today-morning','today-evening','today-closed','tasks',
+'tasks-empty','24-habits-empty','35-habit-resistance','36-habit-break','action-celebrate',
+'action-countdown','action-move','compass-goal-editor','compass-horizons','compass-stuck',
+'compass-weekly','calm-breath','calm-tools','calm-where','calm-glimmer','stuck-fear',
+'morning-run','artist-date','01-onboarding-welcome'];
+document.body.insertAdjacentHTML('beforeend',
+ NAMES.map(n=>`<iframe data-n="${n}" src="../design/${n}.html?q=1"></iframe>`).join(''));
+</script>
+</body></html>
