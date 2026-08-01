@@ -82,6 +82,10 @@
 <script>
 const esc = s => (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const enc = p => encodeURIComponent(p);
+const attr = s => String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const stepKey = s => s.flowKey || s.file;
+const stepSrc = s => s.src || `design/${enc(s.file)}`;
+const stepLabel = s => s.label || s.file.replace('.html','');
 let FLOW = {};
 
 function wired(from, to){
@@ -91,15 +95,15 @@ function wired(from, to){
 
 function stepHTML(s, i){
   return `<div class="step">
-    <div class="shot"><iframe data-src="design/${enc(s.file)}" loading="lazy"></iframe></div>
+    <div class="shot"><iframe data-src="${attr(stepSrc(s))}" loading="lazy"></iframe></div>
     <div class="cap"><b>${i}. ${esc(s.name)}</b>
-      <span class="file">${esc(s.file.replace('.html',''))}</span></div>
+      <span class="file">${esc(stepLabel(s))}</span></div>
     ${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}
   </div>`;
 }
 
 function linkHTML(prev, s){
-  const ok = wired(prev.file, s.file);
+  const ok = wired(stepKey(prev), stepKey(s));
   return `<div class="link ${ok?'':'no'}">
     <span class="lbl">${esc(s.via)}</span>
     <div class="bar"></div>
@@ -150,7 +154,7 @@ function render(){
       const j = JOURNEYS[ji]; if (!j) return;
       const links = sec.querySelectorAll('.link');
       links.forEach((el, li) => {
-        const ok = wired(j.steps[li].file, j.steps[li+1].file);
+        const ok = wired(stepKey(j.steps[li]), stepKey(j.steps[li+1]));
         el.classList.toggle('no', !ok);
         const tip = el.querySelector('.tip');
         if (ok && tip) tip.remove();
