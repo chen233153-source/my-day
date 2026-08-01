@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - כלים</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<!-- 19 · רגיעה, כלים. גיליון תחתון מעל רגע הפעולה.
+     כאן מוצג הווריאנט של "מגויסת". הכלי נגזר מהמצב שנבחר במסך "איפה את",
+     ולעולם לא תפריט אחיד. יציאה: חזרה. -->
+<main class="phone" data-od-id="calm-tools-screen">
+
+  <!-- ההקשר שמתחת: רגע הפעולה, מעומעם ולא אינטראקטיבי -->
+  <section class="content" data-od-id="action-context" inert aria-hidden="true">
+    <div class="top-bar" data-od-id="context-top-bar">
+      <span class="step-label">המשימה שלך עכשיו</span>
+    </div>
+    <div class="white-card" data-od-id="context-task">
+      <strong>לענות לשלוש פניות מהדיירקט</strong>
+      <p>20 דקות על הטיימר</p>
+    </div>
+    <div class="scroll center" data-od-id="context-countdown">
+      <div class="breath-circle"><span dir="ltr">5 · 4 · 3 · 2 · 1</span></div>
+    </div>
+  </section>
+
+  <aside class="sheet" data-od-id="calm-tools-sheet">
+    <div data-od-id="sheet-heading">
+      <p data-od-id="sheet-state">מגויסת</p>
+      <h1 data-od-id="sheet-title">מה יעזור עכשיו</h1>
+    </div>
+
+    <div class="cards" data-od-id="tool-options" data-target="calm-ladder.html">
+      <button class="choice-card plain" data-od-id="tool-sigh" data-target="calm-breath.html">
+        <span class="card-text"><strong>אנחה פיזיולוגית</strong><span>שתי שאיפות דרך האף, השנייה קצרה, ואז נשיפה ארוכה דרך הפה. מרגיע במהירות מצבי לחץ חדים.</span></span>
+      </button>
+      <button class="choice-card plain" data-od-id="tool-long-exhale" data-target="calm-breath.html">
+        <span class="card-text"><strong>נשיפה מוארכת</strong><span>נשיפה ארוכה מהשאיפה מפעילה את המערכת הפאראסימפטטית ומורידה את קצב הלב. הכלי המהיר והזמין ביותר.</span></span>
+      </button>
+      <button class="choice-card plain" data-od-id="tool-movement" data-target="calm-ground.html">
+        <span class="card-text"><strong>תנועה לשחרור</strong><span>כשתקועים בגיוס, תנועה גופנית מסיימת את מחזור הלחץ במקום לכלוא אותו. קומי, נערי ידיים, הליכה מהירה בבית.</span></span>
+      </button>
+      <button class="choice-card plain" data-od-id="tool-urge-surf" data-target="calm-glimmer.html">
+        <span class="card-text"><strong>גלישה על הדחף</strong><span>לא נלחמים בכמיהה ולא נכנעים לה. מתבוננים בה כמו בגל שעולה, מגיע לשיא ודועך. דחף הוא זמני.</span></span>
+      </button>
+    </div>
+
+    <p class="text-link" role="button" tabindex="0" data-od-id="back" data-target="calm-where.html">חזרה</p>
+
+    <p class="fine-print" data-od-id="sources">סימפטטי · Deb Dana</p>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('[data-target]').forEach(function (el) {
+    el.addEventListener('click', function () { location.href = el.dataset.target; });
+  });
+</script>
+<script>
+  /* 1.6 · calmState נשמר ב-calm-where ואף אחד לא קרא אותו. מי שבחרה "כבויה"
+     קיבלה כלים מרגיעים, שמעמיקים דווקא את המצב הכבוי. 30.7 */
+  var STATES = {
+    'state-sympathetic': { label: 'מגויסת', keep: ['tool-sigh','tool-long-exhale','tool-urge-surf','tool-movement'] },
+    'state-dorsal':      { label: 'כבויה',  keep: ['tool-movement','tool-options','tool-sigh'] },
+    'state-ventral':     { label: 'בסדר',   keep: ['tool-options','tool-movement'] }
+  };
+  var st = STATES[localStorage.getItem('calmState')] || STATES['state-sympathetic'];
+  var lbl = document.querySelector('[data-od-id="sheet-state"]');
+  if (lbl) lbl.textContent = st.label;
+  document.querySelectorAll('[data-od-id^="tool-"]').forEach(function (el) {
+    el.hidden = st.keep.indexOf(el.dataset.odId) === -1;
+    el.classList.remove('selected');
+  });
+</script>
+</body>
+</html>

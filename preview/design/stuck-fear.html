@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - תקועה, פחד</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<!-- 16 · תקועה, פחד. גיליון תחתון מעל רגע הפעולה.
+     מסלול "זה מפחיד אותי", שלב 1 מתוך 3. בעיצוב של חן אין כאן שורת יציאה,
+     שלוש האפשרויות הן הפעולה. -->
+<main class="phone" data-od-id="stuck-fear-screen">
+
+  <!-- ההקשר שמתחת: רגע הפעולה, מעומעם ולא אינטראקטיבי -->
+  <section class="content" data-od-id="action-context" inert aria-hidden="true">
+    <div class="top-bar" data-od-id="context-top-bar">
+      <span class="step-label">המשימה שלך עכשיו</span>
+    </div>
+    <div class="white-card" data-od-id="context-task">
+      <strong>לענות לשלוש פניות מהדיירקט</strong>
+      <p>20 דקות על הטיימר</p>
+    </div>
+    <div class="scroll center" data-od-id="context-countdown">
+      <div class="breath-circle"><span dir="ltr">5 · 4 · 3 · 2 · 1</span></div>
+    </div>
+  </section>
+
+  <aside class="sheet" data-od-id="stuck-fear-sheet">
+    <p data-od-id="sheet-step">זה מפחיד אותי · שלב 1 מתוך 3</p>
+
+    <div class="white-card" data-od-id="insight">
+      <p>בורצ׳רד ממפה שלושה פחדים: פחד מכאב, פחד מהתהליך, ופחד מדעת אחרים. כשנותנים לפחד שם ספציפי, הוא מפסיק להיות ערפל.</p>
+    </div>
+
+    <div class="contract" data-od-id="sheet-question">מאיזה כאב את נמנעת?</div>
+
+    <div class="cards" data-od-id="fear-options">
+      <button class="choice-card plain" data-od-id="fear-loss" data-target="stuck-summary.html">
+        <span class="card-text"><strong>כאב או אובדן</strong></span>
+      </button>
+      <button class="choice-card plain" data-od-id="fear-process" data-target="stuck-summary.html">
+        <span class="card-text"><strong>התהליך יהיה קשה</strong></span>
+      </button>
+      <button class="choice-card plain" data-od-id="fear-judgement" data-target="stuck-summary.html">
+        <span class="card-text"><strong>מה יגידו, או שאכשל</strong></span>
+      </button>
+    </div>
+
+    <p class="fine-print" data-od-id="sources">The Motivation Manifesto · Brendon Burchard</p>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('[data-target]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      localStorage.setItem('stuckFear', el.dataset.odId);
+      location.href = el.dataset.target;
+    });
+  });
+</script>
+</body>
+</html>

@@ -4,8 +4,26 @@
     {
       "name": "my-day",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "4180", "--directory", "/Users/chen/my-day"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4180",
+        "--directory",
+        "/Users/chen/my-day"
+      ],
       "port": 4180
+    },
+    {
+      "name": "preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "4181",
+        "--directory",
+        "/Users/chen/my-day/preview"
+      ],
+      "port": 4181
     }
   ]
 }

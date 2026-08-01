@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - איפה את</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<!-- 18 · רגיעה, איפה את. גיליון תחתון מעל רגע הפעולה.
+     שלושה מצבים, כל אחד עם תיאור גופני. יציאה: לא עכשיו. -->
+<main class="phone" data-od-id="calm-where-screen">
+
+  <!-- ההקשר שמתחת: רגע הפעולה, מעומעם ולא אינטראקטיבי -->
+  <section class="content" data-od-id="action-context" inert aria-hidden="true">
+    <div class="top-bar" data-od-id="context-top-bar">
+      <span class="step-label">המשימה שלך עכשיו</span>
+    </div>
+    <div class="white-card" data-od-id="context-task">
+      <strong>לענות לשלוש פניות מהדיירקט</strong>
+      <p>20 דקות על הטיימר</p>
+    </div>
+    <div class="scroll center" data-od-id="context-countdown">
+      <div class="breath-circle"><span dir="ltr">5 · 4 · 3 · 2 · 1</span></div>
+    </div>
+  </section>
+
+  <aside class="sheet" data-od-id="calm-where-sheet">
+    <h1 data-od-id="sheet-title">איפה את עכשיו?</h1>
+    <p>הסיפור נגרר אחרי המצב. קודם בודקים את הגוף, אחר כך את המחשבות.</p>
+
+    <div class="cards" data-od-id="state-options">
+      <button class="choice-card plain" data-od-id="state-sympathetic" data-target="calm-tools.html">
+        <span class="card-text"><strong>מגויסת</strong><span>לחוצה, כועסת, הלב דופק, לא מצליחה לשבת</span></span>
+      </button>
+      <button class="choice-card plain" data-od-id="state-dorsal" data-target="calm-tools.html">
+        <span class="card-text"><strong>כבויה</strong><span>מרוקנת, מנותקת, אין כוח לכלום</span></span>
+      </button>
+      <button class="choice-card plain" data-od-id="state-ventral" data-target="calm-tools.html">
+        <span class="card-text"><strong>בסדר, רק צריכה רגע</strong><span>לא בהצפה, רק רוצה לעצור</span></span>
+      </button>
+    </div>
+
+    <p class="text-link" role="button" tabindex="0" data-od-id="not-now" data-target="today-day.html">לא עכשיו</p>
+
+    <p class="fine-print" data-od-id="sources">Anchored · Deb Dana</p>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('[data-target]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      localStorage.setItem('calmState', el.dataset.odId);
+      location.href = el.dataset.target;
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — עכשיו בוקר מלא</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  :root {
+    --fg: #1e1b2e; --accent: #9b5de5; --mint: #34d399;
+    --surface: #ffffff; --muted: #8b85a1; --border: #d4cfe8;
+    --radius: 16px; --pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow: hidden }
+  body { font-family: var(--font); color: var(--fg); display: flex; align-items: center; justify-content: center; background: #ede9fe }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(175deg, #7c3aed 0%, #9b5de5 30%, #c084fc 60%, #e9a8c9 100%);
+    border-radius: 44px; position: relative; overflow: hidden;
+    box-shadow: 0 24px 80px rgba(30,27,46,.18);
+    display: flex; flex-direction: column;
+  }
+
+  .scroll { flex: 1; overflow-y: auto; padding: 52px 24px 12px }
+  .scroll::-webkit-scrollbar { display: none }
+
+  /* ── Header ── */
+  .greet { font-size: 28px; font-weight: 800; color: var(--surface); text-align: center; margin-bottom: 16px }
+
+  /* ── Section labels ── */
+  .sec-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px }
+
+  /* ── Tasks ── */
+  .task-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+  .task-check {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.3); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .task-check.done { background: var(--mint); border-color: var(--mint) }
+  .task-check.done::after { content: '\2713'; color: var(--fg); font-size: 13px; font-weight: 700 }
+  .task-text { font-size: 15px; font-weight: 500; color: var(--surface); flex: 1 }
+  .task-text.done { text-decoration: line-through; opacity: .5 }
+
+  .all-link { font-size: 13px; font-weight: 600; color: var(--mint); margin-top: 8px; display: block; cursor: pointer }
+
+  /* ── Divider ── */
+  .divider { height: 1px; background: rgba(255,255,255,.1); margin: 16px 0 }
+
+  /* ── Action buttons row ── */
+  .actions { display: flex; gap: 10px; margin-bottom: 4px }
+  .action-btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 8px; border-radius: var(--radius);
+    border: none; cursor: pointer;
+    font-family: var(--font); font-size: 14px; font-weight: 700;
+  }
+  .btn-gratitude { background: var(--mint); color: var(--fg) }
+  .btn-growth { background: rgba(255,255,255,.15); color: var(--surface); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,.2) }
+
+  /* ── Quote footer — different tone ── */
+  .quote-footer {
+    margin-top: 12px;
+    background: rgba(30,27,46,.2);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 20px 18px;
+    border: 1px solid rgba(255,255,255,.06);
+  }
+  .quote-text {
+    font-size: 15px; font-weight: 500; color: rgba(255,255,255,.7);
+    font-style: italic; line-height: 1.6; margin-bottom: 6px;
+  }
+  .quote-src { font-size: 11px; color: rgba(255,255,255,.35); margin-bottom: 12px }
+  .quote-q {
+    font-size: 15px; font-weight: 700; color: var(--surface);
+    line-height: 1.5;
+  }
+
+  /* ── Tab bar ── */
+  .tab-bar {
+    display: flex; align-items: center; justify-content: space-around;
+    padding: 6px 16px 28px;
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: none; border: none; font-family: var(--font);
+    font-size: 10px; font-weight: 500; color: rgba(255,255,255,.35); cursor: pointer; padding: 4px 8px;
+  }
+  .tab.active { color: var(--surface); font-weight: 700 }
+  .tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+  .fab {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--surface); border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(30,27,46,.15);
+    cursor: pointer;
+  }
+  .fab svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+</style>
+</head>
+<body>
+<div class="phone" data-od-id="phone-frame">
+  <div class="scroll">
+    <h1 class="greet" data-od-id="greeting">ערב טוב, חן</h1>
+
+    <div class="sec-label">המשימות שלך</div>
+    <div class="task-row"><div class="task-check done"></div><span class="task-text done">לערוך את הריל על פרידות</span></div>
+    <div class="task-row"><div class="task-check"></div><span class="task-text">לענות לשלוש פניות מהדיירקט</span></div>
+    <div class="task-row"><div class="task-check"></div><span class="task-text" style="opacity:.4">משימה 3 (לא חובה)</span></div>
+    <a class="all-link" data-od-id="all-tasks">כל המשימות שלי →</a>
+
+    <div class="divider"></div>
+
+    <div class="actions" data-od-id="action-buttons">
+      <button class="action-btn btn-gratitude" data-od-id="btn-gratitude">💜 כתיבת תודה</button>
+      <button class="action-btn btn-growth" data-od-id="btn-growth">🌱 התפתחות</button>
+    </div>
+
+    <div class="quote-footer" data-od-id="daily-quote">
+      <p class="quote-text">״המסרים הרגשיים של האינטואיציה מתחילים כלחישה — אבל אם ממשיכים להתעלם מהם, הם הופכים לצעקה.״</p>
+      <p class="quote-src">— בריאנה ויסט</p>
+      <p class="quote-q">איזו לחישה את שומעת כבר תקופה ובוחרת לא לשמוע?</p>
+    </div>
+  </div>
+
+  <div class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>המצפן</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>תודות</button>
+    <button class="fab"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>הרגלים</button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>עכשיו</button>
+  </div>
+</div>
+</body>
+</html>

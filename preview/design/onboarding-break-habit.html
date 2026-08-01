@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - בידוד הרמז</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="onboarding-break-habit-screen">
+  <section class="content">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label">5 מתוך 6</span>
+      <button class="back-btn" aria-label="חזרה" data-od-id="back-button"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    </div>
+
+    <header class="heading" data-od-id="cue-heading">
+      <h1 data-od-id="screen-title">נתפוס אותו כשזה קורה</h1>
+      <p class="subtitle">חמש שאלות, רק כשזה קורה. לא מהזיכרון.</p>
+    </header>
+
+    <div class="scroll" data-od-id="cue-fields">
+      <div class="field"><label for="cue-where">איפה אני</label><input id="cue-where" placeholder="במיטה"></div>
+      <!-- ג3 · השדה חוזר ל-rtl כמו ארבעת אחיו. הערך עצמו הוא רצף ספרות עם
+           נקודתיים, שהאלגוריתם הדו-כיווני מציג ממילא משמאל לימין. -->
+      <div class="field"><label for="cue-time">מה השעה</label><input id="cue-time" placeholder="23:40"></div>
+      <div class="field"><label for="cue-feeling">מה אני מרגישה</label><input id="cue-feeling" placeholder="עייפה אבל ערה"></div>
+      <div class="field"><label for="cue-who">מי לידי</label><input id="cue-who" placeholder="לבד"></div>
+      <div class="field"><label for="cue-before">מה עשיתי רגע לפני</label><input id="cue-before" placeholder="סגרתי את הלפטופ"></div>
+    </div>
+
+    <div class="bottom">
+      <div class="dots" aria-hidden="true"><span class="dot done"></span><span class="dot done"></span><span class="dot done"></span><span class="dot done"></span><span class="dot active"></span><span class="dot"></span></div>
+      <button class="cta" data-od-id="continue-button">הלאה</button>
+    </div>
+  </section>
+</main>
+</body>
+</html>

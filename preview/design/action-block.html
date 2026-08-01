@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - בלוק 30 דקות</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="action-block-screen">
+  <section class="content">
+    <div class="quiet" data-od-id="block-task">
+      <span class="quiet-label">הפעולה</span>
+      <p>לערוך את הריל על פרידות</p>
+    </div>
+
+    <div class="scroll center" data-od-id="block-body">
+      <!-- ד1 · אלה היו שש נקודות שחמש מהן `active`, בעוד שבכל מסך אחר בדיוק
+           אחת פעילה. `aria-valuenow="25"` מתוך 30 מראה שהכוונה היא זמן שחלף,
+           ולכן פס התקדמות ולא נקודות. -->
+      <div class="progress-line" data-od-id="block-progress" role="progressbar" aria-label="התקדמות הבלוק" aria-valuemin="0" aria-valuemax="30" aria-valuenow="25" aria-valuetext="חמש דקות אחרונות">
+        <div class="progress-fill p83"></div>
+      </div>
+
+      <p class="subtitle" data-od-id="block-rule">חמש דקות אחרונות</p>
+
+      <div class="hero-card" data-od-id="minute-25-note">
+        <p>אל תסיימי בנקודה תקועה.</p>
+      </div>
+    </div>
+
+    <div class="bottom" data-od-id="block-action">
+      <button class="cta" data-od-id="stop-button">לעצור</button>
+    </div>
+  </section>
+</main>
+</body>
+</html>

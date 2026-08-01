@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "04-onboarding-evening.html",
+  "entry": "04-onboarding-evening.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-25T17:40:31.226Z",
+  "updatedAt": "2026-07-25T17:40:31.226Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — ברוכה הבאה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+
+  :root {
+    --bg: #ede9fe;
+    --fg: #1e1b2e;
+    --accent: #9b5de5;
+    --accent-secondary: #34d399;
+    --surface: #ffffff;
+    --muted: #8b85a1;
+    --border: #d4cfe8;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  html, body { height: 100%; overflow: hidden }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Phone frame ── */
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(160deg, #c084fc 0%, var(--accent) 40%, #6d28d9 100%);
+    border-radius: 44px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(30,27,46,.18);
+  }
+
+  /* ── Atmosphere ── */
+  .glow {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    filter: blur(80px);
+  }
+  .glow-1 { width: 300px; height: 300px; background: rgba(192,132,252,.5); top: -60px; left: -80px }
+  .glow-2 { width: 220px; height: 220px; background: rgba(52,211,153,.2); bottom: 40px; right: -60px }
+  .glow-3 { width: 180px; height: 180px; background: rgba(109,40,217,.4); top: 40%; left: 50%; transform: translateX(-50%) }
+
+  .ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.07);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  .ring-1 { width: 480px; height: 480px }
+  .ring-2 { width: 340px; height: 340px; border-color: rgba(255,255,255,.05) }
+
+  /* ── Content ── */
+  .content {
+    position: relative; z-index: 1;
+    height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 100px 32px 56px;
+    text-align: center;
+  }
+
+  .top { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px }
+
+  /* ── Logo ── */
+  .logo-circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 16px 48px rgba(30,27,46,.25), 0 0 0 1px rgba(255,255,255,.15);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) }
+    50% { transform: translateY(-8px) }
+  }
+
+  .logo-circle svg {
+    width: 56px; height: 56px;
+    fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  /* ── Typography ── */
+  .app-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255,255,255,.65);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--surface);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(255,255,255,.6);
+    line-height: 1.65;
+    max-width: 280px;
+  }
+
+  /* ── CTA ── */
+  .bottom { width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: center }
+
+  .cta {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 56px;
+    border: none; border-radius: var(--radius);
+    background: var(--accent-secondary);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 18px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(52,211,153,.3);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .cta:active { transform: scale(.97); box-shadow: 0 3px 12px rgba(52,211,153,.2) }
+
+  .terms { font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.5 }
+  .terms a { color: rgba(255,255,255,.6); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px }
+
+  /* ── Step dots ── */
+  .dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 8px }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2) }
+  .dot.active { width: 24px; border-radius: var(--radius-pill); background: var(--surface) }
+</style>
+</head>
+<body>
+
+<div class="phone" data-od-id="phone-frame">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+
+  <div class="content">
+    <div class="top" data-od-id="welcome-hero">
+      <div class="logo-circle" data-od-id="logo-icon">
+        <svg viewBox="0 0 48 48">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="48" y2="48">
+              <stop offset="0%" stop-color="#9b5de5"/>
+              <stop offset="100%" stop-color="#6d28d9"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="8" stroke="url(#g)"/>
+          <line x1="24" y1="4" x2="24" y2="10" stroke="url(#g)"/>
+          <line x1="24" y1="38" x2="24" y2="44" stroke="url(#g)"/>
+          <line x1="4" y1="24" x2="10" y2="24" stroke="url(#g)"/>
+          <line x1="38" y1="24" x2="44" y2="24" stroke="url(#g)"/>
+          <line x1="9.9" y1="9.9" x2="14.1" y2="14.1" stroke="url(#g)"/>
+          <line x1="33.9" y1="33.9" x2="38.1" y2="38.1" stroke="url(#g)"/>
+          <line x1="9.9" y1="38.1" x2="14.1" y2="33.9" stroke="url(#g)"/>
+          <line x1="33.9" y1="14.1" x2="38.1" y2="9.9" stroke="url(#g)"/>
+        </svg>
+      </div>
+
+      <h1 data-od-id="welcome-heading">ברוכה הבאה!</h1>
+      <p class="subtitle" data-od-id="welcome-subtitle">היום שלי עוזרת לך לנהל את היום בלי להרגיש מוצפת. צעד אחד בכל פעם.</p>
+    </div>
+
+    <div class="bottom" data-od-id="welcome-cta-area">
+      <div class="dots" data-od-id="step-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <button class="cta" data-od-id="start-button">בואי נתחיל</button>
+      <p class="terms" data-od-id="terms-text">בלחיצה על ״בואי נתחיל״ את מסכימה ל<a href="#">תנאי השימוש</a></p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

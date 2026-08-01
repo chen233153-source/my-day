@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "today-closed.html",
+  "entry": "today-closed.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-27T09:28:40.000Z",
+  "updatedAt": "2026-07-27T09:28:40.000Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "05-now-morning.html",
+  "entry": "05-now-morning.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-25T18:25:23.525Z",
+  "updatedAt": "2026-07-25T18:25:23.525Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

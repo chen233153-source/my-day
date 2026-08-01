@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "25-habits.html",
+  "entry": "25-habits.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-27T08:12:13.183Z",
+  "updatedAt": "2026-07-27T08:12:13.183Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

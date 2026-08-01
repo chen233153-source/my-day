@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - תקועה, שאלה</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<!-- 15 · תקועה, שאלה. גיליון תחתון מעל רגע הפעולה.
+     מסלול "זה גדול מדי", שלב 1 מתוך 2. -->
+<main class="phone" data-od-id="stuck-question-screen">
+
+  <!-- ההקשר שמתחת: רגע הפעולה, מעומעם ולא אינטראקטיבי -->
+  <section class="content" data-od-id="action-context" inert aria-hidden="true">
+    <div class="top-bar" data-od-id="context-top-bar">
+      <span class="step-label">המשימה שלך עכשיו</span>
+    </div>
+    <div class="white-card" data-od-id="context-task">
+      <strong>לענות לשלוש פניות מהדיירקט</strong>
+      <p>20 דקות על הטיימר</p>
+    </div>
+    <div class="scroll center" data-od-id="context-countdown">
+      <div class="breath-circle"><span dir="ltr">5 · 4 · 3 · 2 · 1</span></div>
+    </div>
+  </section>
+
+  <aside class="sheet" data-od-id="stuck-question-sheet">
+    <p data-od-id="sheet-step">זה גדול מדי · שלב 1 מתוך 2</p>
+
+    <div class="white-card" data-od-id="insight">
+      <p>מטרות קטנות ונדיבות מנצחות מטרות ענק. אקאף מצטט שמטרות שנחצו בחצי היו מוצלחות ב-63 אחוז יותר.</p>
+    </div>
+
+    <div class="contract" data-od-id="sheet-question">חתכי את המשימה בחצי. מה נשאר?</div>
+
+    <div class="field" data-od-id="answer-field">
+      <textarea id="halved-task" placeholder="בכמה מילים"></textarea>
+    </div>
+
+    <button class="cta" data-od-id="continue-button" data-target="stuck-summary.html">הלאה</button>
+
+    <p class="fine-print" data-od-id="sources">Finish · Jon Acuff + הרגלים אטומיים · James Clear</p>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('[data-target]').forEach(function (el) {
+    el.addEventListener('click', function () { location.href = el.dataset.target; });
+  });
+</script>
+<script>
+  /* 1.7 · חמש סיבות הובילו לכאן ובראש המסך היה כתוב תמיד "זה גדול מדי",
+     כלומר התשובה של המשתמשת הוחלפה בשקט. 30.7 */
+  var Q = {
+    'reason-too-big':     ['זה גדול מדי', 'חתכי את המשימה בחצי. מה נשאר?'],
+    'reason-no-start':    ['לא יודעת איפה להתחיל', 'מה הדבר הראשון שאפשר לפתוח או לכתוב?'],
+    'reason-inner-voice': ['הקול בראש', 'מה הוא אומר לך עכשיו, במילים שלו?'],
+    'reason-overload':    ['אני בהצפה', 'תפרקי הכל לכאן. אחר כך נבחר אחד.']
+  };
+  var q = Q[localStorage.getItem('stuckReason')] || Q['reason-too-big'];
+  var step = document.querySelector('[data-od-id="sheet-step"]');
+  if (step) step.textContent = q[0] + ' · שלב 1 מתוך 2';
+  var h = document.querySelector('.sheet h1') || document.querySelector('.contract');
+  if (h) h.textContent = q[1];
+</script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+{
+  "name": "Product",
+  "tagline": "A playful, mobile-first design system built on purple gradients, mint-green CTAs, and 3D depth.",
+  "description": "Extracted from 5 mobile app UI references (language learning, bus tickets, file manager, education, AI chat). Every screenshot shares the same DNA: purple as the dominant accent, soft lavender backgrounds, generous rounded corners, 3D-rendered icons, and mint-green secondary buttons for primary actions.",
+  "sourceUrl": "designmd://product",
+  "logo": {
+    "primary": null,
+    "alternates": [],
+    "notes": "No logo supplied. Screenshots show app-specific logos only."
+  },
+  "colors": [
+    {
+      "role": "background",
+      "hex": "#ede9fe",
+      "oklch": "oklch(0.94 0.04 295)",
+      "name": "Lavender Background",
+      "usage": "Page canvas and app background. Soft lavender wash visible in every screenshot — not plain white."
+    },
+    {
+      "role": "foreground",
+      "hex": "#1e1b2e",
+      "oklch": "oklch(0.20 0.03 290)",
+      "name": "Dark Ink",
+      "usage": "Body text and headings on light surfaces. Deep purple-black, not pure black."
+    },
+    {
+      "role": "accent",
+      "hex": "#9b5de5",
+      "oklch": "oklch(0.56 0.20 300)",
+      "name": "Purple",
+      "usage": "Primary brand color. Used for headers, card backgrounds, active tabs, progress bars, gradient overlays, and hero sections. Can be used as a large wash — this brand is purple-forward."
+    },
+    {
+      "role": "accent-secondary",
+      "hex": "#34d399",
+      "oklch": "oklch(0.78 0.15 165)",
+      "name": "Mint Green",
+      "usage": "CTA buttons ('Start Now', 'Generate New', 'Create', 'Search'), progress indicators, and success states. High contrast against purple."
+    },
+    {
+      "role": "surface",
+      "hex": "#ffffff",
+      "oklch": "oklch(1 0 0)",
+      "name": "White Surface",
+      "usage": "Card interiors, input fields, modal panels — always white inside the cards, contrasting the lavender page background."
+    },
+    {
+      "role": "muted",
+      "hex": "#8b85a1",
+      "oklch": "oklch(0.62 0.04 290)",
+      "name": "Muted Purple",
+      "usage": "Secondary text, metadata, timestamps. Desaturated purple, not neutral grey."
+    },
+    {
+      "role": "border",
+      "hex": "#d4cfe8",
+      "oklch": "oklch(0.86 0.04 290)",
+      "name": "Lavender Border",
+      "usage": "Dividers and card outlines. Tinted purple to match the overall palette."
+    }
+  ],
+  "typography": {
+    "display": {
+      "family": "Inter",
+      "fallbacks": [
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "Helvetica Neue",
+        "Arial",
+        "sans-serif"
+      ],
+      "weights": [
+        600,
+        700,
+        800
+      ]
+    },
+    "body": {
+      "family": "Inter",
+      "fallbacks": [
+        "system-ui",
+        "-apple-system",
+        "Segoe UI",
+        "Helvetica Neue",
+        "Arial",
+        "sans-serif"
+      ],
+      "weights": [
+        400,
+        500,
+        600
+      ]
+    },
+    "mono": {
+      "family": "SFMono-Regular",
+      "fallbacks": [
+        "Consolas",
+        "Liberation Mono",
+        "Menlo",
+        "Courier",
+        "monospace"
+      ],
+      "weights": [
+        400
+      ]
+    }
+  },
+  "voice": {
+    "adjectives": [
+      "friendly",
+      "playful",
+      "vibrant",
+      "approachable"
+    ],
+    "tone": "Warm, upbeat greeting style ('Hello Alan', 'Hi Julia!', 'Hello, Harry'). Personal, encouraging. Short sentences with exclamation points. Celebrate progress visually with progress bars and completion percentages.",
+    "messagingPillars": [
+      "Personal greeting — every screen opens with the user's name and a warm hello.",
+      "Progress visibility — show completion %, loaded files, lesson counts. Users see momentum.",
+      "Action-first CTAs — 'Start Now', 'Continue French!', 'Generate New', 'Explore'. Always imperative."
+    ],
+    "vocabulary": {
+      "use": [
+        "hello",
+        "continue",
+        "start now",
+        "explore",
+        "your",
+        "progress",
+        "completed"
+      ],
+      "avoid": [
+        "synergy",
+        "leverage",
+        "utilise",
+        "seamless",
+        "enterprise",
+        "robust"
+      ]
+    }
+  },
+  "imagery": {
+    "style": "3D-rendered illustrations with soft lighting and purple/pink tonal gradients. Objects float with drop shadows. Depth and dimensionality over flat icons.",
+    "subjects": [
+      "3D folder/file icons (Zomo File app)",
+      "3D headphones and books (language app)",
+      "Friendly round avatar characters with big eyes",
+      "Category icons as 3D objects on gradient pedestals",
+      "Floating blob shapes as background atmosphere"
+    ],
+    "treatment": "Purple-to-pink gradients on hero sections and card headers. Glassmorphism on overlapping card layers. Soft shadows under every elevated element. Rounded, bubbly forms.",
+    "avoid": [
+      "Stock photography",
+      "Flat monochrome line icons",
+      "Sharp/angular geometric patterns",
+      "Dark/serious imagery"
+    ],
+    "samples": []
+  },
+  "layout": {
+    "radius": "16px",
+    "borderWeight": "1px",
+    "spacing": "8px baseline grid",
+    "postureRules": [
+      "Component kit should cover: Button, Card, Form, Navigation, Badge, Input, Modal, Tab bar, Progress bar, Avatar.",
+      "Touch targets minimum 44px on mobile surfaces.",
+      "Cards have white surface interior on lavender background — the contrast IS the elevation; shadow optional.",
+      "Primary CTAs use mint-green fill with dark text; secondary actions use purple fill with white text.",
+      "Purple gradients are allowed and expected on card headers, hero sections, and navigation bars — this is not a 'sparingly' accent brand.",
+      "Corner radius 16px for cards and buttons; 24px for full-width hero sections; pill shape (999px) for small badges and tags.",
+      "3D illustration icons sit on cards, never flat SVG."
+    ]
+  }
+}

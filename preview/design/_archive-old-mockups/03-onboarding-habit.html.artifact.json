@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "03-onboarding-habit.html",
+  "entry": "03-onboarding-habit.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-25T17:38:37.249Z",
+  "updatedAt": "2026-07-25T17:38:37.249Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

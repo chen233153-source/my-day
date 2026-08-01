@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "06-option-a.html",
+  "entry": "06-option-a.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-26T08:17:31.719Z",
+  "updatedAt": "2026-07-26T08:17:31.719Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "fileName": "06-option-b.html",
+  "entries": [
+    {
+      "id": "fc9519ab-79f2-4713-9067-96b743607270",
+      "fileName": "06-option-b.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785055105322,
+      "source": "ai",
+      "prompt": "אני ממש רוצה שתכין את כל האופציות בפעם אחת ותראה לי את כולן אין צורך באישור",
+      "size": 9017,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-fc9519ab-79f2-4713-9067-96b743607270.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "2d928871-9af8-427e-bbad-6a957186a656",
+      "fileName": "06-option-b.html",
+      "version": 2,
+      "label": "Version 2",
+      "createdAt": 1785063092146,
+      "source": "ai",
+      "prompt": "נדיר ממש אהבתי. עכשיו את מה שיישמנט כאן אתה צריך ליישם על כל המסכים לוודא שכולם נראים חלק מאותה אפליקציה. רקע, כפתורים, רווחים, הכל",
+      "size": 15254,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0002-2d928871-9af8-427e-bbad-6a957186a656.html",
+      "promptSource": "message"
+    }
+  ],
+  "deletedAt": 1785067413774
+}

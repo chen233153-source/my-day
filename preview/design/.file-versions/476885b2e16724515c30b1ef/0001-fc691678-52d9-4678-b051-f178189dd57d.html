@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — אופציה A</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  :root {
+    --fg: #1e1b2e; --accent: #9b5de5; --mint: #34d399;
+    --surface: #ffffff; --muted: #8b85a1; --border: #d4cfe8;
+    --radius: 16px; --radius-lg: 24px; --pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow: hidden }
+  body { font-family: var(--font); color: var(--fg); display: flex; align-items: center; justify-content: center; background: #ede9fe }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(175deg, #7c3aed 0%, #9b5de5 30%, #c084fc 60%, #e9a8c9 100%);
+    border-radius: 44px; position: relative; overflow: hidden;
+    box-shadow: 0 24px 80px rgba(30,27,46,.18);
+    display: flex; flex-direction: column;
+  }
+
+  .scroll { flex: 1; overflow-y: auto; padding: 48px 18px 12px }
+  .scroll::-webkit-scrollbar { display: none }
+
+  /* ── Header ── */
+  .aff { font-size: 11px; color: rgba(255,255,255,.4); text-align: center; margin-bottom: 4px }
+  .greet { font-size: 20px; font-weight: 700; color: var(--surface); text-align: center }
+  .num { font-size: 48px; font-weight: 800; color: var(--surface); text-align: center; line-height: 1; margin: 2px 0 }
+  .num-label { font-size: 12px; color: rgba(255,255,255,.45); text-align: center; margin-bottom: 16px }
+
+  /* ── Glass section ── */
+  .glass {
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px; margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,.18);
+  }
+  .glass-purple { background: rgba(155,93,229,.2) }
+  .glass-mint { background: rgba(52,211,153,.15) }
+  .glass-pink { background: rgba(236,72,153,.12) }
+
+  .sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px }
+  .sec-title { font-size: 17px; font-weight: 800; color: var(--surface) }
+  .sec-badge {
+    font-size: 11px; font-weight: 600; color: var(--surface);
+    background: rgba(255,255,255,.15); padding: 4px 10px; border-radius: var(--pill);
+  }
+
+  /* ── Task rows ── */
+  .task-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; margin-bottom: 6px;
+    background: rgba(255,255,255,.1); border-radius: 12px;
+  }
+  .task-check {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,.3); flex-shrink: 0;
+  }
+  .task-check.done { background: var(--mint); border-color: var(--mint) }
+  .task-text { font-size: 14px; font-weight: 500; color: var(--surface); flex: 1 }
+  .task-text.done { text-decoration: line-through; opacity: .5 }
+  .task-meta { font-size: 11px; color: rgba(255,255,255,.4) }
+
+  .all-tasks-btn {
+    width: 100%; padding: 10px; border: none; border-radius: 12px;
+    background: rgba(255,255,255,.12); backdrop-filter: blur(4px);
+    font-family: var(--font); font-size: 13px; font-weight: 600;
+    color: var(--surface); cursor: pointer; margin-top: 4px;
+  }
+
+  /* ── Action buttons ── */
+  .action-btn {
+    width: 100%; display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; border: none; border-radius: var(--radius);
+    font-family: var(--font); font-size: 15px; font-weight: 700;
+    cursor: pointer; text-align: right;
+  }
+  .action-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .action-desc { font-size: 12px; font-weight: 400; opacity: .6; margin-top: 2px }
+
+  .btn-gratitude { background: rgba(52,211,153,.2); color: var(--surface) }
+  .btn-gratitude .action-icon { background: rgba(52,211,153,.3) }
+  .btn-growth { background: rgba(236,72,153,.15); color: var(--surface) }
+  .btn-growth .action-icon { background: rgba(236,72,153,.25) }
+
+  /* ── Reflection ── */
+  .reflect-title { font-size: 15px; font-weight: 800; color: var(--surface); text-align: center; margin-bottom: 6px }
+  .reflect-body { font-size: 12px; color: rgba(255,255,255,.5); text-align: center; line-height: 1.5; margin-bottom: 8px }
+  .reflect-q { font-size: 13px; font-weight: 700; color: var(--surface); text-align: center; line-height: 1.4; margin-bottom: 8px }
+  .reflect-input {
+    width: 100%; border: 1px solid rgba(255,255,255,.2); border-radius: 10px;
+    padding: 10px 12px; font-family: var(--font); font-size: 12px;
+    color: var(--surface); background: rgba(255,255,255,.06); outline: none; resize: none; min-height: 40px;
+  }
+  .reflect-input::placeholder { color: rgba(255,255,255,.3) }
+  .reflect-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px }
+  .btn-pill {
+    padding: 6px 16px; border-radius: var(--pill);
+    border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    font-family: var(--font); font-size: 12px; font-weight: 600;
+    color: var(--surface); cursor: pointer;
+  }
+  .btn-ghost { font-size: 12px; color: rgba(255,255,255,.4); background: none; border: none; cursor: pointer; font-family: var(--font) }
+  .reflect-src { font-size: 9px; color: rgba(255,255,255,.25); text-align: center; margin-top: 6px }
+
+  /* ── Tab bar ── */
+  .tab-bar {
+    margin: 0 16px 20px;
+    display: flex; align-items: center; justify-content: space-around;
+    padding: 8px 6px;
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: var(--pill);
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: none; border: none; font-family: var(--font);
+    font-size: 10px; font-weight: 500; color: rgba(255,255,255,.4); cursor: pointer; padding: 6px 8px;
+    border-radius: 12px; transition: background .2s;
+  }
+  .tab.active { color: var(--surface); background: rgba(255,255,255,.12); font-weight: 700 }
+  .tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+  .fab {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--surface); border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(30,27,46,.12);
+    cursor: pointer;
+  }
+  .fab svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+</style>
+</head>
+<body>
+<div class="phone" data-od-id="phone-frame">
+  <div class="scroll">
+    <p class="aff">אני אישה שמפרסמת גם כשלא בא לה</p>
+    <h1 class="greet">ערב טוב, חן</h1>
+    <div class="num">37</div>
+    <p class="num-label">קולות לאישה שאת בונה</p>
+
+    <!-- Tasks -->
+    <div class="glass glass-purple" data-od-id="card-tasks">
+      <div class="sec-header">
+        <span class="sec-title">המשימות שלך</span>
+        <span class="sec-badge">1 מתוך 3</span>
+      </div>
+      <div class="task-row">
+        <div class="task-check done"></div>
+        <span class="task-text done">לערוך את הריל על פרידות</span>
+      </div>
+      <div class="task-row">
+        <div class="task-check"></div>
+        <div>
+          <span class="task-text">לענות לשלוש פניות מהדיירקט</span>
+          <div class="task-meta">בלי שיוך למטרה</div>
+        </div>
+      </div>
+      <div class="task-row">
+        <div class="task-check"></div>
+        <span class="task-text" style="opacity:.4">משימה 3 (לא חובה)</span>
+      </div>
+      <button class="all-tasks-btn" data-od-id="all-tasks">כל המשימות שלי →</button>
+    </div>
+
+    <!-- Gratitude -->
+    <button class="action-btn btn-gratitude glass" data-od-id="btn-gratitude" style="border: 1px solid rgba(52,211,153,.2)">
+      <div class="action-icon">💜</div>
+      <div>
+        כתיבת תודה
+        <div class="action-desc">משהו קטן שאת מודה עליו היום</div>
+      </div>
+    </button>
+
+    <!-- Growth -->
+    <button class="action-btn btn-growth glass" data-od-id="btn-growth" style="border: 1px solid rgba(236,72,153,.15)">
+      <div class="action-icon">🌱</div>
+      <div>
+        התפתחות אישית
+        <div class="action-desc">שאלה יומית לצמיחה</div>
+      </div>
+    </button>
+
+    <!-- Reflection -->
+    <div class="glass glass-purple" data-od-id="card-reflect" style="margin-top: 4px">
+      <div class="reflect-title">ממה זה מגן עלייך</div>
+      <p class="reflect-body">חבלה עצמית היא לא רצון להיכשל, היא רצון להגן.</p>
+      <p class="reflect-q">ההתנהגות שהכי מתסכלת אותך בעצמך, איזו הגנה היא נותנת לך?</p>
+      <textarea class="reflect-input" placeholder="בכמה מילים"></textarea>
+      <div class="reflect-row">
+        <button class="btn-pill">שמרי</button>
+        <button class="btn-ghost">דלגי</button>
+      </div>
+      <p class="reflect-src">The Mountain Is You · Brianna Wiest</p>
+    </div>
+  </div>
+
+  <div class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>המצפן</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>תודות</button>
+    <button class="fab"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>הרגלים</button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>עכשיו</button>
+  </div>
+</div>
+</body>
+</html>

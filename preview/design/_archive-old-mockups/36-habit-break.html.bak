@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - החלפת שגרה</title>
+<link rel="stylesheet" href="habit-flow.css">
+<style>
+  .pane { display: none; gap: 16px; }
+  .pane.active { display: grid; }
+  .progress-line { height: 8px; border-radius: var(--pill); background: color-mix(in oklch, var(--surface) 18%, transparent); overflow: hidden; margin-bottom: 26px; }
+  .progress-fill { height: 100%; width: 25%; border-radius: inherit; background: var(--accent-secondary); transition: width .25s cubic-bezier(.2,0,0,1); }
+  .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .formula { font-size: 23px; line-height: 1.42; font-weight: 800; color: var(--fg); }
+  .formula mark { background: color-mix(in oklch, var(--accent-secondary) 42%, var(--surface)); color: var(--fg); border-radius: 10px; padding: 0 6px; }
+</style>
+</head>
+<body>
+<main class="phone" data-od-id="habit-replacement-screen">
+  <section class="content">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label" data-od-id="step-label">1 מתוך 4</span>
+      <button class="back-btn" aria-label="חזרה"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    </div>
+    <div class="progress-line" data-od-id="step-indicator"><div class="progress-fill"></div></div>
+
+    <article class="pane active" data-pane="0" data-od-id="step-routine">
+      <header class="heading">
+        <h1>איזו שגרה את רוצה להחליף?</h1>
+        <p class="subtitle">לא מוחקים הרגל. מוצאים מה הוא נותן לך ובוחרים דרך אחרת לקבל את אותו דבר.</p>
+      </header>
+      <div class="field"><label for="routine">מה הדבר שאת עושה ורוצה להפסיק</label><input id="routine" value="לגלול בטלפון במיטה"></div>
+    </article>
+
+    <article class="pane" data-pane="1" data-od-id="step-cue">
+      <header class="heading">
+        <h1>בפעם הבאה שזה קורה, נתפוס אותו</h1>
+        <p class="subtitle">חמש שאלות, רק בזמן אמת. אל תנסי לענות מהזיכרון.</p>
+      </header>
+      <button class="cta">זה קורה עכשיו</button>
+      <div class="mini-grid">
+        <div class="field"><label>איפה אני</label><input value="במיטה"></div>
+        <div class="field"><label>מה השעה</label><input value="23:40" dir="ltr"></div>
+        <div class="field"><label>מה אני מרגישה</label><input value="עייפה אבל ערה"></div>
+        <div class="field"><label>מי לידי</label><input value="לבד"></div>
+      </div>
+      <div class="field"><label>מה עשיתי רגע לפני</label><input value="סגרתי את הלפטופ"></div>
+    </article>
+
+    <article class="pane" data-pane="2" data-od-id="step-need">
+      <header class="heading">
+        <h1>מה זה נותן לך?</h1>
+        <p class="subtitle">נזהה את התגמול האמיתי כדי שהשגרה החדשה תיתן מענה דומה.</p>
+      </header>
+      <div class="cards">
+        <button class="choice-card"><span class="radio"></span><span class="card-text"><strong>הפסקה</strong><span>רגע לעצור</span></span><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M10 4H6v16h4zM18 4h-4v16h4z"/></svg></span></button>
+        <button class="choice-card selected"><span class="radio"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span class="card-text"><strong>רוגע</strong><span>הגוף מבקש ירידה</span></span><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 14c4-4 8 4 12 0 2-2 3-3 4-3"/></svg></span></button>
+        <button class="choice-card"><span class="radio"></span><span class="card-text"><strong>גירוי</strong><span>משהו שיזיז את הראש</span></span><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h8l-1 8 11-13h-8z"/></svg></span></button>
+      </div>
+      <div class="hero-card"><p>בפעם הבאה, נסי שלוש נשימות ומשפט אחד במחברת, ותראי אם הכמיהה נעלמת אחרי 15 דקות.</p></div>
+    </article>
+
+    <article class="pane" data-pane="3" data-od-id="step-new-routine">
+      <header class="heading">
+        <h1>השגרה החדשה</h1>
+        <p class="subtitle">אותו רמז, אותו תגמול, פעולה אחרת.</p>
+      </header>
+      <div class="white-card" data-od-id="replacement-formula">
+        <p class="formula">כשקורה <mark>כניסה למיטה עם טלפון</mark>, אני אעשה <mark>שלוש נשימות ומשפט במחברת</mark> כדי לקבל <mark>רוגע</mark>.</p>
+      </div>
+    </article>
+
+    <div class="bottom">
+      <div class="dots" aria-hidden="true"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <button class="cta" data-od-id="next-button">המשיכי</button>
+    </div>
+  </section>
+</main>
+<script>
+  const panes = [...document.querySelectorAll('.pane')];
+  const dots = [...document.querySelectorAll('.dot')];
+  const fill = document.querySelector('.progress-fill');
+  const label = document.querySelector('.step-label');
+  const next = document.querySelector('.cta[data-od-id="next-button"]');
+  let step = Number(localStorage.getItem('habitReplaceStep') || 0);
+  function render() {
+    panes.forEach((pane, index) => pane.classList.toggle('active', index === step));
+    dots.forEach((dot, index) => dot.classList.toggle('active', index === step));
+    fill.style.width = `${(step + 1) * 25}%`;
+    label.textContent = `${step + 1} מתוך 4`;
+    next.textContent = step === 3 ? 'להפעיל' : 'המשיכי';
+    localStorage.setItem('habitReplaceStep', step);
+  }
+  next.addEventListener('click', () => { if (step < 3) { step += 1; render(); } });
+  render();
+</script>
+</body>
+</html>

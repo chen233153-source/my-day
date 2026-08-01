@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — אופציה A</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  :root {
+    --fg: #1e1b2e; --accent: #9b5de5; --mint: #34d399;
+    --surface: #ffffff; --muted: #8b85a1; --border: #d4cfe8;
+    --radius: 16px; --radius-lg: 24px; --pill: 999px;
+    --font: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow: hidden }
+  body { font-family: var(--font); color: var(--fg); display: flex; align-items: center; justify-content: center; background: #ede9fe }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(175deg, #9b5de5 0%, #9b5de5 30%, #ede9fe 60%, #ede9fe 100%);
+    border-radius: 44px; position: relative; overflow: hidden;
+    box-shadow: 0 24px 80px color-mix(in oklch, var(--fg) 18%, transparent);
+    display: flex; flex-direction: column;
+  }
+
+  .scroll { flex: 1; overflow-y: auto; padding: 48px 18px 12px }
+  .scroll::-webkit-scrollbar { display: none }
+
+  /* ── Header ── */
+  .aff { font-size: 11px; color: color-mix(in oklch, var(--surface) 40%, transparent); text-align: center; margin-bottom: 4px }
+  .greet { font-size: 20px; font-weight: 700; color: var(--surface); text-align: center }
+  .num { font-size: 48px; font-weight: 800; color: var(--surface); text-align: center; line-height: 1; margin: 2px 0 }
+  .num-label { font-size: 12px; color: color-mix(in oklch, var(--surface) 45%, transparent); text-align: center; margin-bottom: 16px }
+
+  /* ── Glass section ── */
+  .glass {
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px; margin-bottom: 12px;
+    border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  }
+  .glass-purple { background: color-mix(in oklch, var(--accent) 20%, transparent) }
+  .glass-mint { background: color-mix(in oklch, var(--accent-secondary) 15%, transparent) }
+  .glass-pink { background: color-mix(in oklch, var(--accent) 12%, transparent) }
+
+  .sec-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px }
+  .sec-title { font-size: 17px; font-weight: 800; color: var(--surface) }
+  .sec-badge {
+    font-size: 11px; font-weight: 600; color: var(--surface);
+    background: color-mix(in oklch, var(--surface) 15%, transparent); padding: 4px 10px; border-radius: var(--pill);
+  }
+
+  /* ── Task rows ── */
+  .task-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; margin-bottom: 6px;
+    background: color-mix(in oklch, var(--surface) 10%, transparent); border-radius: 12px;
+  }
+  .task-check {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid color-mix(in oklch, var(--surface) 30%, transparent); flex-shrink: 0;
+  }
+  .task-check.done { background: var(--mint); border-color: var(--mint) }
+  .task-text { font-size: 14px; font-weight: 500; color: var(--surface); flex: 1 }
+  .task-text.done { text-decoration: line-through; opacity: .5 }
+  .task-meta { font-size: 11px; color: color-mix(in oklch, var(--surface) 40%, transparent) }
+
+  .all-tasks-btn {
+    width: 100%; padding: 10px; border: none; border-radius: 12px;
+    background: color-mix(in oklch, var(--surface) 12%, transparent); backdrop-filter: blur(4px);
+    font-family: var(--font); font-size: 13px; font-weight: 600;
+    color: var(--surface); cursor: pointer; margin-top: 4px;
+  }
+
+  /* ── Action buttons ── */
+  .action-btn {
+    width: 100%; display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px; border: none; border-radius: var(--radius);
+    font-family: var(--font); font-size: 15px; font-weight: 700;
+    cursor: pointer; text-align: right;
+  }
+  .action-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .action-desc { font-size: 12px; font-weight: 400; opacity: .6; margin-top: 2px }
+
+  .btn-gratitude { background: color-mix(in oklch, var(--accent-secondary) 20%, transparent); color: var(--surface) }
+  .btn-gratitude .action-icon { background: color-mix(in oklch, var(--accent-secondary) 30%, transparent) }
+  .btn-growth { background: color-mix(in oklch, var(--accent) 15%, transparent); color: var(--surface) }
+  .btn-growth .action-icon { background: color-mix(in oklch, var(--accent) 25%, transparent) }
+
+  /* ── Reflection ── */
+  .reflect-title { font-size: 15px; font-weight: 800; color: var(--surface); text-align: center; margin-bottom: 6px }
+  .reflect-body { font-size: 12px; color: color-mix(in oklch, var(--surface) 50%, transparent); text-align: center; line-height: 1.5; margin-bottom: 8px }
+  .reflect-q { font-size: 13px; font-weight: 700; color: var(--surface); text-align: center; line-height: 1.4; margin-bottom: 8px }
+  .reflect-input {
+    width: 100%; border: 1px solid color-mix(in oklch, var(--surface) 20%, transparent); border-radius: 10px;
+    padding: 10px 12px; font-family: var(--font); font-size: 12px;
+    color: var(--surface); background: color-mix(in oklch, var(--surface) 6%, transparent); outline: none; resize: none; min-height: 40px;
+  }
+  .reflect-input::placeholder { color: color-mix(in oklch, var(--surface) 30%, transparent) }
+  .reflect-row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px }
+  .btn-pill {
+    padding: 6px 16px; border-radius: var(--pill);
+    border: 1px solid color-mix(in oklch, var(--surface) 25%, transparent); background: color-mix(in oklch, var(--surface) 10%, transparent);
+    font-family: var(--font); font-size: 12px; font-weight: 600;
+    color: var(--surface); cursor: pointer;
+  }
+  .btn-ghost { font-size: 12px; color: color-mix(in oklch, var(--surface) 40%, transparent); background: none; border: none; cursor: pointer; font-family: var(--font) }
+  .reflect-src { font-size: 9px; color: color-mix(in oklch, var(--surface) 25%, transparent); text-align: center; margin-top: 6px }
+
+  /* ── Tab bar ── */
+  .tab-bar {
+    margin: 0 16px 20px;
+    display: flex; align-items: center; justify-content: space-around;
+    padding: 8px 6px;
+    background: color-mix(in oklch, var(--surface) 12%, transparent);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in oklch, var(--surface) 10%, transparent);
+    border-radius: var(--pill);
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: none; border: none; font-family: var(--font);
+    font-size: 10px; font-weight: 500; color: color-mix(in oklch, var(--surface) 40%, transparent); cursor: pointer; padding: 6px 8px;
+    border-radius: 12px; transition: background .2s;
+  }
+  .tab.active { color: var(--surface); background: color-mix(in oklch, var(--surface) 12%, transparent); font-weight: 700 }
+  .tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+  .fab {
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--surface); border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px color-mix(in oklch, var(--fg) 12%, transparent);
+    cursor: pointer;
+  }
+  .fab svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+  /* OD cohesive app layer: approved v2 visual language */
+  :root {
+    --bg: #ede9fe;
+    --fg: #1e1b2e;
+    --accent: #9b5de5;
+    --accent-secondary: #34d399;
+    --mint: #34d399;
+    --surface: #ffffff;
+    --muted: #8b85a1;
+    --border: #d4cfe8;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --pill: 999px;
+    --font: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background:
+      radial-gradient(ellipse at 30% 12%, color-mix(in oklch, var(--accent) 20%, transparent), transparent 34%),
+      radial-gradient(ellipse at 68% 88%, color-mix(in oklch, var(--accent-secondary) 14%, transparent), transparent 32%),
+      var(--bg);
+  }
+
+  .phone {
+    background:
+      radial-gradient(ellipse at 18% 7%, color-mix(in oklch, var(--surface) 26%, transparent), transparent 31%),
+      radial-gradient(ellipse at 88% 24%, color-mix(in oklch, var(--accent-secondary) 16%, transparent), transparent 35%),
+      radial-gradient(ellipse at 38% 74%, color-mix(in oklch, var(--bg) 24%, transparent), transparent 48%),
+      linear-gradient(156deg, color-mix(in oklch, var(--fg) 78%, var(--accent)) 0%, color-mix(in oklch, var(--fg) 36%, var(--accent)) 30%, var(--accent) 58%, color-mix(in oklch, var(--accent) 55%, var(--bg)) 82%, var(--bg) 120%);
+    box-shadow: 0 40px 80px color-mix(in oklch, var(--fg) 22%, transparent), 0 8px 24px color-mix(in oklch, var(--fg) 18%, transparent);
+  }
+
+  .scroll { padding-inline: 20px; }
+  .glow-1 { background: color-mix(in oklch, var(--surface) 28%, transparent) !important; }
+  .glow-2 { background: color-mix(in oklch, var(--accent-secondary) 18%, transparent) !important; }
+  .glow-3 { background: color-mix(in oklch, var(--accent) 24%, transparent) !important; }
+  .ring { border-color: color-mix(in oklch, var(--surface) 8%, transparent) !important; }
+
+  .card,
+  .tasks-card,
+  .habit-card,
+  .time-card,
+  .queue-item,
+  .glass,
+  .reflect-card,
+  .quote-card,
+  .card-pink {
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in oklch, var(--surface) 14%, transparent);
+  }
+
+  .tasks-card,
+  .glass,
+  .quote-card,
+  .reflect-card,
+  .card-pink,
+  .queue-item:not(.active) {
+    background: color-mix(in oklch, var(--surface) 14%, transparent);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .quote-card,
+  .reflect-card,
+  .card-pink,
+  .glass-purple {
+    color: var(--surface);
+  }
+
+  .quote-card::before,
+  .reflect-card::before {
+    background: color-mix(in oklch, var(--mint) 78%, var(--surface));
+  }
+
+  .actions,
+  .quick-actions {
+    gap: 9px;
+    margin-bottom: 18px;
+  }
+
+  .action-card,
+  .action-btn,
+  .qa-btn,
+  .pill {
+    min-height: 44px;
+    border-radius: var(--radius);
+    transition: transform .15s cubic-bezier(.2,0,0,1), box-shadow .15s cubic-bezier(.2,0,0,1), opacity .15s cubic-bezier(.2,0,0,1);
+  }
+
+  .action-card,
+  .action-btn,
+  .qa-btn {
+    box-shadow: 0 14px 24px color-mix(in oklch, var(--fg) 10%, transparent);
+  }
+
+  .action-card:active,
+  .action-btn:active,
+  .qa-btn:active,
+  .cta:active,
+  .cta-purple:active,
+  .btn-pill:active,
+  .btn-save:active,
+  .btn-sm:active,
+  .btn-start:active,
+  .btn-skip-task:active,
+  .preset:active,
+  .fab:active {
+    transform: translateY(1px) scale(.985);
+    opacity: .9;
+  }
+
+  .cta,
+  .cta-purple,
+  .btn-pill,
+  .btn-save,
+  .btn-sm,
+  .pill-mint,
+  .preset.active {
+    background: var(--accent-secondary) !important;
+    color: var(--fg) !important;
+    border-color: color-mix(in oklch, var(--accent-secondary) 72%, var(--surface)) !important;
+    box-shadow: 0 16px 28px color-mix(in oklch, var(--fg) 14%, transparent) !important;
+  }
+
+  .btn-ghost,
+  .btn-skip,
+  .btn-skip-task {
+    color: color-mix(in oklch, var(--surface) 78%, transparent) !important;
+    border-color: color-mix(in oklch, var(--surface) 22%, transparent) !important;
+  }
+
+  .tab-bar {
+    background: color-mix(in oklch, var(--fg) 26%, transparent) !important;
+    border-top: 1px solid color-mix(in oklch, var(--surface) 9%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .tab { color: color-mix(in oklch, var(--surface) 34%, transparent) !important; }
+  .tab.active { color: var(--surface) !important; font-weight: 700; }
+  .fab {
+    background: var(--surface) !important;
+    box-shadow: 0 4px 20px color-mix(in oklch, var(--fg) 20%, transparent) !important;
+  }
+  .fab svg { stroke: var(--accent) !important; fill: none !important; }
+
+  .manifest-card {
+    background: linear-gradient(135deg, color-mix(in oklch, var(--mint) 72%, var(--surface)), color-mix(in oklch, var(--mint) 36%, var(--bg)));
+    color: var(--fg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
+  }
+  
+
+  .btn-gratitude,
+  .qa-gratitude,
+  .pill-mint,
+  .card-gratitude {
+    background: var(--accent-secondary) !important;
+    color: var(--fg) !important;
+  }
+
+  .btn-growth,
+  .pill-pink,
+  .qa-stuck,
+  .qa-calm,
+  .habit-icon.pink,
+  .habit-icon.blue,
+  .habit-icon.orange,
+  .habit-card.selected .habit-icon.pink,
+  .habit-card.selected .habit-icon.blue,
+  .habit-card.selected .habit-icon.orange,
+  .glass-pink {
+    background: color-mix(in oklch, var(--surface) 16%, transparent) !important;
+    color: var(--surface) !important;
+    border-color: color-mix(in oklch, var(--surface) 20%, transparent) !important;
+  }
+
+  .card-growth,
+  .qa-stuck,
+  .qa-calm {
+    color: var(--fg) !important;
+  }
+
+  .card-growth {
+    background: var(--surface) !important;
+    box-shadow: 0 14px 24px color-mix(in oklch, var(--fg) 10%, transparent) !important;
+  }
+  /* End OD cohesive app layer */
+</style>
+</head>
+<body>
+<div class="phone" data-od-id="phone-frame">
+  <div class="scroll">
+    <p class="aff">אני אישה שמפרסמת גם כשלא בא לה</p>
+    <h1 class="greet">ערב טוב, חן</h1>
+    <div class="num">37</div>
+    <p class="num-label">קולות לאישה שאת בונה</p>
+
+    <!-- Tasks -->
+    <div class="glass glass-purple" data-od-id="card-tasks">
+      <div class="sec-header">
+        <span class="sec-title">המשימות שלך</span>
+        <span class="sec-badge">1 מתוך 3</span>
+      </div>
+      <div class="task-row">
+        <div class="task-check done"></div>
+        <span class="task-text done">לערוך את הריל על פרידות</span>
+      </div>
+      <div class="task-row">
+        <div class="task-check"></div>
+        <div>
+          <span class="task-text">לענות לשלוש פניות מהדיירקט</span>
+          <div class="task-meta">בלי שיוך למטרה</div>
+        </div>
+      </div>
+      <div class="task-row">
+        <div class="task-check"></div>
+        <span class="task-text" style="opacity:.4">משימה 3 (לא חובה)</span>
+      </div>
+      <button class="all-tasks-btn" data-od-id="all-tasks">כל המשימות שלי →</button>
+    </div>
+
+    <!-- Gratitude -->
+    <button class="action-btn btn-gratitude glass" data-od-id="btn-gratitude" style="border: 1px solid color-mix(in oklch, var(--accent-secondary) 20%, transparent)">
+      <div class="action-icon"></div>
+      <div>
+        כתיבת תודה
+        <div class="action-desc">משהו קטן שאת מודה עליו היום</div>
+      </div>
+    </button>
+
+    <!-- Growth -->
+    <button class="action-btn btn-growth glass" data-od-id="btn-growth" style="border: 1px solid color-mix(in oklch, var(--accent) 15%, transparent)">
+      <div class="action-icon"></div>
+      <div>
+        התפתחות אישית
+        <div class="action-desc">שאלה יומית לצמיחה</div>
+      </div>
+    </button>
+
+    <!-- Reflection -->
+    <div class="glass glass-purple" data-od-id="card-reflect" style="margin-top: 4px">
+      <div class="reflect-title">ממה זה מגן עלייך</div>
+      <p class="reflect-body">חבלה עצמית היא לא רצון להיכשל, היא רצון להגן.</p>
+      <p class="reflect-q">ההתנהגות שהכי מתסכלת אותך בעצמך, איזו הגנה היא נותנת לך?</p>
+      <textarea class="reflect-input" placeholder="בכמה מילים"></textarea>
+      <div class="reflect-row">
+        <button class="btn-pill">שמרי</button>
+        <button class="btn-ghost">דלגי</button>
+      </div>
+      <p class="reflect-src">The Mountain Is You · Brianna Wiest</p>
+    </div>
+  </div>
+
+  <div class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>המצפן</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>תודות</button>
+    <button class="fab"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>הרגלים</button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>עכשיו</button>
+  </div>
+</div>
+</body>
+</html>

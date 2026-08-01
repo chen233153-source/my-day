@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "fileName": "06-now-morning-full-v2.html",
+  "entries": [
+    {
+      "id": "ed3ac660-6cae-4f5b-bb52-5d8df8dd3fc6",
+      "fileName": "06-now-morning-full-v2.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785060477214,
+      "source": "ai",
+      "prompt": "אתה יכול להפעיל את כולם? אבל לא בא לי שתשנה בלי אישור אז צור לי גרסה נוספת למה שקיים",
+      "size": 12290,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-ed3ac660-6cae-4f5b-bb52-5d8df8dd3fc6.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "62867e58-40c0-456f-b76d-ebc50ce3d9bd",
+      "fileName": "06-now-morning-full-v2.html",
+      "version": 2,
+      "label": "Version 2",
+      "createdAt": 1785061482634,
+      "source": "ai",
+      "prompt": "מאושר",
+      "size": 17203,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0002-62867e58-40c0-456f-b76d-ebc50ce3d9bd.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "5a2621ad-aa49-43c4-8869-8fe67c2634fa",
+      "fileName": "06-now-morning-full-v2.html",
+      "version": 3,
+      "label": "Version 3",
+      "createdAt": 1785061746097,
+      "source": "ai",
+      "prompt": "סבבה הרבה יותר יפה. שני דברים:\n1. הרקע - לא אהבתי אני יותר טיפוס של גרדיאנטים יפים\n2. כפתור התחילי במשימה הבאה להוריד. אם אין רעיון כרגע מה שים שם אז תציע מה עוד יכול להיות במסך הזה אני לא רוצה משהו עמוס מדי. אפילו הייתי מקטינה את הכפתורים מתחת למשימות, ואת הציטוט עושה בצורה עדינה יותר ולא בלוק לבן",
+      "size": 17188,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0003-5a2621ad-aa49-43c4-8869-8fe67c2634fa.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "01f83cbd-cf8a-4aac-9d84-21165b04fbee",
+      "fileName": "06-now-morning-full-v2.html",
+      "version": 4,
+      "label": "Version 4",
+      "createdAt": 1785062086813,
+      "source": "ai",
+      "prompt": "תוסיף בלוק מניפסטינג - משפט זימון - נראות אחרת מהציטוט, תחשוב על משפט שאני מזמנת לעצמי לאותו יום, תרווח קצת את הצטוט מהלחצנים של התודה וההפתחתות",
+      "size": 19040,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0004-01f83cbd-cf8a-4aac-9d84-21165b04fbee.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "69da7394-23e3-4459-bcc4-f97cd81337fe",
+      "fileName": "06-now-morning-full-v2.html",
+      "version": 5,
+      "label": "Version 5",
+      "createdAt": 1785063092146,
+      "source": "ai",
+      "prompt": "נדיר ממש אהבתי. עכשיו את מה שיישמנט כאן אתה צריך ליישם על כל המסכים לוודא שכולם נראים חלק מאותה אפליקציה. רקע, כפתורים, רווחים, הכל",
+      "size": 25023,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0005-69da7394-23e3-4459-bcc4-f97cd81337fe.html",
+      "promptSource": "message"
+    }
+  ]
+}

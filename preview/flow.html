@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>היום שלי · הפלאוו</title>
+<style>
+  :root{
+    --bg:#f6f5f3; --ink:#1c1b19; --mute:#6b6862; --line:#e0ddd7; --card:#fff;
+    --wired:#2f8f6b; --unwired:#b4472f;
+    --sw:390; --sh:844; --k:.44;   /* קנה המידה של המסך המוקטן */
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"Assistant","Heebo",system-ui,sans-serif;line-height:1.6}
+  header{padding:36px 26px 20px;max-width:1200px;margin:0 auto}
+  h1{font-size:29px;margin:0 0 8px;letter-spacing:-.02em}
+  .lede{color:var(--mute);max-width:66ch;margin:0 0 16px}
+  .key{display:flex;gap:20px;flex-wrap:wrap;font-size:14px;align-items:center}
+  .key i{display:inline-block;width:30px;height:0;border-top:2px solid var(--wired);
+    vertical-align:middle;margin-left:7px}
+  .key i.no{border-top:2px dashed var(--unwired)}
+  .toc{max-width:1200px;margin:0 auto;padding:0 26px 26px;display:flex;flex-wrap:wrap;gap:8px}
+  .toc a{font-size:14px;text-decoration:none;color:var(--ink);background:var(--card);
+    border:1px solid var(--line);border-radius:999px;padding:5px 13px}
+  main{max-width:1200px;margin:0 auto;padding:0 26px 100px}
+
+  .journey{margin-bottom:44px}
+  .jh{padding:16px 0 12px;border-bottom:1px solid var(--line);margin-bottom:20px}
+  .jh h2{margin:0;font-size:21px}
+  .jh h2 small{color:var(--mute);font-weight:600;font-size:15px;margin-inline-start:10px}
+  .jh p{margin:4px 0 0;color:var(--mute);font-size:14.5px}
+
+  .track{display:flex;align-items:flex-start;gap:0;overflow-x:auto;padding-bottom:14px}
+  .step{flex:0 0 auto;width:calc(var(--sw) * var(--k) * 1px);text-align:center}
+  .shot{width:calc(var(--sw) * var(--k) * 1px);height:calc(var(--sh) * var(--k) * 1px);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  .shot iframe{width:calc(var(--sw) * 1px);height:calc(var(--sh) * 1px);border:0;display:block;
+    transform:scale(var(--k));transform-origin:top right}
+  .cap{margin-top:8px;font-size:14px;font-weight:700}
+  .cap b{display:block;font-weight:800}
+  .file{font-size:11.5px;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
+    word-break:break-all}
+  .note{font-size:12.5px;color:var(--mute);margin-top:3px}
+
+  .link{flex:0 0 auto;width:132px;padding-top:calc(var(--sh) * var(--k) * .42px);
+    text-align:center;position:relative}
+  .link .lbl{font-size:12.5px;font-weight:700;padding:3px 8px;border-radius:999px;
+    display:inline-block;max-width:124px;background:var(--card);border:1px solid var(--line)}
+  .link .bar{height:0;border-top:2px solid var(--wired);margin:8px 6px 0}
+  .link.no .bar{border-top-style:dashed;border-top-color:var(--unwired)}
+  .link.no .lbl{color:var(--unwired);border-color:var(--unwired)}
+  .link .tip{font-size:11px;color:var(--unwired);margin-top:4px}
+
+  .gap{margin-top:12px;padding:10px 14px;border-radius:10px;background:#fdf1ee;
+    border:1px solid #f0d5cc;color:#7a3020;font-size:14px}
+
+  .orphans{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+  .orphans .step{width:calc(var(--sw) * .3 * 1px)}
+  .orphans .shot{width:calc(var(--sw) * .3 * 1px);height:calc(var(--sh) * .3 * 1px)}
+  .orphans .shot iframe{transform:scale(.3)}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>היום שלי · הפלאוו</h1>
+  <p class="lede">
+    כל מסע הוא רצף מסכים, לפי הסדר שבו נכנסים אליהם. בין כל שני מסכים כתוב
+    <b>מה מוביל לשם</b>. המסכים חיים ורצים, לא צילומים.
+  </p>
+  <div class="key">
+    <span><i></i>המעבר קיים בקוד</span>
+    <span><i class="no"></i>המעבר מתוכנן ולא מחווט עדיין</span>
+  </div>
+</header>
+
+<nav class="toc" id="toc"></nav>
+<main id="app"></main>
+
+<script src="journeys.js"></script>
+<script>
+const esc = s => (s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const enc = p => encodeURIComponent(p);
+let FLOW = {};
+
+function wired(from, to){
+  const outs = FLOW[from] || [];
+  return outs.some(([,tgt]) => tgt === to);
+}
+
+function stepHTML(s, i){
+  return `<div class="step">
+    <div class="shot"><iframe data-src="design/${enc(s.file)}" loading="lazy"></iframe></div>
+    <div class="cap"><b>${i}. ${esc(s.name)}</b>
+      <span class="file">${esc(s.file.replace('.html',''))}</span></div>
+    ${s.note ? `<div class="note">${esc(s.note)}</div>` : ''}
+  </div>`;
+}
+
+function linkHTML(prev, s){
+  const ok = wired(prev.file, s.file);
+  return `<div class="link ${ok?'':'no'}">
+    <span class="lbl">${esc(s.via)}</span>
+    <div class="bar"></div>
+    ${ok ? '' : '<div class="tip">לא מחווט</div>'}
+  </div>`;
+}
+
+document.getElementById('app').innerHTML = JOURNEYS.map((j, ji) => {
+  let row = '';
+  j.steps.forEach((s, i) => {
+    if (i) row += linkHTML(j.steps[i-1], s);
+    row += stepHTML(s, i+1);
+  });
+  return `<section class="journey" id="j-${ji}">
+    <div class="jh"><h2>${esc(j.title)}<small>${esc(j.n)}</small></h2>
+      <p>${esc(j.sub)}</p></div>
+    <div class="track">${row}</div>
+    ${j.gap ? `<div class="gap">${esc(j.gap)}</div>` : ''}
+  </section>`;
+}).join('') + `
+  <section class="journey" id="j-orphans">
+    <div class="jh"><h2>מחוץ למסעות</h2>
+      <p>מסכים שלא נכנסו לאף רצף. כאן כדי שלא ייעלמו.</p></div>
+    <div class="orphans">${ORPHAN_SCREENS.map(([f,d]) => `<div class="step">
+      <div class="shot"><iframe data-src="design/${enc(f)}" loading="lazy"></iframe></div>
+      <div class="cap"><b>${esc(d)}</b><span class="file">${esc(f.replace('.html',''))}</span></div>
+    </div>`).join('')}</div>
+  </section>`;
+
+document.getElementById('toc').innerHTML =
+  JOURNEYS.map((j,i)=>`<a href="#j-${i}">${esc(j.title)}</a>`).join('') +
+  `<a href="#j-orphans">מחוץ למסעות</a>`;
+
+// מסגרות חיות רק סביב מה שקרוב למסך, אחרת הדפדפן נחנק
+const io = new IntersectionObserver(es => {
+  for (const e of es) {
+    const f = e.target;
+    if (e.isIntersecting) { if (!f.src) f.src = f.dataset.src; }
+    else if (f.src) f.removeAttribute('src');
+  }
+}, { rootMargin: '600px' });
+
+fetch('flow.json').then(r=>r.json()).then(d=>{ FLOW = d; render(); }).catch(()=>render());
+function render(){
+  // ציור מחדש אחרי שהחיווט נטען, כדי שהחצים יהיו נכונים
+  if (Object.keys(FLOW).length) {
+    document.querySelectorAll('.journey').forEach((sec, ji) => {
+      const j = JOURNEYS[ji]; if (!j) return;
+      const links = sec.querySelectorAll('.link');
+      links.forEach((el, li) => {
+        const ok = wired(j.steps[li].file, j.steps[li+1].file);
+        el.classList.toggle('no', !ok);
+        const tip = el.querySelector('.tip');
+        if (ok && tip) tip.remove();
+        if (!ok && !tip) el.insertAdjacentHTML('beforeend','<div class="tip">לא מחווט</div>');
+      });
+    });
+  }
+  document.querySelectorAll('iframe[data-src]').forEach(f => io.observe(f));
+}
+</script>
+</body>
+</html>

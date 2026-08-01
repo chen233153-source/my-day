@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - החלפת שגרה</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="habit-replacement-screen">
+  <section class="content">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label" data-od-id="step-label">1 מתוך 4</span>
+      <button class="back-btn" aria-label="חזרה"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    </div>
+    <div class="progress-line" data-od-id="step-indicator"><div class="progress-fill"></div></div>
+
+    <article class="pane active" data-pane="0" data-od-id="step-routine">
+      <header class="heading">
+        <h1>מה את רוצה להפסיק?</h1>
+        <p class="subtitle">לא מוחקים הרגל. מוצאים מה הוא נותן, ולוקחים את זה ממקום אחר.</p>
+      </header>
+      <div class="field"><label for="routine">הדבר עצמו</label><input id="routine" value="לגלול בטלפון במיטה"></div>
+    </article>
+
+    <article class="pane" data-pane="1" data-od-id="step-cue">
+      <header class="heading">
+        <h1>נתפוס אותו כשזה קורה</h1>
+        <p class="subtitle">חמש שאלות, רק כשזה קורה. לא מהזיכרון.</p>
+      </header>
+      <button class="cta">זה קורה עכשיו</button>
+      <div class="mini-grid">
+        <div class="field"><label>איפה אני</label><input value="במיטה"></div>
+        <div class="field"><label>מה השעה</label><input value="23:40" dir="ltr"></div>
+        <div class="field"><label>מה אני מרגישה</label><input value="עייפה אבל ערה"></div>
+        <div class="field"><label>מי לידי</label><input value="לבד"></div>
+      </div>
+      <div class="field"><label>מה עשיתי רגע לפני</label><input value="סגרתי את הלפטופ"></div>
+    </article>
+
+    <article class="pane" data-pane="2" data-od-id="step-need">
+      <header class="heading">
+        <h1>מה זה נותן לך?</h1>
+        <p class="subtitle">אם נדע מה זה נותן, נמצא משהו אחר במקום.</p>
+      </header>
+      <div class="cards">
+        <button class="choice-card"><span class="radio"></span><span class="card-text"><strong>הפסקה</strong><span>רגע לעצור</span></span><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M10 4H6v16h4zM18 4h-4v16h4z"/></svg></span></button>
+        <button class="choice-card selected"><span class="radio"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span class="card-text"><strong>רוגע</strong><span>הגוף רוצה להאט</span></span><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 14c4-4 8 4 12 0 2-2 3-3 4-3"/></svg></span></button>
+        <button class="choice-card"><span class="radio"></span><span class="card-text"><strong>גירוי</strong><span>משהו שיזיז את הראש</span></span><span class="card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h8l-1 8 11-13h-8z"/></svg></span></button>
+      </div>
+      <div class="hero-card"><p>בפעם הבאה, נסי שלוש נשימות ומשפט במחברת. תראי אם זה עובר תוך רבע שעה.</p></div>
+    </article>
+
+    <article class="pane" data-pane="3" data-od-id="step-new-routine">
+      <header class="heading">
+        <h1>מה במקום</h1>
+        <p class="subtitle">אותו רגע, אותה הרגשה, פעולה אחרת.</p>
+      </header>
+      <div class="white-card" data-od-id="replacement-formula">
+        <p class="formula">כשקורה <mark>כניסה למיטה עם טלפון</mark>, אני אעשה <mark>שלוש נשימות ומשפט במחברת</mark> כדי לקבל <mark>רוגע</mark>.</p>
+      </div>
+    </article>
+
+    <div class="bottom">
+      <div class="dots" aria-hidden="true"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <button class="cta" data-od-id="next-button">הלאה</button>
+    </div>
+  </section>
+</main>
+<script>
+  const panes = [...document.querySelectorAll('.pane')];
+  const dots = [...document.querySelectorAll('.dot')];
+  const fill = document.querySelector('.progress-fill');
+  const label = document.querySelector('.step-label');
+  const next = document.querySelector('.cta[data-od-id="next-button"]');
+  let step = Number(localStorage.getItem('habitReplaceStep') || 0);
+  function render() {
+    panes.forEach((pane, index) => pane.classList.toggle('active', index === step));
+    dots.forEach((dot, index) => dot.classList.toggle('active', index === step));
+    fill.className = 'progress-fill p' + ((step + 1) * 25);   // 2.1 · style.width נדרס ע"י scaleX(.2) ולכן הפס נתקע על 20%
+    label.textContent = `${step + 1} מתוך 4`;
+    next.textContent = step === 3 ? 'להפעיל' : 'הלאה';
+    localStorage.setItem('habitReplaceStep', step);
+  }
+  next.addEventListener('click', () => {
+    if (step < 3) { step += 1; render(); return; }
+    // 1.9 · בשלב האחרון הכפתור היה מת. 2.3 · והשלב נשמר ולא התאפס,
+    // ולכן הכניסה הבאה נפלה ישר על מסך ההסכם של ההרגל הקודם. 30.7
+    localStorage.removeItem('habitReplaceStep');
+    location.href = '24-habits-empty.html';
+  });
+  // 1.9 · לכפתור החזרה לא היה מאזין, ובמסך ההסכם לא הייתה דרך לשנות
+  const back = document.querySelector('.back-btn');
+  if (back) back.addEventListener('click', () => { if (step > 0) { step -= 1; render(); } });
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "fileName": "35-habit-resistance.html",
+  "entries": [
+    {
+      "id": "c8729274-d301-43c7-b772-ef8f63689dd6",
+      "fileName": "35-habit-resistance.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785140772981,
+      "source": "ai",
+      "prompt": "אני בהלם ראית את העיצוב? מה זה?? זה לא ק/שור בשום צורה למה שעשית עד עכשיו.",
+      "size": 4460,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-c8729274-d301-43c7-b772-ef8f63689dd6.html",
+      "promptSource": "message"
+    }
+  ]
+}

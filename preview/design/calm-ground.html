@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - התארקות</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<!--
+  21 · רגיעה, התארקות. בעיצוב של חן זה מסך מלא ולא גיליון.
+  המונה מתחיל ב-0 ועולה עד 5, והעיגול הוא כפתור הספירה. אין טיימר.
+  היציאה היא "סיימתי".
+-->
+<main class="phone" data-od-id="calm-ground-screen">
+  <section class="content">
+    <div class="scroll center" data-od-id="ground-body">
+      <div class="empty" data-od-id="ground-guide">
+        <p data-od-id="practice-name">התארקות</p>
+        <p data-od-id="ground-instruction">הזיזי את המבט לאט בחדר וסמני חמישה דברים בטוחים. זה מודיע למערכת שאין סכנה עכשיו.</p>
+      </div>
+
+      <div class="count-word" data-od-id="ground-counter" aria-live="polite"><bdi dir="ltr">0 / 5</bdi></div>
+
+      <div class="breath-circle" data-od-id="ground-tap" role="button" tabindex="0"><span>מצאתי עוד אחד</span></div>
+
+      <div class="pill-row" data-od-id="ground-exit">
+        <button class="pill lg active" data-od-id="done-button" data-target="calm-tools.html">סיימתי</button>
+      </div>
+
+      <p class="fine-print" data-od-id="sources">פרקטיקות ויסות · Deb Dana</p>
+    </div>
+  </section>
+</main>
+<script>
+  var counter = document.querySelector('[data-od-id="ground-counter"]');
+  var found = 0;
+  document.querySelector('[data-od-id="ground-tap"]').addEventListener('click', function () {
+    if (found < 5) { found = found + 1; counter.textContent = found + ' / 5'; }
+  });
+  document.querySelectorAll('[data-target]').forEach(function (el) {
+    el.addEventListener('click', function () { location.href = el.dataset.target; });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — רגע הפעולה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  :root {
+    --fg: #1e1b2e; --accent: #9b5de5; --accent-secondary: #34d399;
+    --surface: #ffffff; --muted: #8b85a1; --border: #d4cfe8;
+    --radius: 16px; --radius-lg: 24px; --radius-pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow: hidden }
+  body { font-family: var(--font); color: var(--fg); display: flex; align-items: center; justify-content: center; background: #ede9fe }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(175deg, #7c3aed 0%, #9b5de5 30%, #c084fc 60%, #e9a8c9 100%);
+    border-radius: 44px; position: relative; overflow: hidden;
+    box-shadow: 0 24px 80px rgba(30,27,46,.18);
+    display: flex; flex-direction: column;
+  }
+
+  .scroll { flex: 1; overflow-y: auto; padding: 56px 20px 24px; }
+  .scroll::-webkit-scrollbar { display: none }
+
+  /* ── Header ── */
+  .top-label { font-size: 13px; color: rgba(255,255,255,.55); text-align: center; margin-bottom: 12px }
+
+  /* ── Task card ── */
+  .task-card {
+    background: var(--accent); border-radius: var(--radius-lg);
+    padding: 24px 20px; margin-bottom: 32px; text-align: center;
+  }
+  .task-title { font-size: 22px; font-weight: 800; color: var(--surface); margin-bottom: 6px }
+  .task-meta { font-size: 13px; color: rgba(255,255,255,.6) }
+
+  /* ── Countdown circle ── */
+  .countdown-area { display: flex; flex-direction: column; align-items: center; gap: 20px; margin-bottom: 24px }
+  .countdown-circle {
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(155,93,229,.35);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .countdown-nums { font-size: 32px; font-weight: 800; color: var(--surface); letter-spacing: 4px; direction: ltr }
+
+  .done-btn {
+    padding: 14px 40px; border-radius: var(--radius-pill);
+    background: var(--surface); border: none;
+    font-family: var(--font); font-size: 16px; font-weight: 700;
+    color: var(--fg); cursor: pointer;
+    box-shadow: 0 4px 12px rgba(30,27,46,.1);
+  }
+  .stuck-link { font-size: 14px; color: rgba(255,255,255,.7); text-align: center; margin-top: 8px }
+  .more-tasks { font-size: 13px; color: rgba(255,255,255,.5); text-align: center; margin-top: 8px; margin-bottom: 24px }
+
+  /* ── Reflection card (reused) ── */
+  .reflect-card {
+    background: var(--surface); border-radius: var(--radius-lg);
+    padding: 24px 20px; margin-bottom: 16px;
+  }
+  .reflect-title { font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 8px }
+  .reflect-body { font-size: 14px; color: var(--muted); text-align: center; line-height: 1.6; margin-bottom: 12px }
+  .reflect-q { font-size: 15px; font-weight: 700; text-align: center; line-height: 1.5; margin-bottom: 12px }
+  .reflect-input {
+    width: 100%; border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; font-family: var(--font); font-size: 14px;
+    color: var(--fg); background: none; outline: none; resize: none; min-height: 56px;
+  }
+  .reflect-input::placeholder { color: var(--border) }
+  .reflect-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 12px }
+  .btn-save {
+    padding: 10px 24px; border-radius: var(--radius-pill); border: 1px solid var(--fg);
+    background: none; font-family: var(--font); font-size: 14px; font-weight: 600;
+    color: var(--fg); cursor: pointer;
+  }
+  .btn-skip { font-size: 14px; color: var(--muted); background: none; border: none; cursor: pointer; font-family: var(--font) }
+  .reflect-source { font-size: 11px; color: var(--muted); text-align: center; margin-top: 10px }
+
+  /* ── Quick actions ── */
+  .quick-actions { display: flex; gap: 10px; margin-bottom: 20px }
+  .qa-btn {
+    flex: 1; padding: 16px 8px; border-radius: var(--radius); border: none;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    font-family: var(--font); font-size: 13px; font-weight: 600; cursor: pointer;
+  }
+  .qa-btn svg { width: 28px; height: 28px }
+  .qa-stuck { background: rgba(155,93,229,.12); color: var(--accent) }
+  .qa-gratitude { background: rgba(52,211,153,.15); color: #1a7f5a }
+  .qa-calm { background: rgba(251,146,60,.12); color: #c2410c }
+
+  /* ── Tab bar ── */
+  .tab-bar {
+    display: flex; align-items: flex-end; justify-content: space-around;
+    padding: 8px 16px 28px; background: rgba(255,255,255,.08);
+    backdrop-filter: blur(12px);
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    background: none; border: none; font-family: var(--font);
+    font-size: 11px; color: rgba(255,255,255,.45); cursor: pointer; padding: 4px 8px;
+  }
+  .tab.active { color: var(--surface) }
+  .tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+  .tab.active svg { stroke-width: 2.2 }
+  .fab {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent); border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 20px rgba(155,93,229,.35);
+    cursor: pointer; margin-bottom: 8px;
+  }
+  .fab svg { width: 24px; height: 24px; stroke: var(--surface); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+</style>
+</head>
+<body>
+<div class="phone" data-od-id="phone-frame">
+  <div class="scroll">
+    <p class="top-label" data-od-id="top-label">המשימה שלך עכשיו</p>
+
+    <div class="task-card" data-od-id="task-card">
+      <div class="task-title">לענות לשלוש פניות מהדיירקט</div>
+      <div class="task-meta">37 קולות עד היום</div>
+    </div>
+
+    <div class="countdown-area" data-od-id="countdown">
+      <div class="countdown-circle">
+        <div class="countdown-nums">5 · 4 · 3 · 2 · 1</div>
+      </div>
+      <button class="done-btn" data-od-id="done-btn">עשיתי</button>
+      <div class="stuck-link">תקועה</div>
+      <div class="more-tasks">עוד 1 משימה אחריה</div>
+    </div>
+
+    <div class="reflect-card" data-od-id="card-reflect">
+      <div class="reflect-title">ממה זה מגן עלייך</div>
+      <p class="reflect-body">חבלה עצמית היא לא רצון להיכשל, היא רצון להגן.<br>ההתנהגות תמיד משרתת צורך לא מודע.</p>
+      <p class="reflect-q">ההתנהגות שהכי מתסכלת אותך בעצמך, איזו הגנה היא נותנת לך?</p>
+      <textarea class="reflect-input" placeholder="בכמה מילים" data-od-id="reflect-input"></textarea>
+      <div class="reflect-actions">
+        <button class="btn-save">שמרי</button>
+        <button class="btn-skip">דלגי</button>
+      </div>
+      <p class="reflect-source">The Mountain Is You · Brianna Wiest</p>
+    </div>
+
+    <div class="quick-actions" data-od-id="quick-actions">
+      <button class="qa-btn qa-stuck"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" stroke="currentColor"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg>תקועה</button>
+      <button class="qa-btn qa-gratitude"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z" stroke="currentColor" fill="currentColor" opacity=".15"/></svg>תודה</button>
+      <button class="qa-btn qa-calm"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" stroke="currentColor"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor"/></svg>רגיעה</button>
+    </div>
+  </div>
+
+  <div class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>המצפן</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>תודות</button>
+    <button class="fab"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>הרגלים</button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>עכשיו</button>
+  </div>
+</div>
+</body>
+</html>

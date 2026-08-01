@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - תקועה, בחירה</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<!-- 14 · תקועה, בחירה. גיליון תחתון מעל רגע הפעולה, לא מסך עצמאי.
+     חמש אפשרויות, לפי העיצוב של חן. יציאה: לא עכשיו. -->
+<main class="phone" data-od-id="stuck-choice-screen">
+
+  <!-- ההקשר שמתחת: רגע הפעולה, מעומעם ולא אינטראקטיבי -->
+  <section class="content" data-od-id="action-context" inert aria-hidden="true">
+    <div class="top-bar" data-od-id="context-top-bar">
+      <span class="step-label">המשימה שלך עכשיו</span>
+    </div>
+    <div class="white-card" data-od-id="context-task">
+      <strong>לענות לשלוש פניות מהדיירקט</strong>
+      <p>20 דקות על הטיימר</p>
+    </div>
+    <div class="scroll center" data-od-id="context-countdown">
+      <div class="breath-circle"><span dir="ltr">5 · 4 · 3 · 2 · 1</span></div>
+    </div>
+  </section>
+
+  <aside class="sheet" data-od-id="stuck-choice-sheet">
+    <h1 data-od-id="sheet-title">מה עוצר?</h1>
+    <p>דחיינות היא כמעט תמיד רגש, לא עצלות. תבחרי את הקרוב ביותר.</p>
+
+    <div class="cards" data-od-id="stuck-reasons">
+      <button class="choice-card plain" data-od-id="reason-too-big" data-target="stuck-question.html">
+        <span class="card-text"><strong>זה גדול מדי</strong></span>
+      </button>
+      <button class="choice-card plain" data-od-id="reason-no-start" data-target="stuck-question.html">
+        <span class="card-text"><strong>לא יודעת איפה להתחיל</strong></span>
+      </button>
+      <button class="choice-card plain" data-od-id="reason-fear" data-target="stuck-fear.html">
+        <span class="card-text"><strong>זה מפחיד אותי</strong></span>
+      </button>
+      <button class="choice-card plain" data-od-id="reason-inner-voice" data-target="stuck-question.html">
+        <span class="card-text"><strong>הקול בראש</strong></span>
+      </button>
+      <button class="choice-card plain" data-od-id="reason-overload" data-target="stuck-question.html">
+        <span class="card-text"><strong>אני בהצפה</strong></span>
+      </button>
+    </div>
+
+    <p class="text-link" role="button" tabindex="0" data-od-id="not-now" data-target="today-day.html">לא עכשיו</p>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('[data-target]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      localStorage.setItem('stuckReason', el.dataset.odId);
+      location.href = el.dataset.target;
+    });
+  });
+</script>
+</body>
+</html>

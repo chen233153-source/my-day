@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "02-onboarding-identity.html",
+  "entry": "02-onboarding-identity.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-25T17:31:13.153Z",
+  "updatedAt": "2026-07-25T17:31:13.153Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

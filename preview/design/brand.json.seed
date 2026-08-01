@@ -1,0 +1,8 @@
+{
+  "colorPrimary": "#9b5de5",
+  "colorSuccess": "#34d399",
+  "colorBgBase": "#ede9fe",
+  "colorTextBase": "#1e1b2e",
+  "borderRadius": 16,
+  "controlHeight": 44
+}

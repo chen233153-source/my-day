@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "24-habits-empty.html",
+  "entry": "24-habits-empty.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-27T08:11:04.885Z",
+  "updatedAt": "2026-07-27T08:11:04.885Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

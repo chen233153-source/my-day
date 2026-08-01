@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — ברוכה הבאה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+
+  :root {
+    --bg: #ede9fe;
+    --fg: #1e1b2e;
+    --accent: #9b5de5;
+    --accent-secondary: #34d399;
+    --surface: #ffffff;
+    --muted: #8b85a1;
+    --border: #d4cfe8;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --font: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  html, body { height: 100%; overflow: hidden }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Phone frame ── */
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(175deg, #9b5de5 0%, #9b5de5 30%, #ede9fe 60%, #ede9fe 100%);
+    border-radius: 44px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 80px color-mix(in oklch, var(--fg) 18%, transparent);
+  }
+
+  /* ── Atmosphere ── */
+  .glow {
+    position: absolute; border-radius: 50%; pointer-events: none;
+    filter: blur(80px);
+  }
+  .glow-1 { width: 300px; height: 300px; background: color-mix(in oklch, var(--bg) 50%, transparent); top: -60px; left: -80px }
+  .glow-2 { width: 220px; height: 220px; background: color-mix(in oklch, var(--accent-secondary) 20%, transparent); bottom: 40px; right: -60px }
+  .glow-3 { width: 180px; height: 180px; background: color-mix(in oklch, var(--accent) 40%, transparent); top: 40%; left: 50%; transform: translateX(-50%) }
+
+  .ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid color-mix(in oklch, var(--surface) 7%, transparent);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+  .ring-1 { width: 480px; height: 480px }
+  .ring-2 { width: 340px; height: 340px; border-color: color-mix(in oklch, var(--surface) 5%, transparent) }
+
+  /* ── Content ── */
+  .content {
+    position: relative; z-index: 1;
+    height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 100px 32px 56px;
+    text-align: center;
+  }
+
+  .top { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px }
+
+  /* ── Logo ── */
+  .logo-circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 16px 48px color-mix(in oklch, var(--fg) 25%, transparent), 0 0 0 1px color-mix(in oklch, var(--surface) 15%, transparent);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) }
+    50% { transform: translateY(-8px) }
+  }
+
+  .logo-circle svg {
+    width: 56px; height: 56px;
+    fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  /* ── Typography ── */
+  .app-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: color-mix(in oklch, var(--surface) 65%, transparent);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--surface);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: color-mix(in oklch, var(--surface) 60%, transparent);
+    line-height: 1.65;
+    max-width: 280px;
+  }
+
+  /* ── CTA ── */
+  .bottom { width: 100%; display: flex; flex-direction: column; gap: 16px; align-items: center }
+
+  .cta {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 56px;
+    border: none; border-radius: var(--radius);
+    background: var(--accent-secondary);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: 18px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 24px color-mix(in oklch, var(--accent-secondary) 30%, transparent);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .cta:active { transform: scale(.97); box-shadow: 0 3px 12px color-mix(in oklch, var(--accent-secondary) 20%, transparent) }
+
+  .terms { font-size: 12px; color: color-mix(in oklch, var(--surface) 40%, transparent); line-height: 1.5 }
+  .terms a { color: color-mix(in oklch, var(--surface) 60%, transparent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px }
+
+  /* ── Step dots ── */
+  .dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 8px }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: color-mix(in oklch, var(--surface) 20%, transparent) }
+  .dot.active { width: 24px; border-radius: var(--radius-pill); background: var(--surface) }
+  /* OD cohesive app layer: approved v2 visual language */
+  :root {
+    --bg: #ede9fe;
+    --fg: #1e1b2e;
+    --accent: #9b5de5;
+    --accent-secondary: #34d399;
+    --mint: #34d399;
+    --surface: #ffffff;
+    --muted: #8b85a1;
+    --border: #d4cfe8;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --pill: 999px;
+    --font: 'Inter', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background:
+      radial-gradient(ellipse at 30% 12%, color-mix(in oklch, var(--accent) 20%, transparent), transparent 34%),
+      radial-gradient(ellipse at 68% 88%, color-mix(in oklch, var(--accent-secondary) 14%, transparent), transparent 32%),
+      var(--bg);
+  }
+
+  .phone {
+    background:
+      radial-gradient(ellipse at 18% 7%, color-mix(in oklch, var(--surface) 26%, transparent), transparent 31%),
+      radial-gradient(ellipse at 88% 24%, color-mix(in oklch, var(--accent-secondary) 16%, transparent), transparent 35%),
+      radial-gradient(ellipse at 38% 74%, color-mix(in oklch, var(--bg) 24%, transparent), transparent 48%),
+      linear-gradient(156deg, color-mix(in oklch, var(--fg) 78%, var(--accent)) 0%, color-mix(in oklch, var(--fg) 36%, var(--accent)) 30%, var(--accent) 58%, color-mix(in oklch, var(--accent) 55%, var(--bg)) 82%, var(--bg) 120%);
+    box-shadow: 0 40px 80px color-mix(in oklch, var(--fg) 22%, transparent), 0 8px 24px color-mix(in oklch, var(--fg) 18%, transparent);
+  }
+
+  .scroll { padding-inline: 20px; }
+  .glow-1 { background: color-mix(in oklch, var(--surface) 28%, transparent) !important; }
+  .glow-2 { background: color-mix(in oklch, var(--accent-secondary) 18%, transparent) !important; }
+  .glow-3 { background: color-mix(in oklch, var(--accent) 24%, transparent) !important; }
+  .ring { border-color: color-mix(in oklch, var(--surface) 8%, transparent) !important; }
+
+  .card,
+  .tasks-card,
+  .habit-card,
+  .time-card,
+  .queue-item,
+  .glass,
+  .reflect-card,
+  .quote-card,
+  .card-pink {
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in oklch, var(--surface) 14%, transparent);
+  }
+
+  .tasks-card,
+  .glass,
+  .quote-card,
+  .reflect-card,
+  .card-pink,
+  .queue-item:not(.active) {
+    background: color-mix(in oklch, var(--surface) 14%, transparent);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .quote-card,
+  .reflect-card,
+  .card-pink,
+  .glass-purple {
+    color: var(--surface);
+  }
+
+  .quote-card::before,
+  .reflect-card::before {
+    background: color-mix(in oklch, var(--mint) 78%, var(--surface));
+  }
+
+  .actions,
+  .quick-actions {
+    gap: 9px;
+    margin-bottom: 18px;
+  }
+
+  .action-card,
+  .action-btn,
+  .qa-btn,
+  .pill {
+    min-height: 44px;
+    border-radius: var(--radius);
+    transition: transform .15s cubic-bezier(.2,0,0,1), box-shadow .15s cubic-bezier(.2,0,0,1), opacity .15s cubic-bezier(.2,0,0,1);
+  }
+
+  .action-card,
+  .action-btn,
+  .qa-btn {
+    box-shadow: 0 14px 24px color-mix(in oklch, var(--fg) 10%, transparent);
+  }
+
+  .action-card:active,
+  .action-btn:active,
+  .qa-btn:active,
+  .cta:active,
+  .cta-purple:active,
+  .btn-pill:active,
+  .btn-save:active,
+  .btn-sm:active,
+  .btn-start:active,
+  .btn-skip-task:active,
+  .preset:active,
+  .fab:active {
+    transform: translateY(1px) scale(.985);
+    opacity: .9;
+  }
+
+  .cta,
+  .cta-purple,
+  .btn-pill,
+  .btn-save,
+  .btn-sm,
+  .pill-mint,
+  .preset.active {
+    background: var(--accent-secondary) !important;
+    color: var(--fg) !important;
+    border-color: color-mix(in oklch, var(--accent-secondary) 72%, var(--surface)) !important;
+    box-shadow: 0 16px 28px color-mix(in oklch, var(--fg) 14%, transparent) !important;
+  }
+
+  .btn-ghost,
+  .btn-skip,
+  .btn-skip-task {
+    color: color-mix(in oklch, var(--surface) 78%, transparent) !important;
+    border-color: color-mix(in oklch, var(--surface) 22%, transparent) !important;
+  }
+
+  .tab-bar {
+    background: color-mix(in oklch, var(--fg) 26%, transparent) !important;
+    border-top: 1px solid color-mix(in oklch, var(--surface) 9%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .tab { color: color-mix(in oklch, var(--surface) 34%, transparent) !important; }
+  .tab.active { color: var(--surface) !important; font-weight: 700; }
+  .fab {
+    background: var(--surface) !important;
+    box-shadow: 0 4px 20px color-mix(in oklch, var(--fg) 20%, transparent) !important;
+  }
+  .fab svg { stroke: var(--accent) !important; fill: none !important; }
+
+  .manifest-card {
+    background: linear-gradient(135deg, color-mix(in oklch, var(--mint) 72%, var(--surface)), color-mix(in oklch, var(--mint) 36%, var(--bg)));
+    color: var(--fg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
+  }
+  
+
+  .btn-gratitude,
+  .qa-gratitude,
+  .pill-mint,
+  .card-gratitude {
+    background: var(--accent-secondary) !important;
+    color: var(--fg) !important;
+  }
+
+  .btn-growth,
+  .pill-pink,
+  .qa-stuck,
+  .qa-calm,
+  .habit-icon.pink,
+  .habit-icon.blue,
+  .habit-icon.orange,
+  .habit-card.selected .habit-icon.pink,
+  .habit-card.selected .habit-icon.blue,
+  .habit-card.selected .habit-icon.orange,
+  .glass-pink {
+    background: color-mix(in oklch, var(--surface) 16%, transparent) !important;
+    color: var(--surface) !important;
+    border-color: color-mix(in oklch, var(--surface) 20%, transparent) !important;
+  }
+
+  .card-growth,
+  .qa-stuck,
+  .qa-calm {
+    color: var(--fg) !important;
+  }
+
+  .card-growth {
+    background: var(--surface) !important;
+    box-shadow: 0 14px 24px color-mix(in oklch, var(--fg) 10%, transparent) !important;
+  }
+  /* End OD cohesive app layer */
+</style>
+</head>
+<body>
+
+<div class="phone" data-od-id="phone-frame">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  <div class="ring ring-1"></div>
+  <div class="ring ring-2"></div>
+
+  <div class="content">
+    <div class="top" data-od-id="welcome-hero">
+      <div class="logo-circle" data-od-id="logo-icon">
+        <svg viewBox="0 0 48 48">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="48" y2="48">
+              <stop offset="0%" stop-color="#9b5de5"/>
+              <stop offset="100%" stop-color="#9b5de5"/>
+            </linearGradient>
+          </defs>
+          <circle cx="24" cy="24" r="8" stroke="url(#g)"/>
+          <line x1="24" y1="4" x2="24" y2="10" stroke="url(#g)"/>
+          <line x1="24" y1="38" x2="24" y2="44" stroke="url(#g)"/>
+          <line x1="4" y1="24" x2="10" y2="24" stroke="url(#g)"/>
+          <line x1="38" y1="24" x2="44" y2="24" stroke="url(#g)"/>
+          <line x1="9.9" y1="9.9" x2="14.1" y2="14.1" stroke="url(#g)"/>
+          <line x1="33.9" y1="33.9" x2="38.1" y2="38.1" stroke="url(#g)"/>
+          <line x1="9.9" y1="38.1" x2="14.1" y2="33.9" stroke="url(#g)"/>
+          <line x1="33.9" y1="14.1" x2="38.1" y2="9.9" stroke="url(#g)"/>
+        </svg>
+      </div>
+
+      <h1 data-od-id="welcome-heading">ברוכה הבאה!</h1>
+      <p class="subtitle" data-od-id="welcome-subtitle">היום שלי עוזרת לך לנהל את היום בלי להרגיש מוצפת. צעד אחד בכל פעם.</p>
+    </div>
+
+    <div class="bottom" data-od-id="welcome-cta-area">
+      <div class="dots" data-od-id="step-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <button class="cta" data-od-id="start-button">בואי נתחיל</button>
+      <p class="terms" data-od-id="terms-text">בלחיצה על ״בואי נתחיל״ את מסכימה ל<a href="#">תנאי השימוש</a></p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

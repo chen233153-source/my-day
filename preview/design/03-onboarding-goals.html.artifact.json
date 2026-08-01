@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "03-onboarding-goals.html",
+  "entry": "03-onboarding-goals.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-26T12:18:15.324Z",
+  "updatedAt": "2026-07-26T12:18:15.324Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

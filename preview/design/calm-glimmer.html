@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - לכידת נצנוץ</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<!-- 23 · רגיעה, לכידת נצנוץ. גיליון תחתון מעל רגע הפעולה.
+     נצנוץ הוא לא תודה. תודה היא הכרה במשהו טוב, נצנוץ הוא רגע שהגוף נרגע בו.
+     יציאה: סגרי. -->
+<main class="phone" data-od-id="calm-glimmer-screen">
+
+  <!-- ההקשר שמתחת: רגע הפעולה, מעומעם ולא אינטראקטיבי -->
+  <section class="content" data-od-id="action-context" inert aria-hidden="true">
+    <div class="top-bar" data-od-id="context-top-bar">
+      <span class="step-label">המשימה שלך עכשיו</span>
+    </div>
+    <div class="white-card" data-od-id="context-task">
+      <strong>לענות לשלוש פניות מהדיירקט</strong>
+      <p>20 דקות על הטיימר</p>
+    </div>
+    <div class="scroll center" data-od-id="context-countdown">
+      <div class="breath-circle"><span dir="ltr">5 · 4 · 3 · 2 · 1</span></div>
+    </div>
+  </section>
+
+  <aside class="sheet" data-od-id="calm-glimmer-sheet">
+    <h1 data-od-id="sheet-title">לכידת נצנוץ</h1>
+    <p>נצנוץ הוא מיקרו רגע שמדליק בטיחות. קרן שמש, לגימת קפה, פרצוף ידידותי. ככל שמבחינים בהם יותר, קל יותר לחזור.</p>
+
+    <div class="field" data-od-id="glimmer-input">
+      <textarea id="glimmer-field" placeholder="הנצנוץ שתפסתי"></textarea>
+    </div>
+
+    <button class="cta secondary" data-od-id="save-button" data-target="today-day.html">שמרי</button>
+
+    <p class="text-link" role="button" tabindex="0" data-od-id="close" data-target="calm-tools.html">סגרי</p>
+
+    <p class="fine-print" data-od-id="sources">Anchored · Deb Dana</p>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('[data-target]').forEach(function (el) {
+    el.addEventListener('click', function () { location.href = el.dataset.target; });
+  });
+</script>
+</body>
+</html>

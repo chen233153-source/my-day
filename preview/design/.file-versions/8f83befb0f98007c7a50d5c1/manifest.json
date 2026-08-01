@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "fileName": "nova-ai-splash.html",
+  "entries": [
+    {
+      "id": "368c728d-8dab-42b1-b8cc-627b7868ca62",
+      "fileName": "nova-ai-splash.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785001825885,
+      "source": "ai",
+      "prompt": "צריך לעצב מסך פתיחה לאפליקציה עם לוגו. שם האפליקציה Nova AI",
+      "size": 5152,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-368c728d-8dab-42b1-b8cc-627b7868ca62.html",
+      "promptSource": "message"
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — עכשיו בוקר מלא</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  :root {
+    --bg: #ede9fe;
+    --fg: #1e1b2e;
+    --accent: #9b5de5;
+    --mint: #34d399;
+    --surface: #ffffff;
+    --muted: #8b85a1;
+    --border: #d4cfe8;
+    --radius: 16px;
+    --pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow: hidden }
+  body {
+    font-family: var(--font); color: var(--fg);
+    display: flex; align-items: center; justify-content: center;
+    background: #c4b5fd;
+  }
+
+  /* ── Phone shell ── */
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(162deg, #4c1d95 0%, #6d28d9 22%, #9b5de5 52%, #c084fc 78%, #e9a8c9 100%);
+    border-radius: 44px; position: relative; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(76,29,149,.4), 0 8px 24px rgba(30,27,46,.2);
+    display: flex; flex-direction: column;
+  }
+
+  /* ── Status bar ── */
+  .status-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 24px 0;
+    font-size: 11px; font-weight: 700; color: rgba(255,255,255,.5);
+    letter-spacing: .02em;
+  }
+  .streak-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(52,211,153,.15);
+    border: 1px solid rgba(52,211,153,.35);
+    border-radius: var(--pill);
+    padding: 3px 10px 3px 8px;
+    font-size: 11px; font-weight: 700; color: var(--mint);
+    letter-spacing: .02em;
+  }
+  .streak-chip svg {
+    width: 10px; height: 10px;
+    stroke: var(--mint); fill: none;
+    stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  /* ── Scroll area ── */
+  .scroll { flex: 1; overflow-y: auto; padding: 14px 20px 16px }
+  .scroll::-webkit-scrollbar { display: none }
+
+  /* ── Greeting ── */
+  .greet-block { padding: 10px 2px 18px }
+  .greet-sub {
+    font-size: 12px; font-weight: 600; color: rgba(255,255,255,.45);
+    letter-spacing: .04em; margin-bottom: 3px; text-transform: uppercase;
+  }
+  .greet {
+    font-size: 32px; font-weight: 800; color: var(--surface);
+    letter-spacing: -0.02em; line-height: 1.1;
+  }
+
+  /* ── Task progress ── */
+  .task-progress { margin-bottom: 12px }
+  .progress-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 7px;
+  }
+  .progress-label {
+    font-size: 11px; font-weight: 700; color: rgba(255,255,255,.4);
+    text-transform: uppercase; letter-spacing: .06em;
+  }
+  .progress-count { font-size: 11px; font-weight: 700; color: var(--mint); letter-spacing: .02em }
+  .progress-track { height: 3px; background: rgba(255,255,255,.1); border-radius: var(--pill); overflow: hidden }
+  .progress-fill { height: 100%; width: 33%; background: var(--mint); border-radius: var(--pill) }
+
+  /* ── Tasks card ── */
+  .tasks-card {
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px; border: 1px solid rgba(255,255,255,.15);
+    padding: 14px 16px 10px; margin-bottom: 12px;
+  }
+  .task-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .task-row:last-of-type { border-bottom: none; padding-bottom: 0 }
+  .task-check {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,.25);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .task-check.done { background: var(--mint); border-color: var(--mint) }
+  .task-check svg { width: 11px; height: 11px; fill: none; stroke: transparent; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round }
+  .task-check.done svg { stroke: var(--fg) }
+  .task-text { font-size: 14px; font-weight: 500; color: rgba(255,255,255,.9); flex: 1 }
+  .task-text.done { text-decoration: line-through; opacity: .4 }
+  .task-text.dim { opacity: .3 }
+  .all-link { display: block; margin-top: 10px; font-size: 12px; font-weight: 700; color: var(--mint); letter-spacing: .02em; cursor: pointer }
+
+  /* ── Action cards ── */
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px }
+  .action-card {
+    border-radius: 20px; padding: 14px 14px 16px;
+    display: flex; flex-direction: column;
+    cursor: pointer; position: relative; overflow: hidden;
+    min-height: 116px; border: none;
+    font-family: var(--font); text-align: right;
+  }
+  .action-card:active { opacity: .88 }
+
+  .card-icon {
+    width: 34px; height: 34px; border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: auto; flex-shrink: 0;
+  }
+  .card-icon svg { width: 17px; height: 17px; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round }
+  .card-title { font-size: 15px; font-weight: 800; line-height: 1.2; margin-top: 10px }
+  .card-sub { font-size: 11px; font-weight: 600; margin-top: 2px; letter-spacing: .01em }
+
+  /* Gratitude — mint */
+  .card-gratitude { background: var(--mint); color: var(--fg) }
+  .card-gratitude .card-icon { background: rgba(30,27,46,.1) }
+  .card-gratitude .card-icon svg { stroke: var(--fg) }
+  .card-gratitude .card-sub { color: rgba(30,27,46,.5) }
+
+  /* Growth — white surface + lavender accent */
+  .card-growth { background: var(--surface); color: var(--fg) }
+  .card-growth .card-icon { background: var(--bg) }
+  .card-growth .card-icon svg { stroke: var(--accent) }
+  .card-growth .card-sub { color: var(--muted) }
+
+  .streak-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--bg); color: var(--accent);
+    font-size: 10px; font-weight: 800;
+    border-radius: var(--pill); padding: 2px 8px;
+    letter-spacing: .02em; line-height: 1.6;
+  }
+
+  /* ── Quote card — lavender bg ── */
+  .quote-card {
+    background: var(--bg); border-radius: 20px;
+    padding: 18px 18px 18px 16px; border: 1px solid var(--border);
+    position: relative;
+  }
+  .quote-card::before {
+    content: ''; position: absolute; top: 16px; right: 0;
+    width: 3px; height: calc(100% - 32px);
+    background: var(--mint); border-radius: var(--pill);
+  }
+  .quote-text { font-size: 14px; font-weight: 500; color: var(--fg); font-style: italic; line-height: 1.65; margin-bottom: 4px; opacity: .7 }
+  .quote-src { font-size: 11px; color: var(--muted); font-style: normal; margin-bottom: 12px; font-weight: 600; letter-spacing: .02em }
+  .quote-divider { height: 1px; background: var(--border); margin-bottom: 12px }
+  .quote-q { font-size: 14px; font-weight: 700; color: var(--fg); line-height: 1.55 }
+
+  /* ── Tab bar ── */
+  .tab-bar {
+    display: flex; align-items: center; justify-content: space-around;
+    padding: 8px 16px 28px;
+    background: rgba(30,27,46,.22);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255,255,255,.07);
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    background: none; border: none; font-family: var(--font);
+    font-size: 10px; font-weight: 500; color: rgba(255,255,255,.3);
+    cursor: pointer; padding: 4px 10px; letter-spacing: .02em;
+  }
+  .tab.active { color: var(--surface); font-weight: 700 }
+  .tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+  .fab {
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--surface); border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(30,27,46,.2);
+    cursor: pointer; flex-shrink: 0;
+  }
+  .fab svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+</style>
+</head>
+<body>
+<div class="phone" data-od-id="phone-frame">
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="streak-chip">
+      <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      7 ימים ברצף
+    </div>
+  </div>
+
+  <div class="scroll">
+
+    <div class="greet-block">
+      <p class="greet-sub">שבת, 26 ביולי</p>
+      <h1 class="greet" data-od-id="greeting">בוקר טוב, חן</h1>
+    </div>
+
+    <div class="task-progress" data-od-id="task-progress">
+      <div class="progress-meta">
+        <span class="progress-label">המשימות שלך</span>
+        <span class="progress-count">1 מתוך 3</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+
+    <div class="tasks-card" data-od-id="tasks-card">
+      <div class="task-row">
+        <div class="task-check done">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="task-text done">לערוך את הריל על פרידות</span>
+      </div>
+      <div class="task-row">
+        <div class="task-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="task-text">לענות לשלוש פניות מהדיירקט</span>
+      </div>
+      <div class="task-row">
+        <div class="task-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span class="task-text dim">משימה 3 — לא חובה</span>
+      </div>
+      <a class="all-link" data-od-id="all-tasks">כל המשימות ←</a>
+    </div>
+
+    <div class="actions" data-od-id="action-buttons">
+
+      <button class="action-card card-gratitude" data-od-id="btn-gratitude">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <span class="card-title">כתיבת תודה</span>
+        <span class="card-sub">28 תודות החודש</span>
+      </button>
+
+      <button class="action-card card-growth" data-od-id="btn-growth">
+        <span class="streak-badge">יום 7</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="2 20 8 13 13 17 20 8"/>
+            <polyline points="16 8 20 8 20 12"/>
+          </svg>
+        </div>
+        <span class="card-title">התפתחות</span>
+        <span class="card-sub">הרגלים יומיים</span>
+      </button>
+
+    </div>
+
+    <div class="quote-card" data-od-id="daily-quote">
+      <p class="quote-text">״המסרים הרגשיים של האינטואיציה מתחילים כלחישה — אבל אם ממשיכים להתעלם מהם, הם הופכים לצעקה.״</p>
+      <p class="quote-src">— בריאנה ויסט</p>
+      <div class="quote-divider"></div>
+      <p class="quote-q" data-od-id="reflection-question">איזו לחישה את שומעת כבר תקופה ובוחרת לא לשמוע?</p>
+    </div>
+
+  </div>
+
+  <div class="tab-bar" data-od-id="tab-bar">
+    <button class="tab">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>
+      המצפן
+    </button>
+    <button class="tab">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+      תודות
+    </button>
+    <button class="fab">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    </button>
+    <button class="tab">
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      הרגלים
+    </button>
+    <button class="tab active">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      עכשיו
+    </button>
+  </div>
+
+</div>
+</body>
+</html>

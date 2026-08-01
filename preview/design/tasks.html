@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - משימות</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="tasks-screen">
+  <section class="content with-tabs">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label">משימות</span>
+    </div>
+
+    <header class="heading" data-od-id="tasks-heading">
+      <h1 data-od-id="screen-title">שלושה דברים היום</h1>
+      <p class="subtitle">השאר יחכה.</p>
+      <div class="field" data-od-id="capture">
+        <label for="capture-input">מה עוד בראש?</label>
+        <input id="capture-input" type="text" placeholder="">
+      </div>
+    </header>
+
+    <div class="scroll" data-od-id="tasks-body">
+      <div class="quiet" data-od-id="today-label">
+        <span class="quiet-label">היום</span>
+      </div>
+
+      <div class="stat-row" data-od-id="today-task-1">
+        <div class="card-text"><strong>לכתוב 500 מילים</strong><span>מתוך: לסיים את הפרק השני</span></div>
+        <button class="pill" data-od-id="start-task-1">להתחיל</button>
+      </div>
+
+      <div class="stat-row" data-od-id="today-task-2">
+        <div class="card-text"><strong>לשלוח את ההצעה ללקוח</strong></div>
+        <button class="pill" data-od-id="start-task-2">להתחיל</button>
+      </div>
+
+      <div class="quiet" data-od-id="week-list">
+        <span class="quiet-label">השבוע</span>
+        <p>לקבוע שיחה עם דנה</p>
+        <p>לסדר את התיקייה של המיסים</p>
+        <p>שעה אחת ממוקדת על העמוד</p>
+      </div>
+
+      <div class="quiet" data-od-id="someday-collapsed">
+        <span class="quiet-label">מתישהו</span>
+        <p></p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-4 6-2-3"/></svg><span>המצפן</span></button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4 6l1 1 2-2"/><path d="M4 12l1 1 2-2"/></svg><span>משימות</span></button>
+    <button class="fab" aria-label="שיחה"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8 14a6 6 0 118 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z"/></svg><span>הרגלים</span></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>היום שלי</span></button>
+  </nav>
+</main>
+</body>
+</html>

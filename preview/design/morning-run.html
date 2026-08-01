@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - כתיבת בוקר</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="morning-run-writing-screen">
+  <section class="content">
+    <div class="scroll center" data-od-id="writing-body">
+      <div class="empty" data-od-id="writing-timer">
+        <span class="empty-icon"><svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 10-4-4L4 16z"/><path d="M14 6l4 4"/></svg></span>
+        <h1>שלוש דקות</h1>
+        <p>קחי מחברת ועט. אני סופרת. תניחי את הטלפון.</p>
+        <div class="dots" aria-hidden="true" data-od-id="timer-progress">
+          <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+
+      <div hidden data-od-id="typing-fallback">
+        <div class="quiet">
+          <p>כתב יד עובד יותר טוב. הקלדה גם עובדת.</p>
+          <div class="field">
+            <label for="pages">עמוד אחד, בלי לקרוא מחדש</label>
+            <textarea id="pages" placeholder=""></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="pill-row">
+        <button class="pill" data-od-id="no-notebook">אין לי מחברת</button>
+        <button class="pill" data-od-id="skip-practice">לדלג</button>
+      </div>
+      <button class="cta" data-od-id="done-button">סיימתי</button>
+    </div>
+  </section>
+</main>
+<script>
+  document.querySelector('[data-od-id="no-notebook"]').addEventListener('click', () => {
+    document.querySelector('[data-od-id="typing-fallback"]').hidden = false;
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "fileName": "06-now-morning-full.html",
+  "entries": [
+    {
+      "id": "41f24208-0e72-4a04-9d09-ab9937e7b8d7",
+      "fileName": "06-now-morning-full.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785013454439,
+      "source": "ai",
+      "prompt": "איפה שאר המסכים? 6-9",
+      "size": 10704,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-41f24208-0e72-4a04-9d09-ab9937e7b8d7.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "7ba782eb-4bed-4fb4-a70f-74a3250ab8cd",
+      "fileName": "06-now-morning-full.html",
+      "version": 2,
+      "label": "Version 2",
+      "createdAt": 1785053506950,
+      "source": "ai",
+      "prompt": "1. glassmorphism\n2. תוריד את האייקונים לבנתיים, אני תריכה הבין מה אמור להיות שם\n3. לא כזה הבנתי את התיאור שלך אז בוא תעצב את אופציה א ואז נחליט",
+      "size": 8658,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0002-7ba782eb-4bed-4fb4-a70f-74a3250ab8cd.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "48e8b9b2-d58e-431b-98c6-afcf2e9214cd",
+      "fileName": "06-now-morning-full.html",
+      "version": 3,
+      "label": "Version 3",
+      "createdAt": 1785055558030,
+      "source": "ai",
+      "prompt": "אוקיי, אופציה c.\nכמה שינויים: - כפתור התפתחות נועד כדי לוותר על השאלה הזאת ההתנהגות שהכי מתסכלת אותך בלה בלה. ה שנעשה במקום - למעלה כתוב ערב טוב חן קצת יותר גדול, מתחת יהיה כתוב משפט - כל יום זה יהיה משפט מעצים אחר, משפט מלמד, תובנה, כל דבר. ציטוט + שאלה לחשיבה לא למענה. יכול להשתמש ב: \"המסרים הרגשיים של האינטואיציה מתחילים כלחישה — אבל אם ממשיכים להתעלם מהם, הם הופכים לצעקה.\"\n— בריאנה ויסט\nאיזו לחישה את שומעת כבר תקופה ובוחרת לא לשמוע?",
+      "size": 6610,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0003-48e8b9b2-d58e-431b-98c6-afcf2e9214cd.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "125619d7-949e-43c1-9edb-1ca64260d91b",
+      "fileName": "06-now-morning-full.html",
+      "version": 4,
+      "label": "Version 4",
+      "createdAt": 1785055821192,
+      "source": "ai",
+      "prompt": "מה עם הכפתורים ממקודם? כתיבת תודה וכפתור התפתחות אישית שניהם צריכים להופיע. להוריד את הציטוט למטה אפשר להגדיל אותו, שיראה קצת שונה מכל המסך.אולי צבע טיפה אחר. תחשוב עיצובית וגם אי אפשר מלא רווח למטהכל המסך צריך להיות מלא אבל עם אוויר כמובן, לא עמוס",
+      "size": 7051,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0004-125619d7-949e-43c1-9edb-1ca64260d91b.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "20f7df96-8f9f-415b-bf87-3e3716feeb2a",
+      "fileName": "06-now-morning-full.html",
+      "version": 5,
+      "label": "Version 5",
+      "createdAt": 1785056741666,
+      "source": "ai",
+      "prompt": "@design-taste-frontend-v1 המסך שאהבתי נמצא ב 06 now morning full. נתתי לך הערות כותבת שוב. כפתור ההתפתחות נראה ממש לא יפה. ואני רוצה בלי אימוג׳ים. אפשר גם לשלב עוד צבעי בפלטה. בצילומי מסףך ששלחתי לך היה ממש גיוון בעיצוב למה אתה לא יצירתי מספיק? רק ביצועיסט וזה לא אמור להיות ככה תשתמש בסקיל המצורף",
+      "size": 12290,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0005-20f7df96-8f9f-415b-bf87-3e3716feeb2a.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "e67bef9e-25dc-4f2a-92d2-c988ce941fa9",
+      "fileName": "06-now-morning-full.html",
+      "version": 6,
+      "label": "Version 6",
+      "createdAt": 1785063092146,
+      "source": "ai",
+      "prompt": "נדיר ממש אהבתי. עכשיו את מה שיישמנט כאן אתה צריך ליישם על כל המסכים לוודא שכולם נראים חלק מאותה אפליקציה. רקע, כפתורים, רווחים, הכל",
+      "size": 18872,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0006-e67bef9e-25dc-4f2a-92d2-c988ce941fa9.html",
+      "promptSource": "message"
+    }
+  ],
+  "deletedAt": 1785067389142
+}

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>אב טיפוס · אונבורדינג</title>
+<link rel="stylesheet" href="../design/habit-flow.css">
+<style>
+  /* הרחבות לאב הטיפוס בלבד. לא חלק ממערכת העיצוב. */
+  body { display: grid; place-items: center; min-height: 100vh; }
+  .stage { display: grid; place-items: center; gap: 14px; }
+  .src { position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 10px 32px 16px; text-align: center; font-size: 11px; line-height: 1.5;
+    color: color-mix(in oklch, var(--surface) 62%, transparent); }
+  .content { padding-bottom: 96px; overflow-y: auto; overscroll-behavior: contain; }
+  .hint { margin-top: 10px; padding: 11px 14px; border-radius: var(--radius);
+    font-size: 14px; font-weight: 700; line-height: 1.5;
+    background: color-mix(in oklch, var(--surface) 14%, transparent);
+    color: color-mix(in oklch, var(--surface) 88%, transparent); }
+  .hint.warn { background: color-mix(in oklch, var(--accent-secondary) 22%, transparent);
+    color: var(--surface); }
+  .hint u { cursor: pointer; }
+  .zones { display: grid; gap: 10px; }
+  .why-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .why-row .field { flex: 1; margin: 0; }
+  .why-row .n { width: 20px; text-align: center; font-weight: 800;
+    color: color-mix(in oklch, var(--surface) 62%, transparent); }
+  .bar { display: flex; gap: 8px; align-items: center; justify-content: center;
+    font-size: 13px; color: #6b6862; }
+  .bar button { font: inherit; border: 1px solid #e0ddd7; background: #fff;
+    border-radius: 999px; padding: 5px 13px; cursor: pointer; }
+  .map { max-width: 420px; font-size: 12.5px; color: #6b6862; text-align: center; line-height: 1.6 }
+  /* מסך היום שלי, ייצוג בלבד */
+  .day-card { background: color-mix(in oklch, var(--surface) 13%, transparent);
+    border: 1px solid color-mix(in oklch, var(--surface) 20%, transparent);
+    border-radius: var(--radius); padding: 14px 16px; margin-bottom: 12px; }
+  .day-card h4 { font-size: 12.5px; font-weight: 800; margin-bottom: 8px;
+    color: color-mix(in oklch, var(--surface) 68%, transparent); }
+  .day-row { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0;
+    font-size: 15px; font-weight: 700; color: var(--surface); }
+  .day-row i { width: 19px; height: 19px; border-radius: 50%; flex: 0 0 auto; margin-top: 2px;
+    border: 1.6px solid color-mix(in oklch, var(--surface) 42%, transparent); }
+  .day-sub { display: block; font-size: 12.5px; font-weight: 600;
+    color: color-mix(in oklch, var(--surface) 62%, transparent); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="phone"><div class="content" id="screen"></div><div class="src" id="src"></div></div>
+  <div class="bar">
+    <button id="prev">← אחורה</button><span id="pos"></span>
+    <button id="restart">להתחיל מחדש</button>
+  </div>
+  <div class="map">כל מסך מציג בתחתיתו מאיזה מדריך בוולט ומאיזה תרגיל בתוכו הוא נגזר.</div>
+</div>
+
+<script>
+const S = { goals:[], habits:[], breakHabit:null,
+            morning:{savers:[],minutes:20}, week:{big3:[]}, extraTasks:[], eveningHour:'21:00' };
+let gi=0, hi=0, i=0;
+const el=id=>document.getElementById(id);
+const esc=s=>(s||'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const g=()=>S.goals[gi]||(S.goals[gi]={title:'',metric:'',why:'',tactics:['','']});
+const h=()=>S.habits[hi]||(S.habits[hi]={behavior:'',tiny:'',anchor:'',time:''});
+
+const head=(eyebrow,title,sub)=>`
+  <div class="top-bar"><button class="back-btn" onclick="back()">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <span class="step-label">${esc(eyebrow)}</span></div>
+  <div class="heading"><h1>${esc(title)}</h1>${sub?`<p class="subtitle">${esc(sub)}</p>`:''}</div>`;
+const cta=(txt,extra='')=>`<div class="bottom">
+  <button class="cta" onclick="next()">${esc(txt)}</button>${extra}</div>`;
+
+/* הקטנת ההרגל מותאמת להרגל עצמו, לא "שתי דקות" גנרי.
+   היוריסטיקה קצרה. בגרסה האמיתית הצ'אט שמכיר את המדריכים יעשה את זה טוב יותר. */
+const SHRINK=[
+ [/קרי?א|ספר|לקרוא/,'שני עמודים'],
+ [/כתיב|לכתוב|יומן/,'שורה אחת'],
+ [/ריצ|לרוץ|הליכ|ללכת|צע(ד|ו)/,'עשר דקות'],
+ [/כושר|אימון|מתיח|יוגה|שכיבות/,'סט אחד'],
+ [/מדיטצ|נשימ|שקט/,'שתי דקות'],
+ [/מים|לשתות/,'כוס אחת'],
+ [/לימוד|ללמוד|קורס/,'סרטון אחד'],
+];
+const shrinkFor=t=>{ for(const [re,v] of SHRINK) if(re.test(t)) return v; return ''; };
+
+const GOAL_START=1, HABIT_START=3;
+const SCREENS=[
+{ src:'המסך המעוצב 03-onboarding-goals · 12 Week Year, צעד 2',
+  view:()=>{
+   // המסך נפתח עם שורה אחת מוכנה, אחרת הוא נראה ריק ואין ממה להתחיל
+   if(!S.goals.length) S.goals.push({title:'',metric:'',why:'',tactics:['','']});
+   const list=S.goals.filter(x=>x.title.trim());
+   return head('שלב 1 מתוך 4','מה את רוצה שיזוז עכשיו?',
+    'אחת עד שלוש. אחר כך נוריד כל אחת לשבוע הזה.')+`
+   <div class="hint">תכנון מושלם לא מזיז כלום. שבוע אחד כן.</div>
+   <div class="day-card" style="margin-top:14px"><h4>המטרות ל־12 השבועות</h4>
+     <p class="day-sub" style="margin-bottom:8px">כל מטרה במשפט אחד.</p>
+     ${S.goals.map((G,k)=>`<div class="why-row"><span class="n">${k+1}</span>
+       <div class="field"><input placeholder="לדוגמה: לסיים פרויקט חשוב" value="${esc(G.title)}"
+         oninput="S.goals[${k}].title=this.value;draw()"></div>
+       <button class="text-link" style="width:auto" onclick="S.goals.splice(${k},1);draw()">מחיקה</button></div>`).join('')}
+     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+       <button class="text-link" style="width:auto" ${S.goals.length>=3?'disabled':''}
+         onclick="S.goals.push({title:'',metric:'',why:'',tactics:['','']});draw()">+ להוסיף מטרה</button>
+       <span class="day-sub">${list.length}/3</span></div>
+   </div>`
+   + cta('הלאה')} },
+
+{ src:'Your Best Year Ever · תרגיל 4 (הלמה) + האות R בשורת ההערה',
+  view:()=>{const G=g();
+   const hasNum=/\d/.test(G.metric+' '+G.title);
+   const hint = G.title.trim()? (hasNum
+     ? 'נראית מותחת אבל אפשרית. זה בדיוק המקום שבו קורית צמיחה.'
+     : 'חסר מספר. בלי מספר לא נדע מתי היא הושגה.') : '';
+   return head(`מטרה ${gi+1} מתוך ${S.goals.length}`, G.title||'המטרה',
+    'איך נדע שהיא הושגה, ולמה היא חשובה לך.')+`
+   <div class="field"><label for="gm">איך נדע שהיא הושגה</label>
+     <input id="gm" placeholder="מספר. למשל: 12 לקוחות" value="${esc(G.metric)}"
+       oninput="g().metric=this.value;draw()"></div>
+   ${hint?`<div class="hint ${hasNum?'':'warn'}">${esc(hint)}</div>`:''}
+   <div class="field" style="margin-top:12px"><label for="gw">למה זה חשוב לך</label>
+     <input id="gw" placeholder="כדי לעזוב את העבודה הנוספת" value="${esc(G.why)}"
+       oninput="g().why=this.value"></div>`
+   + cta('הלאה')} },
+
+{ src:'תכנון חיים ומטרות · 12 Week Year, צעד 3 (מדדים מובילים)',
+  view:()=>{const G=g();
+   return head(`מטרה ${gi+1} מתוך ${S.goals.length}`,'אילו פעולות שבועיות יקדמו אותה',
+    'לא התוצאה, הפעולות. אלה יהפכו למשימות השבוע שלך.')+
+   G.tactics.map((t,k)=>`<div class="field"><label>פעולה ${k+1}</label>
+     <input placeholder="למשל: לשלוח חמש הודעות ללקוחות" value="${esc(t)}"
+       oninput="g().tactics[${k}]=this.value"></div>`).join('')+
+   `<button class="text-link" onclick="g().tactics.push('');draw()">להוסיף פעולה</button>`
+   + cta(gi < S.goals.length-1 ? 'המטרה הזאת מוכנה' : 'סיימתי את המטרות')}, loop:'goal' },
+
+{ src:'הרגלים אטומיים · חוק 3 (הפוך אותו לקל)',
+  view:()=>{const H=h();
+   const sug=shrinkFor(H.behavior);
+   return head(`שלב 2 מתוך 4 · הרגל ${hi+1} מתוך 3`,'איזה הרגל להכניס',
+    'ואז מקטינים אותו. בהתחלה המטרה היא להופיע, לא לעשות הרבה.')+`
+   <div class="field"><label for="hb">ההרגל</label>
+     <input id="hb" placeholder="למשל: לקרוא ספר" value="${esc(H.behavior)}"
+       oninput="h().behavior=this.value;draw()"></div>
+   ${H.behavior.trim()?`<div class="field"><label for="ht">הגרסה הקטנה שלו</label>
+     <input id="ht" placeholder="${esc(sug||'הגרסה שאי אפשר להיכשל בה')}"
+       value="${esc(H.tiny)}" oninput="h().tiny=this.value;draw()"></div>
+     ${sug&&!H.tiny.trim()?`<div class="hint">מוצע: <b>${esc(sug)}</b>
+       <u onclick="h().tiny='${sug}';draw()">לקחת</u></div>`:''}`:''}`
+   + cta('הלאה')} },
+
+{ src:'המסך המעוצב 26-habits-editor, שלב 3 · "מתי ביום זה יכול להיכנס?"',
+  view:()=>{const H=h();
+   return head(`הרגל ${hi+1} מתוך 3`,'מתי ביום זה יכול להיכנס?',
+    'נחפש רגע שכבר קורה אצלך. נצמיד את זה אליו.')+`
+   <div class="field"><label>הרגע שכבר קורה</label>
+     <input placeholder="אחרי שאמזוג קפה בבוקר" value="${esc(H.anchor)}"
+       oninput="h().anchor=this.value;draw()"></div>
+   <div class="field"><label>באיזו שעה בערך</label>
+     <input type="time" value="${H.time}" oninput="h().time=this.value;draw()"></div>`
+   + cta('הלאה')} },
+
+{ src:'המסך המעוצב 26-habits-editor, שלב 5 · "זה ההסכם שלך"',
+  view:()=>{const H=h();
+   return head(`הרגל ${hi+1} מתוך 3`,'זה ההסכם שלך','משפט אחד. זה הכל.')+`
+   <div class="contract">${esc(H.anchor||'אחרי הרגע שבחרת')},<br>אני ${esc(H.tiny||H.behavior||'...')}.</div>`
+   + cta(hi<2?'ההרגל הזה מוכן':'סיימתי את ההרגלים',
+      hi<2?`<button class="cta secondary" onclick="doneHabits()">מספיק הרגלים, להמשיך</button>`:'')}, loop:'habit' },
+
+{ src:'המסך המעוצב onboarding-break-habit · חוק ה-5 שניות, תרגיל 3',
+  view:()=>{const B=S.breakHabit||(S.breakHabit={what:'',where:'',when:'',feel:'',who:'',before:''});
+   const f=(k,l,ph)=>`<div class="field"><label>${l}</label>
+     <input placeholder="${ph}" value="${esc(B[k])}" oninput="S.breakHabit.${k}=this.value"></div>`;
+   return head('אופציונלי','נתפוס אותו כשזה קורה',
+    'חמש שאלות, רק כשזה קורה. לא מהזיכרון.')+
+   f('what','ההרגל שאני רוצה להפסיק','לגלול בטלפון במיטה')+
+   f('where','איפה אני','במיטה')+f('when','מה השעה','23:40')+
+   f('feel','מה אני מרגישה','עייפה אבל ערה')+f('who','מי לידי','לבד')+
+   f('before','מה עשיתי רגע לפני','סגרתי את הלפטופ')
+   + cta('הלאה', `<button class="cta secondary" onclick="S.breakHabit=null;next()">אין לי, לדלג</button>`)} },
+
+{ src:'פרקטיקת בוקר · Miracle Morning, SAVERS וגרסת 6 הדקות',
+  view:()=>{const M=S.morning;
+   const S6=[['S','שקט','מדיטציה או נשימות'],['A','אישושים','משפטים מעצימים בקול'],
+     ['V','דמיון','לראות את היום ואת המטרות'],['E','תנועה','מתיחות או הליכה'],
+     ['R','קריאה','עשרה עמודים'],['S2','כתיבה','תודות, מחשבות, תובנות']];
+   return head('שלב 3 מתוך 4','מה נכנס לבוקר שלך',
+    'שש פרקטיקות. את בוחרת מה מהן שלך, וכמה זמן. עקביות מנצחת עוצמה.')+`
+   <div class="zones">${S6.map(([k,t,d])=>`<button class="choice-card plain ${M.savers.includes(k)?'selected':''}"
+     onclick="tog('${k}')"><span class="card-text"><strong>${t}</strong><span>${d}</span></span></button>`).join('')}</div>
+   <p class="subtitle" style="margin-top:14px">כמה זמן יש לך בבוקר</p>
+   <div class="pill-row">${[6,20,45].map(m=>`<button class="pill lg ${M.minutes===m?'active':''}"
+     onclick="S.morning.minutes=${m};draw()">${m} דקות</button>`).join('')}</div>`
+   + cta('הלאה')} },
+
+{ src:'תכנון חיים ומטרות · Full Focus, Weekly Big 3',
+  view:()=>{
+   const pool=S.goals.flatMap((G,k)=>G.tactics.filter(t=>t.trim()).map(t=>({t,goal:G.title||`מטרה ${k+1}`})));
+   const sel=S.week.big3.map(b=>b.text);
+   return head('שלב 4 מתוך 4','שלוש המשימות של השבוע',
+    'לא רשימה חדשה. אלה הפעולות שכתבת תחת המטרות. בוחרים שלוש לשבוע הזה.')+
+   (pool.length? `<div class="zones">${pool.map(p=>`
+     <button class="choice-card plain ${sel.includes(p.t)?'selected':''}" onclick="pick('${p.t.replace(/'/g,"\\'")}')">
+       <span class="card-text"><strong>${esc(p.t)}</strong><span>מתוך: ${esc(p.goal)}</span></span></button>`).join('')}</div>`
+    : `<div class="hero-card"><p>לא נכתבו פעולות בשלב המטרות, אז אין מה לגזור.</p></div>`)+
+   `<p class="subtitle" style="margin-top:12px">נבחרו ${S.week.big3.length} מתוך 3</p>`
+   + cta('סיימנו')} },
+
+{ src:'המסך המעוצב 04-onboarding-evening',
+  view:()=>head('','מתי הערב שלך מתחיל?',
+   'מהשעה הזאת המסך נהיה שקט יותר, ותקבלי תזכורת אחת להאט.')+`
+  <div class="pill-row">${['18:00','19:00','20:00','21:00','22:00'].map(x=>
+    `<button class="pill lg ${S.eveningHour===x?'active':''}" onclick="S.eveningHour='${x}';draw()">${x}</button>`).join('')}</div>
+  <p class="fine-print" style="margin-top:14px">אפשר לשנות בהגדרות.</p>`
+  + cta('זהו, סיימנו') },
+
+{ src:'המסך המעוצב 06-now-morning-full-v2 · זה מסך היום שלי האמיתי',
+  view:()=>`<iframe src="../design/06-now-morning-full-v2.html?d=1"
+     style="width:390px;height:844px;border:0;display:block;
+            position:absolute;inset:0;border-radius:44px"></iframe>` },
+];
+
+function next(){
+  if(SCREENS[i].loop==='goal' && gi < S.goals.length-1){ gi++; i=GOAL_START; return draw(); }
+  if(SCREENS[i].loop==='habit' && hi < 2){ hi++; i=HABIT_START; return draw(); }
+  if(i<SCREENS.length-1) i++;
+  draw();
+}
+function back(){ if(i>0){ i--; draw(); } }
+function doneHabits(){ i=SCREENS.findIndex(s=>s.loop==='habit')+1; draw(); }
+function tog(v){ const a=S.morning.savers,j=a.indexOf(v); j<0?a.push(v):a.splice(j,1); draw(); }
+function pick(t){ const j=S.week.big3.findIndex(b=>b.text===t);
+  if(j>=0) S.week.big3.splice(j,1); else if(S.week.big3.length<3) S.week.big3.push({text:t,done:false}); draw(); }
+
+function draw(){
+  const sc=SCREENS[i];
+  /* כל הקשה מציירת מחדש. שומרים פוקוס וסמן ומחזירים. */
+  const a=document.activeElement;
+  const keep=a&&a.closest&&a.closest('#screen')
+    ?{id:a.id,ph:a.getAttribute('placeholder'),s:(()=>{try{return a.selectionStart}catch(e){return null}})()}:null;
+  el('screen').innerHTML=sc.view();
+  if(keep){
+    const b=keep.id?el(keep.id)
+      :document.querySelector(`#screen [placeholder="${(keep.ph||'').replace(/"/g,'\\"')}"]`);
+    if(b){ b.focus({preventScroll:true});
+      if(keep.s!==null){ try{b.setSelectionRange(keep.s,keep.s)}catch(e){} } }
+  }
+  el('src').textContent='המקור: '+sc.src;
+  el('pos').textContent=`מסך ${i+1} מתוך ${SCREENS.length}`;
+}
+el('prev').onclick=back;
+el('restart').onclick=()=>location.reload();
+draw();
+</script>
+</body>
+</html>

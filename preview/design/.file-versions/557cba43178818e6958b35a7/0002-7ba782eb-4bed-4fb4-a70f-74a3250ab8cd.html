@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי — עכשיו בוקר מלא</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  :root {
+    --fg: #1e1b2e; --accent: #9b5de5; --accent-secondary: #34d399;
+    --surface: #ffffff; --muted: #8b85a1; --border: #d4cfe8;
+    --radius: 16px; --radius-lg: 24px; --radius-pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow: hidden }
+  body { font-family: var(--font); color: var(--fg); display: flex; align-items: center; justify-content: center; background: #ede9fe }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: linear-gradient(175deg, #7c3aed 0%, #9b5de5 30%, #c084fc 60%, #e9a8c9 100%);
+    border-radius: 44px; position: relative; overflow: hidden;
+    box-shadow: 0 24px 80px rgba(30,27,46,.18);
+    display: flex; flex-direction: column;
+  }
+
+  .scroll { flex: 1; overflow-y: auto; padding: 56px 20px 16px }
+  .scroll::-webkit-scrollbar { display: none }
+
+  /* ── Header ── */
+  .affirmation { font-size: 12px; color: rgba(255,255,255,.45); text-align: center; margin-bottom: 6px }
+  .greeting { font-size: 22px; font-weight: 700; color: var(--surface); text-align: center }
+  .big-num { font-size: 56px; font-weight: 800; color: var(--surface); text-align: center; line-height: 1; margin: 2px 0 }
+  .big-label { font-size: 13px; color: rgba(255,255,255,.5); text-align: center; margin-bottom: 20px }
+
+  /* ── Glass cards ── */
+  .glass {
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: var(--radius-lg);
+    padding: 20px 18px; margin-bottom: 14px;
+  }
+  .glass-title { font-size: 18px; font-weight: 800; color: var(--surface); text-align: center; margin-bottom: 4px }
+  .glass-sub { font-size: 12px; color: rgba(255,255,255,.5); text-align: center; margin-bottom: 14px }
+
+  .glass-input {
+    width: 100%; border: none; border-bottom: 1px solid rgba(255,255,255,.2);
+    padding: 10px 0; font-family: var(--font); font-size: 15px; font-weight: 500;
+    color: var(--surface); background: none; outline: none;
+  }
+  .glass-input::placeholder { color: rgba(255,255,255,.3) }
+
+  /* ── CTA ── */
+  .cta {
+    width: 100%; height: 52px; border: none; border-radius: var(--radius);
+    background: var(--accent-secondary); color: var(--fg);
+    font-family: var(--font); font-size: 17px; font-weight: 700;
+    cursor: pointer; margin-bottom: 14px;
+    box-shadow: 0 4px 16px rgba(52,211,153,.3);
+  }
+
+  /* ── Reflection ── */
+  .reflect-title { font-size: 16px; font-weight: 800; color: var(--surface); text-align: center; margin-bottom: 6px }
+  .reflect-body { font-size: 13px; color: rgba(255,255,255,.5); text-align: center; line-height: 1.55; margin-bottom: 10px }
+  .reflect-q { font-size: 14px; font-weight: 700; color: var(--surface); text-align: center; line-height: 1.5; margin-bottom: 10px }
+  .reflect-textarea {
+    width: 100%; border: 1px solid rgba(255,255,255,.2); border-radius: 12px;
+    padding: 12px 14px; font-family: var(--font); font-size: 13px;
+    color: var(--surface); background: rgba(255,255,255,.06); outline: none; resize: none; min-height: 48px;
+  }
+  .reflect-textarea::placeholder { color: rgba(255,255,255,.3) }
+  .reflect-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px }
+  .btn-pill {
+    padding: 8px 20px; border-radius: var(--radius-pill);
+    border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.1);
+    font-family: var(--font); font-size: 13px; font-weight: 600;
+    color: var(--surface); cursor: pointer;
+  }
+  .btn-ghost { font-size: 13px; color: rgba(255,255,255,.45); background: none; border: none; cursor: pointer; font-family: var(--font) }
+  .reflect-source { font-size: 10px; color: rgba(255,255,255,.3); text-align: center; margin-top: 8px }
+
+  /* ── Floating tab bar ── */
+  .tab-bar {
+    margin: 0 20px 24px;
+    display: flex; align-items: center; justify-content: space-around;
+    padding: 10px 8px;
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--radius-pill);
+  }
+  .tab {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    background: none; border: none; font-family: var(--font);
+    font-size: 10px; color: rgba(255,255,255,.4); cursor: pointer; padding: 4px 6px;
+  }
+  .tab.active { color: var(--surface) }
+  .tab svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round }
+  .tab.active svg { stroke-width: 2.2 }
+  .fab {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--surface); border: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(30,27,46,.15);
+    cursor: pointer;
+  }
+  .fab svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round }
+</style>
+</head>
+<body>
+<div class="phone" data-od-id="phone-frame">
+  <div class="scroll">
+    <p class="affirmation" data-od-id="affirmation">אני אישה שמפרסמת גם כשלא בא לה</p>
+    <h1 class="greeting" data-od-id="greeting">ערב טוב, חן</h1>
+    <div class="big-num" data-od-id="streak">37</div>
+    <p class="big-label">קולות לאישה שאת בונה</p>
+
+    <!-- Gratitude -->
+    <div class="glass" data-od-id="card-gratitude">
+      <div class="glass-title">תודה אחת</div>
+      <div class="glass-sub">משהו קטן, ולמה הוא נגע בך.</div>
+      <input class="glass-input" value="שקט בבית לפני שכולם קמים" data-od-id="gratitude-input">
+      <input class="glass-input" value="זה הזמן היחידי שהראש שלי שקט" data-od-id="gratitude-why">
+    </div>
+
+    <!-- Tasks -->
+    <div class="glass" data-od-id="card-tasks">
+      <div class="glass-title">שלוש משימות</div>
+      <div class="glass-sub">מהו הדבר האחד שיקדם אותך היום?</div>
+      <input class="glass-input" value="לערוך את הריל על פרידות" data-od-id="task-1">
+      <input class="glass-input" value="לענות לשלוש פניות מהדיירקט" data-od-id="task-2">
+      <input class="glass-input" placeholder="משימה 3 (לא חובה)" data-od-id="task-3">
+    </div>
+
+    <button class="cta" data-od-id="save-btn">שמרי וסגרי</button>
+
+    <!-- Reflection -->
+    <div class="glass" data-od-id="card-reflect">
+      <div class="reflect-title">ממה זה מגן עלייך</div>
+      <p class="reflect-body">חבלה עצמית היא לא רצון להיכשל, היא רצון להגן.<br>ההתנהגות תמיד משרתת צורך לא מודע.</p>
+      <p class="reflect-q">ההתנהגות שהכי מתסכלת אותך בעצמך, איזו הגנה היא נותנת לך?</p>
+      <textarea class="reflect-textarea" placeholder="בכמה מילים" data-od-id="reflect-input"></textarea>
+      <div class="reflect-row">
+        <button class="btn-pill">שמרי</button>
+        <button class="btn-ghost">דלגי</button>
+      </div>
+      <p class="reflect-source">The Mountain Is You · Brianna Wiest</p>
+    </div>
+  </div>
+
+  <!-- Floating pill tab bar -->
+  <div class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></svg>המצפן</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>תודות</button>
+    <button class="fab"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>הרגלים</button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>עכשיו</button>
+  </div>
+</div>
+</body>
+</html>

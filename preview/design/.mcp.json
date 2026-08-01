@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "higgsfield-openclaw": {
+      "type": "http",
+      "url": "https://mcp.higgsfield.ai/mcp"
+    },
+    "nanobanana": {
+      "type": "http",
+      "url": "https://nanobanana.mcp.acedata.cloud/mcp"
+    }
+  }
+}

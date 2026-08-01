@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - רגע ההתנגדות</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="habit-resistance-screen">
+  <section class="content with-tabs">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label">ערב</span>
+      <button class="back-btn" aria-label="חזרה"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    </div>
+
+    <header class="heading" data-od-id="resistance-heading">
+      <h1 data-od-id="screen-title">היום זה לא קרה</h1>
+      <p class="subtitle">שאלה אחת וממשיכות.</p>
+    </header>
+
+    <section class="cards" data-od-id="reason-options">
+      <button class="choice-card" data-reply="אפשר לקבוע שעה אחרת.">
+        <span class="radio"></span>
+        <span class="card-text"><strong>לא היה זמן</strong><span>נחפש שעה אחרת</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+      </button>
+      <button class="choice-card selected" data-reply="אפשר לבחור רגע אחר ביום.">
+        <span class="radio"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span class="card-text"><strong>שכחתי</strong><span>נבדוק את הרגע</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M3 12h4M17 12h4"/></svg></span>
+      </button>
+      <button class="choice-card" data-reply="אפשר להקטין את הפעולה.">
+        <span class="radio"></span>
+        <span class="card-text"><strong>לא היה לי כוח</strong><span>נקטין את זה</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16"/></svg></span>
+      </button>
+      <button class="choice-card" data-reply="מחר יש עוד הזדמנות.">
+        <span class="radio"></span>
+        <span class="card-text"><strong>לא היה בא לי</strong><span>לפעמים זה פשוט ככה</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 11-8-8"/><path d="M20 4v8h-8"/></svg></span>
+      </button>
+    </section>
+
+    <!-- ה · היה `hero-card`, לבן מלא באותו טור עם כרטיס האופציה הנבחר,
+         וקרא כאופציה חמישית שנבחרה. `.quiet` הוא הרכיב לתודעה ולא לביצוע. -->
+    <div class="quiet" data-od-id="method-response" style="margin-top:16px">
+      <p>אפשר לבחור רגע אחר ביום.</p>
+    </div>
+
+    <section class="sheet" data-od-id="two-day-state" hidden>
+      <h1>לבדוק את ההסכם</h1>
+      <p>אפשר להקטין את הפעולה, ואפשר לבחור רגע אחר.</p>
+      <button class="cta">להקטין את הפעולה</button>
+      <button class="cta secondary">לבחור רגע אחר</button>
+    </section>
+  </section>
+
+  <nav class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-4 6-2-3"/></svg><span>המצפן</span></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4 6l1 1 2-2"/><path d="M4 12l1 1 2-2"/></svg><span>משימות</span></button>
+    <button class="fab" aria-label="שיחה"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4z"/></svg></button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8 14a6 6 0 118 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z"/></svg><span>הרגלים</span></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>היום שלי</span></button>
+  </nav>
+</main>
+<script>
+  const response = document.querySelector('[data-od-id="method-response"] p');
+  const sheet = document.querySelector('.sheet');
+  document.querySelectorAll('.choice-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.choice-card').forEach(item => item.classList.remove('selected'));
+      card.classList.add('selected');
+      response.textContent = card.dataset.reply;
+      localStorage.setItem('habitResistanceReason', card.querySelector('strong').textContent);
+      // הגיליון היה פתוח תמיד וכיסה את התגובה, חלק מהכרטיסים ואת שורת הטאבים.
+      // הוא שייך לרגע שאחרי הבחירה, לא לרגע הכניסה למסך. 30.7
+      sheet.hidden = false;
+    });
+  });
+</script>
+</body>
+</html>

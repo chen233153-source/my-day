@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "fileName": "05-now-morning.html",
+  "entries": [
+    {
+      "id": "c49dcf03-69dd-41a0-ae07-c7dac57c94ad",
+      "fileName": "05-now-morning.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785003950013,
+      "source": "ai",
+      "prompt": "הנה. הייתי בטוחה שצירפתי",
+      "size": 10629,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-c49dcf03-69dd-41a0-ae07-c7dac57c94ad.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "2085b85c-f53b-42a4-99b5-ba38a567235c",
+      "fileName": "05-now-morning.html",
+      "version": 2,
+      "label": "Version 2",
+      "createdAt": 1785063092146,
+      "source": "ai",
+      "prompt": "נדיר ממש אהבתי. עכשיו את מה שיישמנט כאן אתה צריך ליישם על כל המסכים לוודא שכולם נראים חלק מאותה אפליקציה. רקע, כפתורים, רווחים, הכל",
+      "size": 16901,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0002-2085b85c-f53b-42a4-99b5-ba38a567235c.html",
+      "promptSource": "message"
+    }
+  ]
+}

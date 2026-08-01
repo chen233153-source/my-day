@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>היום שלי · לוח הפלואו</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink:#1e1b2e; --muted:#8b85a1; --accent:#9b5de5; --green:#34d399;
+          --page:#f4f1fb; --line:#ddd8ee; --card:#fff; --scale:.40; }
+  body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--page); color:var(--ink); padding:34px 30px 90px; }
+  header.page { max-width:1560px; margin:0 auto 30px; }
+  header.page h1 { font-size:30px; font-weight:800; letter-spacing:-.02em; }
+  header.page p { color:var(--muted); font-size:15px; margin-top:7px; font-weight:600; }
+  .legend { display:flex; gap:18px; margin-top:16px; flex-wrap:wrap; }
+  .legend span { display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; color:var(--muted); }
+  .swatch { width:11px; height:11px; border-radius:3px; }
+  .sw-live{background:var(--green)} .sw-new{background:var(--accent)}
+  section { max-width:1560px; margin:0 auto 46px; }
+  section > h2 { font-size:19px; font-weight:800; margin-bottom:4px; display:flex; align-items:baseline; gap:10px; }
+  section > h2 em { font-style:normal; font-size:13px; font-weight:700; color:var(--muted); }
+  section > .note { color:var(--muted); font-size:13.5px; font-weight:600; margin-bottom:18px; }
+  .row { display:flex; gap:18px; flex-wrap:wrap; align-items:flex-start; }
+  .fig { width:176px; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:10px 10px 12px; position:relative; }
+  .fig.is-new { border-color:var(--accent); box-shadow:0 0 0 2px rgba(155,93,229,.13); }
+  .frame { width:156px; height:338px; border-radius:12px; overflow:hidden; background:#ede9fe; position:relative; margin:0 auto; }
+  .frame iframe { width:390px; height:844px; border:0; transform:scale(var(--scale)); transform-origin:top right; position:absolute; top:0; right:0; pointer-events:none; }
+  .tag { position:absolute; top:16px; left:16px; z-index:3; font-size:9.5px; font-weight:800; padding:3px 7px; border-radius:999px; background:var(--green); color:#123; }
+  .tag.new { background:var(--accent); color:#fff; }
+  figcaption { margin-top:10px; text-align:right; }
+  figcaption b { display:block; font-size:13px; font-weight:800; line-height:1.3; }
+  figcaption span { display:block; font-size:11.5px; line-height:1.45; color:var(--muted); font-weight:600; margin-top:4px; }
+  .arrow { align-self:center; color:var(--line); font-size:22px; font-weight:800; padding-bottom:40px; }
+</style>
+</head>
+<body>
+<header class="page">
+  <h1>היום שלי · לוח הפלואו</h1>
+  <p>42 מסכים, כולם קוד חי. כל שינוי בקובץ מופיע כאן מיד.</p>
+  <div class="legend">
+    <span><i class="swatch sw-new"></i> נבנה היום</span>
+    <span><i class="swatch sw-live"></i> קוד קיים</span>
+  </div>
+</header>
+<section>
+  <h2>אונבורדינג <em>פעם אחת · ששה שלבים</em></h2>
+  <p class="note">מגדירים הכל פעם אחת ואז נוחתים בבית. כל שלב ניתן לדילוג.</p>
+  <div class="row">
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="01-onboarding-welcome.html" scrolling="no"></iframe></div>
+      <figcaption><b>פתיחה</b><span>מוטיבציה. למה בכלל להתחיל.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="02-onboarding-identity.html" scrolling="no"></iframe></div>
+      <figcaption><b>זהות</b><span>"אני אדם ש..." עמוד השדרה של כל האפליקציה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="03-onboarding-goals.html" scrolling="no"></iframe></div>
+      <figcaption><b>מטרות</b><span>עד שלוש מטרות ל-12 שבועות, ופעולה שבועית לכל אחת.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="26-habits-editor.html" scrolling="no"></iframe></div>
+      <figcaption><b>הרגל חיובי</b><span>לא מסך נפרד. אותו תהליך הקמה בן חמשה שלבים שבטאב הרגלים.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="onboarding-break-habit.html" scrolling="no"></iframe></div>
+      <figcaption><b>הרגל שלילי</b><span>בידוד הרמז: איפה, מתי, מה הרגשתי, מי היה שם, מה קדם.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="04-onboarding-evening.html" scrolling="no"></iframe></div>
+      <figcaption><b>שעת ערב</b><span>מתי לשאול אותה בסוף היום.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>היום שלי <em>הבית · הכל מוביל לכאן</em></h2>
+  <p class="note">משתנה לפי שעה. פעולה ראשית אחת בכל רגע, לא דשבורד.</p>
+  <div class="row">
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="today-morning.html" scrolling="no"></iframe></div>
+      <figcaption><b>בוקר</b><span>שגרת הבוקר בשתי גרסאות שוות משקל. "היום קצר" הוא מסלול, לא נחמה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="today-day.html" scrolling="no"></iframe></div>
+      <figcaption><b>יום</b><span>דבר אחד לעשות. הדלתות גדולות יותר, כי זו השעה שנתקעים בה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="today-evening.html" scrolling="no"></iframe></div>
+      <figcaption><b>ערב</b><span>סקירה בששה שלבים, אחד בכל פעם. לא מציג מה לא הספיקה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="today-closed.html" scrolling="no"></iframe></div>
+      <figcaption><b>היום סגור</b><span>אין כפתור. רק כמה קולות נצברו בעד הזהות שלה.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>הרגלים <em>טאב</em></h2>
+  <p class="note">הרגל אחד בכל פעם. אין סטריק שמתאפס, יש קולות שנצברים.</p>
+  <div class="row">
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="24-habits-empty.html" scrolling="no"></iframe></div>
+      <figcaption><b>כניסה וניתוב</b><span>שאלה אחת שקובעת איזו מארבע השיטות תרוץ.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="26-habits-editor.html" scrolling="no"></iframe></div>
+      <figcaption><b>הקמת הרגל</b><span>זהות, הקטנה, מפת היום למציאת עוגן, חגיגה, המשפט המלא.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="25-habits.html" scrolling="no"></iframe></div>
+      <figcaption><b>הקולות</b><span>יום שהוחמץ הוא נקודה ריקה, לא איפוס.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="35-habit-resistance.html" scrolling="no"></iframe></div>
+      <figcaption><b>רגע ההתנגדות</b><span>שאלה אחת בערב: מה עצר. פעמיים ברצף מפעיל התערבות.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="36-habit-break.html" scrolling="no"></iframe></div>
+      <figcaption><b>שבירת הרגל</b><span>אותו רמז, אותו תגמול, שגרה אחרת.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>רגע הפעולה <em>נכנסים מ"היום שלי"</em></h2>
+  <p class="note">לא טיימר. ספירה שמתחילה לבד, ובלוק שנספר רק אם הוא שלם.</p>
+  <div class="row">
+    <figure class="fig"><span class="tag">קוד</span>
+      <div class="frame"><iframe src="07-now-action.html" scrolling="no"></iframe></div>
+      <figcaption><b>רגע הפעולה</b><span>הדבר שעומד לקרות עכשיו.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="action-countdown.html" scrolling="no"></iframe></div>
+      <figcaption><b>ספירה לאחור</b><span>5-4-3-2-1 מתחיל לבד. חמש שניות לפני שהמוח הורג את הדחף.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="action-move.html" scrolling="no"></iframe></div>
+      <figcaption><b>זוזי עכשיו</b><span>לקום פיזית, להרחיק את הטלפון. זה מה שקונה את 30 הדקות.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="action-block.html" scrolling="no"></iframe></div>
+      <figcaption><b>בלוק 30 דקות</b><span>נספר רק אם שלם. בדקה 25: "אל תסיימי בנקודה תקועה".</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="action-celebrate.html" scrolling="no"></iframe></div>
+      <figcaption><b>חגיגה</b><span>הפסקה בלי אשמה. לא מציע בלוק נוסף.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>תקועה <em>נכנסים מ"היום שלי" בלבד</em></h2>
+  <p class="note">לא מנסה לגרום לה לעשות. מנסה למצוא ממה היא בורחת.</p>
+  <div class="row">
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="stuck-choice.html" scrolling="no"></iframe></div>
+      <figcaption><b>בחירה</b><span>לא מתחילה / ראש מלא / מפחדת / לא יודעת מה חשוב.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="stuck-question.html" scrolling="no"></iframe></div>
+      <figcaption><b>שאלה</b><span>שאלה אחת לפי המסלול. מה הצעד הכי קטן שאפשר עכשיו.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="stuck-fear.html" scrolling="no"></iframe></div>
+      <figcaption><b>פחד</b><span>היא כותבת את המשפט, והמסך מחזיר אותו עטוף. בלי להתווכח.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="stuck-summary.html" scrolling="no"></iframe></div>
+      <figcaption><b>סיכום</b><span>הצעד, ואז ספירה לאחור אוטומטית.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>רגיעה <em>נכנסים מ"היום שלי" בלבד</em></h2>
+  <p class="note">שואל איפה הגוף, לא מה קרה. מי שקרסה לא מקבלת נשימות איטיות.</p>
+  <div class="row">
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="calm-where.html" scrolling="no"></iframe></div>
+      <figcaption><b>איפה את</b><span>שלושה מצבים בשפת גוף: לא מצליחה להירגע / אין לי כוח לכלום / אני בסדר.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="calm-tools.html" scrolling="no"></iframe></div>
+      <figcaption><b>כלים</b><span>מותאם למצב שנבחר. לא תפריט אחיד.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="calm-breath.html" scrolling="no"></iframe></div>
+      <figcaption><b>נשימה</b><span>אנחה פיזיולוגית. בלי טיימר ובלי ספירת שניות.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="calm-ground.html" scrolling="no"></iframe></div>
+      <figcaption><b>התארקות</b><span>חמישה דברים שהם בסדר. מודיע למערכת העצבים שאין סכנה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="calm-ladder.html" scrolling="no"></iframe></div>
+      <figcaption><b>הסולם שלי</b><span>מיפוי חד-פעמי. מכאן האפליקציה מפסיקה לנחש.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="calm-glimmer.html" scrolling="no"></iframe></div>
+      <figcaption><b>לכידת נצנוץ</b><span>רגע קטן שהגוף נרגע בו. לא תודה, דבר אחר.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>המצפן <em>טאב · מטרות</em></h2>
+  <p class="note">מודד ביצוע ולא תוצאה. מחזור של 12 שבועות. אין אחוזים בשום מקום.</p>
+  <div class="row">
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="compass-home.html" scrolling="no"></iframe></div>
+      <figcaption><b>המצפן</b><span>שלוש הפעולות של השבוע, ומעליהן המטרות.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="compass-goal-editor.html" scrolling="no"></iframe></div>
+      <figcaption><b>עורך מטרה</b><span>מבחן שלושת האזורים. המקום היחיד באפליקציה שדוחף להגדיל.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="compass-weekly.html" scrolling="no"></iframe></div>
+      <figcaption><b>פגישה שבועית</b><span>11 מתוך 13, בלי אחוז ובלי השוואה לשבוע שעבר.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="compass-stuck.html" scrolling="no"></iframe></div>
+      <figcaption><b>מטרה תקועה</b><span>אמונה מגבילה, או בעיית כובד שאין עליה פעולה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="compass-horizons.html" scrolling="no"></iframe></div>
+      <figcaption><b>אופקים</b><span>נעול עד שנסגר מחזור אחד של 12 שבועות.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>שגרת בוקר <em>נכנסים מ"היום שלי"</em></h2>
+  <p class="note">פרקטיקה אחת בהתחלה, לא שש. הערב הקודם הוא חלק מהתהליך.</p>
+  <div class="row">
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="morning-build.html" scrolling="no"></iframe></div>
+      <figcaption><b>בניית השגרה</b><span>הערב הקודם: חמישה פריטים, אף אחד לא חובה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="morning-run.html" scrolling="no"></iframe></div>
+      <figcaption><b>הרצה</b><span>מסך הכתיבה. טיימר שמבקש להניח את הטלפון ולקחת מחברת.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="artist-date.html" scrolling="no"></iframe></div>
+      <figcaption><b>פגישת האמן</b><span>יציאה לבד פעם בשבוע. ממלא את הבאר.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>משימות <em>טאב</em></h2>
+  <p class="note">לא מנהל את הרשימה, מגן על היום. שלוש משימות מקסימום, והשאר לא נראה.</p>
+  <div class="row">
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="tasks-empty.html" scrolling="no"></iframe></div>
+      <figcaption><b>ריק</b><span>שדה הקליטה גלוי גם כשאין כלום. זו כל הפואנטה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="tasks.html" scrolling="no"></iframe></div>
+      <figcaption><b>משימות</b><span>היום / השבוע / מתישהו. בלי תאריכי יעד, בלי עדיפויות, בלי אדום.</span></figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <h2>תודות <em>מסקירת הערב, לא מטאב</em></h2>
+  <p class="note">נפרד מנצנוצים. תודה היא הכרה, נצנוץ הוא רגע שהגוף נרגע בו.</p>
+  <div class="row">
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="gratitude-empty.html" scrolling="no"></iframe></div>
+      <figcaption><b>ריק</b><span>לפני שנכתבה תודה ראשונה.</span></figcaption>
+    </figure>
+    <div class="arrow">←</div>
+    <figure class="fig is-new"><span class="tag new">חדש</span>
+      <div class="frame"><iframe src="gratitude.html" scrolling="no"></iframe></div>
+      <figcaption><b>תודות</b><span>כתיבת תודות.</span></figcaption>
+    </figure>
+  </div>
+</section>
+</body>
+</html>

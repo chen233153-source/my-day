@@ -1,0 +1,568 @@
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #ede9fe;
+  --fg: #1e1b2e;
+  --accent: #9b5de5;
+  --accent-ink: #8a4bd6;   /* סגול לטקסט על רקע בהיר. 5.17:1 על לבן */
+  --accent-secondary: #34d399;
+  --surface: #ffffff;
+  --muted: #6b6480;   /* היה #8b85a1 שנתן 3.52 על לבן. עכשיו 5.6 */
+  --border: #d4cfe8;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --pill: 999px;
+  --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+html, body { height: 100%; overflow: hidden; }
+body {
+  font-family: var(--font);
+  background: radial-gradient(ellipse at 28% 12%, color-mix(in oklch, var(--accent) 18%, transparent), transparent 34%), var(--bg);
+  color: var(--fg);
+  display: grid;
+  place-items: center;
+}
+button, input, textarea { font: inherit; }
+.phone {
+  width: 390px;
+  height: 844px;
+  border-radius: 44px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 8%, color-mix(in oklch, var(--surface) 20%, transparent), transparent 32%),
+    radial-gradient(ellipse at 92% 80%, color-mix(in oklch, var(--bg) 42%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in oklch, var(--fg) 30%, var(--accent)) 0%, var(--accent) 42%, var(--accent) 72%, color-mix(in oklch, var(--accent) 62%, var(--bg)) 88%, var(--bg) 108%);
+  box-shadow: 0 40px 80px color-mix(in oklch, var(--fg) 22%, transparent), 0 8px 24px color-mix(in oklch, var(--fg) 18%, transparent);
+}
+.phone:before {
+  content: "";
+  position: absolute;
+  inset: 250px auto auto -80px;
+  width: 470px;
+  height: 470px;
+  border: 1px solid color-mix(in oklch, var(--surface) 9%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding: 78px 32px 56px;
+  display: flex;
+  flex-direction: column;
+}
+.top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 34px; }
+.back-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklch, var(--surface) 16%, transparent);
+  background: color-mix(in oklch, var(--surface) 10%, transparent);
+  color: var(--surface);
+  display: grid;
+  place-items: center;
+}
+svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.step-label { color: color-mix(in oklch, var(--surface) 80%, transparent); font-size: 14px; font-weight: 700; }
+.heading { margin-bottom: 26px; text-align: right; }
+h1 { color: var(--surface); font-size: 33px; line-height: 1.12; font-weight: 800; letter-spacing: -0.018em; }
+.subtitle { margin-top: 12px; color: color-mix(in oklch, var(--surface) 84%, transparent); font-size: 16px; line-height: 1.55; font-weight: 600; }
+.cards { display: grid; gap: 14px; }
+.choice-card {
+  min-height: 84px;
+  border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in oklch, var(--surface) 13%, transparent);
+  color: var(--surface);
+  padding: 15px 18px;
+  display: grid;
+  grid-template-columns: 34px 1fr 48px;
+  align-items: center;
+  gap: 14px;
+  text-align: right;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 color-mix(in oklch, var(--surface) 12%, transparent);
+}
+.choice-card.selected {
+  background: var(--surface);
+  border-color: var(--surface);
+  color: var(--fg);
+  box-shadow: 0 12px 26px color-mix(in oklch, var(--fg) 12%, transparent);
+}
+.card-text strong { display: block; font-size: 17px; line-height: 1.25; font-weight: 800; }
+.card-text span { display: block; margin-top: 5px; font-size: 13px; line-height: 1.45; color: color-mix(in oklch, var(--surface) 76%, transparent); font-weight: 600; }
+.choice-card.selected .card-text span { color: var(--muted); }
+.radio { width: 28px; height: 28px; border-radius: 50%; border: 2px solid color-mix(in oklch, var(--surface) 26%, transparent); display: grid; place-items: center; }
+.choice-card.selected .radio { border-color: var(--accent); background: var(--accent); color: var(--surface); }
+.radio svg { width: 14px; height: 14px; opacity: 0; }
+.choice-card.selected .radio svg { opacity: 1; }
+.card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: color-mix(in oklch, var(--surface) 12%, transparent);
+  color: var(--surface);
+}
+.choice-card.selected .card-icon { background: color-mix(in oklch, var(--accent-secondary) 18%, var(--surface)); color: var(--fg); }
+.hero-card, .white-card {
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+  box-shadow: 0 16px 30px color-mix(in oklch, var(--fg) 12%, transparent);
+}
+.hero-card p, .white-card p { color: var(--muted); font-size: 15px; line-height: 1.55; font-weight: 600; }
+.hero-card strong, .white-card strong { display: block; color: var(--fg); font-size: 22px; line-height: 1.25; margin-bottom: 9px; font-weight: 800; }
+.bottom { margin-top: auto; display: grid; gap: 18px; }
+.dots { display: flex; justify-content: center; gap: 8px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: color-mix(in oklch, var(--surface) 24%, transparent); }
+.dot.done { background: color-mix(in oklch, var(--surface) 42%, transparent); }
+.dot.active { width: 30px; border-radius: var(--pill); background: var(--surface); }
+.cta {
+  height: 56px;
+  width: 100%;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent-secondary);
+  color: var(--fg);
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 26px color-mix(in oklch, var(--accent-secondary) 28%, transparent);
+}
+/* ד4 · צל הכפתור נגזר מצבע הכפתור. `.cta` נותן צל ירוק, וכשהרקע התחלף לסגול
+   נשאר זוהר ירוק מתחת לכפתור סגול. */
+.cta.secondary {
+  background: var(--accent);
+  color: var(--surface);
+  box-shadow: 0 12px 26px color-mix(in oklch, var(--accent) 28%, transparent);
+}
+.choice-card:active, .cta:active, .back-btn:active { transform: scale(.98); }
+.field { display: grid; gap: 8px; }
+.field label { color: var(--surface); font-size: 14px; font-weight: 800; }
+.field input, .field textarea {
+  width: 100%;
+  border: 0;
+  border-radius: var(--radius);
+  background: color-mix(in oklch, var(--surface) 14%, transparent);
+  color: var(--surface);
+  padding: 15px 16px;
+  outline: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  font-size: 16px;
+  font-weight: 700;
+}
+.field textarea { min-height: 86px; resize: none; line-height: 1.5; }
+.field input::placeholder, .field textarea::placeholder { color: color-mix(in oklch, var(--surface) 46%, transparent); }
+.pill-row { display: flex; flex-wrap: wrap; gap: 9px; }
+.pill {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: var(--pill);
+  border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  background: color-mix(in oklch, var(--surface) 12%, transparent);
+  color: var(--surface);
+  font-size: 13px;
+  font-weight: 800;
+}
+.pill.active { background: var(--surface); color: var(--fg); }
+.voice-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 9px; direction: ltr; }
+.voice-dot { aspect-ratio: 1; border-radius: 50%; border: 1px solid color-mix(in oklch, var(--surface) 26%, transparent); background: color-mix(in oklch, var(--surface) 12%, transparent); }
+.voice-dot.on { background: var(--accent-secondary); border-color: var(--accent-secondary); box-shadow: 0 6px 12px color-mix(in oklch, var(--accent-secondary) 26%, transparent); }
+.with-tabs .voice-grid { grid-template-columns: repeat(7, 26px); justify-content: space-between; gap: 8px; }
+.sheet {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 28px 28px 0 0;
+  max-height: calc(100% - 96px);   /* 2.7 · בלי תקרה גיליון גבוה נחתך מלמעלה בשקט */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--surface);
+  color: var(--fg);
+  padding: 34px 32px 36px;
+  display: grid;
+  gap: 18px;
+  box-shadow: 0 -24px 60px color-mix(in oklch, var(--fg) 18%, transparent);
+}
+.sheet:before { content: ""; width: 44px; height: 6px; border-radius: var(--pill); background: var(--border); justify-self: center; }
+.sheet h1 { color: var(--fg); font-size: 31px; }
+.sheet p { color: var(--muted); font-size: 16px; line-height: 1.5; font-weight: 600; }
+.with-tabs { padding-bottom: 118px; }
+.with-tabs .heading { margin-bottom: 18px; }
+.with-tabs .subtitle { margin-top: 10px; font-size: 15px; }
+.with-tabs .cards { gap: 10px; }
+.with-tabs .choice-card { min-height: 72px; padding: 12px 14px; grid-template-columns: 30px 1fr 44px; gap: 10px; }
+.with-tabs .card-icon { width: 44px; height: 44px; }
+.with-tabs .card-text strong { font-size: 15px; }
+.with-tabs .card-text span { font-size: 12px; margin-top: 3px; }
+.with-tabs .hero-card, .with-tabs .white-card { padding: 18px 20px; }
+.with-tabs .bottom { margin-bottom: 10px; }
+/* ד7 · עיגול הצ׳אט עולה 29px מעל שורת הטאבים, ו-118px של `.with-tabs` נמדדו
+   מול השורה בלבד. כפתור ראשי ברוחב מלא נגמר תשעה פיקסלים מתחתיו.
+   רק הכפתור: שורת גלולות בתחתית לא עוברת מתחת לעיגול הממורכז. */
+.with-tabs .bottom > .cta:last-child { margin-bottom: 15px; }
+/* ── אזור גלילה ──
+   לשים בין .heading ל-.bottom כשהתוכן ארוך מהמסך.
+   ה-margin השלילי מאפשר לצללים של כרטיסים לנשום עד הקצה. */
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 -32px;
+  padding: 2px 32px 6px;
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.scroll::-webkit-scrollbar { display: none; }
+.with-tabs .scroll { gap: 10px; }
+/* ב1 · אזור גלילה שיושב מעל שורת הטאבים. בלי מרווח בתחתיתו הפריט האחרון
+   נעצר בדיוק מאחורי עיגול הצ׳אט. אותו 118px של .with-tabs.
+   מודיפייר ולא כלל גורף, כי רק מסך שתוכנו באמת עולה על הגובה צריך אותו. */
+.scroll.clear-tabs { padding-bottom: 118px; }
+/* ב6 · אותו דבר מול שורת הנקודות שמתחת לאזור הגלילה. בלי זה אי אפשר
+   לגלול את הכרטיס האחרון אל מעבר לנקודות, והן נוחתות עליו. 9px + 16px. */
+.scroll.clear-dots { padding-bottom: 25px; }
+/* למסכי שלב יחיד: התוכן יושב במרכז ולא נדחף למעלה עם ריק מתחתיו */
+.scroll.center { align-content: center; }
+
+/* רמז ויזואלי שיש עוד תוכן מתחת.
+   מסכה על התיבה עצמה, לא ::after בתוכה. פסאודו-אלמנט אבסולוטי בתוך
+   תיבה נגללת נוסע עם התוכן לתחתית הגובה הנגלל במקום להיצמד לקצה הנראה. */
+.scroll-fade {
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 36px), transparent);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 36px), transparent);
+}
+
+/* ── רשימה שקטה ──
+   "מה עוד היום". לתודעה ולא לביצוע. בלי כפתור ובלי סימון. */
+.quiet { display: grid; gap: 6px; }
+.quiet-label { color: color-mix(in oklch, var(--surface) 74%, transparent); font-size: 13px; font-weight: 800; margin-bottom: 2px; }
+.quiet p { color: color-mix(in oklch, var(--surface) 80%, transparent); font-size: 15px; line-height: 1.45; font-weight: 600; }
+
+/* ── שתי פעולות שוות משקל ──
+   כששתי האפשרויות שקולות ואין ברירת מחדל. */
+.btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn-row .cta { font-size: 16px; }
+
+/* גרסה גדולה של .pill, לשעות שבהן הדלת צריכה להיות זמינה יותר */
+.pill.lg { flex: 1; min-height: 52px; padding: 0 20px; font-size: 15px; }
+/* ה · גלולת יום בודדת. בלי רוחב קבוע כל אות עברית נותנת רוחב אחר,
+   ושבעת ימי השבוע יצאו 38, 37, 36, 37, 38, 34, 39.
+   38 ולא 40: 7×40 ועוד 6×9 של gap הם 334 מול 326 זמינים, והשביעית נופלת. */
+.pill.day { width: 38px; padding: 0; }
+
+/* ── מצב ריק ── */
+.empty {
+  flex: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: 13px;
+  padding: 20px 8px;
+}
+.empty-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: color-mix(in oklch, var(--surface) 12%, transparent);
+  border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  color: var(--surface);
+}
+.empty-icon svg { width: 30px; height: 30px; }
+.empty strong { color: var(--surface); font-size: 20px; line-height: 1.3; font-weight: 800; }
+.empty p {
+  color: color-mix(in oklch, var(--surface) 58%, transparent);
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 600;
+  max-width: 264px;
+}
+/* כשהמצב הריק יושב על החלק הבהיר של המסך או בתוך כרטיס לבן */
+.empty.on-light .empty-icon { background: color-mix(in oklch, var(--accent) 8%, var(--surface)); border-color: var(--border); color: var(--accent); }
+.empty.on-light strong { color: var(--fg); }
+.empty.on-light p { color: var(--muted); }
+
+/* ═══════════════════════════════════════════════════
+   תוספות שנגזרו מדיווחי הסוכנים. כל אחת נדרשה בפועל.
+   ═══════════════════════════════════════════════════ */
+
+/* ── טיפוגרפיה של תצוגה ──
+   הגופן הגדול ביותר היה h1 בגודל 33px, ולכן ספירה לאחור
+   נקראה כטקסט רגיל במקום כאלמנט שממלא את המסך. */
+.count-number {
+  color: var(--surface);
+  font-size: 132px;
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.04em;
+  text-align: center;
+}
+.count-word { color: var(--surface); font-size: 46px; font-weight: 800; text-align: center; letter-spacing: -.02em; }
+
+/* ── שחרור מגבלת ה-SVG ──
+   הכלל הגלובלי כופה 21px על כל SVG. זה נכון לאייקונים
+   וחוסם כל גרפיקה גדולה. שתי דרכי מילוט מפורשות. */
+svg.free { width: auto; height: auto; }
+.svg-xl svg { width: 100%; height: 100%; }
+
+/* ── עיגול נשימה ──
+   האלמנט המרכזי במסך הנשימה. בלי מספרים ובלי טיימר. */
+.breath-circle {
+  width: 210px; height: 210px;
+  border-radius: 50%;
+  justify-self: center;
+  display: grid; place-items: center;
+  border: 1px solid color-mix(in oklch, var(--surface) 26%, transparent);
+  background: radial-gradient(circle at 50% 50%, color-mix(in oklch, var(--surface) 16%, transparent), transparent 72%);
+  animation: breathe 11s ease-in-out infinite;
+}
+.breath-circle span { color: color-mix(in oklch, var(--surface) 78%, transparent); font-size: 17px; font-weight: 700; }
+@keyframes breathe { 0%, 100% { transform: scale(.80) } 46% { transform: scale(1) } }
+
+/* ── CTA שקט ──
+   לאזורים שבהם כפתור ירוק מלא צועק יותר מדי. */
+.cta.quiet {
+  background: transparent;
+  color: color-mix(in oklch, var(--surface) 76%, transparent);
+  border: 1px solid color-mix(in oklch, var(--surface) 22%, transparent);
+  box-shadow: none;
+  font-size: 16px;
+}
+
+/* ── קישור טקסט שקט וממורכז ──
+   ל"לא עכשיו". היה נאלץ להיות .pill, שרועש מדי. */
+.text-link {
+  display: block; width: 100%;
+  border: 0; background: transparent;
+  color: color-mix(in oklch, var(--surface) 52%, transparent);
+  font-size: 14px; font-weight: 700; text-align: center;
+  padding: 8px; cursor: pointer;
+}
+
+/* ── שורת תצוגה ──
+   פריט + מונה, בלי עיגול רדיו. .choice-card שימש לזה
+   והעיגול הריק נקרא כמשימה שלא סומנה. */
+.stat-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 13px 16px;
+  border-radius: var(--radius);
+  background: color-mix(in oklch, var(--surface) 13%, transparent);
+  border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  color: var(--surface);
+}
+.stat-row b { font-size: 15px; font-weight: 800; }
+.stat-row span { font-size: 13px; font-weight: 800; white-space: nowrap; color: color-mix(in oklch, var(--surface) 62%, transparent); }
+
+/* ── סימון בחירה מרובה ──
+   עיגול משדר "בחרי אחד". ריבוע משדר "אפשר כמה". */
+.radio.check { border-radius: 7px; }
+
+/* ── גריד קולות בגודל משתנה ──
+   היה נעול ל-7 עבור שבוע, והשאיר חור במסך ההתארקות. */
+.voice-grid.five { grid-template-columns: repeat(5, 1fr); }
+.with-tabs .voice-grid.five { grid-template-columns: repeat(5, 34px); }
+
+/* ── אותיות קטנות ──
+   לאזהרה על טיפול מקצועי. .quiet-label היה כבד מדי. */
+/* ד12 · 44% לבן על סגול בינוני היה מתחת לסף הקריאות. בתוך גיליון הכלל
+   הזה נדרס ממילא ע"י `.sheet .fine-print`, ולכן השינוי נוגע רק לשני
+   המסכים שבהם השורה יושבת על סגול: calm-breath ו-calm-ground. */
+.fine-print {
+  color: color-mix(in oklch, var(--surface) 70%, transparent);
+  font-size: 11.5px; line-height: 1.45; font-weight: 600; text-align: center;
+}
+
+/* ── שלבים פנימיים ופס התקדמות ──
+   היו כלואים בבלוקי <style> של 26-habits-editor ו-36-habit-break.
+   כל תהליך רב-שלבי באפליקציה צריך אותם. */
+.pane { display: none; gap: 16px; }
+.pane.active { display: grid; }
+.progress-line {
+  height: 8px; border-radius: var(--pill);
+  background: color-mix(in oklch, var(--surface) 18%, transparent);
+  overflow: hidden; margin-bottom: 26px;
+}
+/* מונפש ב-transform ולא ב-width, כדי לא לגרום לחישוב פריסה מחדש.
+   ההתקדמות נקבעת במחלקה ולא ב-style פנימי, שאסור. RTL, ולכן מימין. */
+.progress-fill {
+  width: 100%; height: 100%; border-radius: inherit;
+  background: var(--accent-secondary);
+  transform-origin: right center;
+  transform: scaleX(.2);
+  transition: transform .25s cubic-bezier(.2,0,0,1);
+}
+.progress-fill.p17 { transform: scaleX(.17) }
+.progress-fill.p20 { transform: scaleX(.20) }
+.progress-fill.p25 { transform: scaleX(.25) }
+.progress-fill.p33 { transform: scaleX(.33) }
+.progress-fill.p40 { transform: scaleX(.40) }
+.progress-fill.p50 { transform: scaleX(.50) }
+.progress-fill.p60 { transform: scaleX(.60) }
+.progress-fill.p67 { transform: scaleX(.67) }
+.progress-fill.p75 { transform: scaleX(.75) }
+.progress-fill.p80 { transform: scaleX(.80) }
+.progress-fill.p83 { transform: scaleX(.83) }
+.progress-fill.p100 { transform: scaleX(1) }
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* המשפט המסכם בסוף תהליך הקמה */
+.contract { font-size: 24px; line-height: 1.42; font-weight: 800; color: var(--fg); }
+.contract span { display: block; }
+.contract small { display: block; margin-top: 14px; color: var(--accent); font-size: 18px; }
+.formula { font-size: 23px; line-height: 1.42; font-weight: 800; color: var(--fg); }
+.formula mark { background: color-mix(in oklch, var(--accent-secondary) 42%, var(--surface)); color: var(--fg); border-radius: 10px; padding: 0 6px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* שורת טאבים · זכוכית סגולה כהה. אישור חן 30.7 */
+
+.tab-bar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 14px;
+  height: 76px;
+  border-radius: 30px;
+  background: linear-gradient(165deg, color-mix(in oklch, var(--fg) 54%, transparent), color-mix(in oklch, var(--fg) 34%, transparent));
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  box-shadow: 0 20px 48px color-mix(in oklch, var(--fg) 48%, transparent), inset 0 1px 0 color-mix(in oklch, var(--surface) 26%, transparent);
+  color: color-mix(in oklch, var(--surface) 66%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  overflow: visible;
+}
+.tab {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  display: grid;
+  place-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  min-width: 54px;
+}
+.tab svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tab.active { color: var(--surface); }
+.fab {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 70px;
+  background: linear-gradient(150deg, color-mix(in oklch, var(--accent) 78%, var(--surface)), var(--accent));
+  color: #ffffff;
+  border: 1px solid color-mix(in oklch, var(--surface) 34%, transparent);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 18px 38px color-mix(in oklch, var(--fg) 52%, transparent), 0 0 30px color-mix(in oklch, var(--accent) 70%, transparent);
+}
+.fab svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ── וריאנט כהה לתוך גיליון ──────────────────────────────────────────
+   כל הרכיבים למעלה נבנו לטקסט לבן על רקע סגול. בתוך `.sheet` הרקע לבן,
+   ולכן הם נעלמו: שדות הכתיבה, הכפתור השקט, תיאורי הכרטיסים ושורות היציאה.
+   זו גם הסיבה שכל כרטיס בגיליון סומן `selected`, כי זו הייתה הדרך היחידה
+   לקבל טקסט כהה. הבלוק הזה מחליף את המעקף. אומת ב-getComputedStyle. 30.7 */
+
+.sheet .text-link { color: var(--accent-ink); }
+.sheet .fine-print { color: #6b6480; }
+
+.sheet .cta.quiet {
+  background: color-mix(in oklch, var(--accent) 6%, var(--surface));
+  color: var(--accent-ink);
+  border: 1px solid color-mix(in oklch, var(--accent) 38%, var(--surface));
+}
+
+.sheet .field label { color: var(--fg); }
+.sheet .field input,
+.sheet .field textarea {
+  background: color-mix(in oklch, var(--accent) 5%, var(--surface));
+  color: var(--fg);
+  outline: 1px solid var(--border);
+}
+.sheet .field input::placeholder,
+.sheet .field textarea::placeholder { color: #6b6480; }
+
+/* כרטיס לא נבחר חייב מצב נראה משלו, אחרת אין דרך להבחין בין
+   "אפשרות" לבין "מה שבחרתי", וזה בדיוק מה שיקר בזיכרון העבודה. */
+.sheet .choice-card {
+  background: color-mix(in oklch, var(--accent) 5%, var(--surface));
+  border-color: var(--border);
+  color: var(--fg);
+}
+.sheet .choice-card .card-text span { color: #6b6480; }
+.sheet .choice-card .radio { border-color: color-mix(in oklch, var(--accent) 34%, var(--surface)); }
+.sheet .choice-card.selected {
+  background: color-mix(in oklch, var(--accent) 13%, var(--surface));
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+/* ── גלולה בתוך גיליון ──
+   ב5 · `.pill` נבנתה ללבן על סגול, ובתוך גיליון לבן היא בלתי נראית. זו הסיבה
+   ששבע המדרגות בסולם הרגשי סומנו `active` — זו הייתה הדרך היחידה לראות אותן,
+   והמחיר היה שכולן נקראו כנבחרות. אותה שיטה שכבר קיימת ל-`.sheet .choice-card`.
+   `.sheet .pill.active` חייב להיות כאן: `.pill.active` מוקדם יותר בקובץ
+   ובאותה ספציפיות כמו `.sheet .pill`, ולכן היה נדרס. */
+.sheet .pill {
+  background: color-mix(in oklch, var(--accent) 5%, var(--surface));
+  border-color: var(--border);
+  color: var(--fg);
+}
+.sheet .pill.active {
+  background: color-mix(in oklch, var(--accent) 13%, var(--surface));
+  border-color: var(--accent);
+  color: var(--fg);
+}
+
+/* ── נקודת קול על רקע לבן ──
+   ב4 · `.voice-dot` הכבויה היא לבן ב-12% עם מסגרת לבנה ב-26%. בתוך כרטיס
+   לבן היא נעלמת לגמרי, ויום שהוחמץ נקרא כחור ברשת במקום כעיגול ריק.
+   רקע שקוף ומסגרת בצבע הגבול. בלי מילוי ובלי אדום.
+   `:not(.on)` ולא `.voice-dot` סתם: הכלל הזה מאוחר יותר בקובץ מ-`.voice-dot.on`
+   ובאותה ספציפיות, ובלי הסייג הוא היה מכבה גם את הנקודות הדולקות. 31.7 */
+.white-card .voice-dot:not(.on),
+.hero-card .voice-dot:not(.on),
+.sheet .voice-dot:not(.on) { background: transparent; border: 1px solid var(--border); }
+
+/* ── כרטיס טקסט בלבד ──
+   `.choice-card` מקצה `34px 1fr 48px`. בכרטיסים שאין בהם אייקון ורדיו
+   שתי העמודות האלה ריקות, והטקסט נדחס לפחות ממחצית הרוחב. 30.7 */
+.choice-card.plain { grid-template-columns: 1fr; }
+/* ד5 · בתוך גיליון, כרטיס טקסט בלבד בגובה 84px לשורה אחת של 21px. חמישה
+   כאלה מייצרים מסך כמעט ריק. הגובה נגזר מהתוכן, עם רצפה נמוכה. */
+.sheet .choice-card.plain { min-height: 64px; }
+
+/* ── עמעום מאחורי גיליון ──
+   ההערה בשמונת הגיליונות אומרת "מעומעם ולא אינטראקטיבי", אבל היה רק
+   `inert`. ובלי זה עיגול הנשימה ממשיך לנוע מאחורי מסך שמבקש ריכוז. 30.7 */
+/* העמעום דרך box-shadow ולא דרך פסאודו-אלמנט: ל-.sheet כבר יש :before,
+   שהוא ידית הגרירה, ושני כללים לאותו פסאודו נמזגים ושוברים אותו.
+   נשבר 31.7 בדיוק ככה, ותוקן. */
+.sheet { box-shadow: 0 0 0 100vmax color-mix(in oklch, var(--fg) 46%, transparent); }
+[inert] .breath-circle { animation: none; }
+
+/* ── גיליון מוסתר ──
+   `35-habit-resistance` הציג גיליון קבוע שכיסה את התוכן ואת שורת הטאבים. 30.7 */
+.sheet[hidden] { display: none; }

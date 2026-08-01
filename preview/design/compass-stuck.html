@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - רגע ההתקעות</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="compass-stuck-screen">
+  <section class="content">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label">להביא 12 לקוחות</span>
+      <button class="back-btn" aria-label="חזרה"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    </div>
+
+    <header class="heading" data-od-id="stuck-heading">
+      <h1 data-od-id="screen-title">מה עוצר במטרה הזאת?</h1>
+      <p class="subtitle">שאלה אחת, ונדע לאן מכאן.</p>
+    </header>
+
+    <div class="scroll center" data-od-id="stuck-body">
+      <section class="cards" data-od-id="stuck-routes">
+        <button class="choice-card" data-od-id="route-cannot-start">
+          <span class="radio"></span>
+          <span class="card-text"><strong>אני לא מצליחה להתחיל</strong><span>נקטין אותה ונכתוב מחדש</span></span>
+          <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16"/></svg></span>
+        </button>
+        <button class="choice-card" data-od-id="route-belief">
+          <span class="radio"></span>
+          <span class="card-text"><strong>אני לא מאמינה שזה יקרה</strong><span>נסתכל על מה שאת אומרת לעצמך</span></span>
+          <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M8 14a6 6 0 118 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span>
+        </button>
+        <button class="choice-card" data-od-id="route-out-of-control">
+          <span class="radio"></span>
+          <span class="card-text"><strong>זה תלוי במשהו שלא בשליטתי</strong><span>נבדוק אם יש בכלל מה לעשות</span></span>
+          <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 109 9"/><path d="M12 3v9h9"/></svg></span>
+        </button>
+      </section>
+    </div>
+  </section>
+</main>
+<script>
+  /* 1.8 · המסך היה מת לגמרי. גם הכותרת התנגשה עם stuck-choice של רגע הפעולה. 30.7 */
+  document.querySelectorAll('.choice-card').forEach(function (c) {
+    c.addEventListener('click', function () { location.href = 'compass-goal-editor.html'; });
+  });
+</script>
+</body>
+</html>

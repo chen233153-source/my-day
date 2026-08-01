@@ -79,9 +79,8 @@
 <header>
   <h1>היום שלי · כל המסכים</h1>
   <p class="lede">
-    המסך החי מימין, ומתחתיו מה הוא עושה ומה כתוב בו.
-    משמאל, כשקיים, צילום מגרסת הקוד הישנה. לעיון בלבד, לא מקור אמת.
-    ארגז אדום מסמן סתירה אמיתית בין שני מסכים חיים.
+    כל מסך חי ורץ, ומתחתיו מה הוא עושה ומה כתוב בו.
+    ארגז אדום מסמן סתירה אמיתית בין שני מסכים.
     סדר המסכים הוא סדר הפלאוו מ־<code>plans/MAP.md</code>.
   </p>
 </header>
@@ -102,12 +101,10 @@ function pane(title, kind, inner){
 
 function screenBlock(s){
   const panes = [];
+  // צילומי הטסט מגרסת הקוד הישנה הוסרו מהתצוגה 31.7. הם לא קשורים לעיצוב.
+  // הקבצים עצמם נשארים ב-design/_archive-old-mockups/.
   if (s.built) panes.push(pane('המסך', 'chen',
     `<div class="frame"><iframe data-src="design/${enc(s.built)}"></iframe></div>`));
-  if (s.chen) panes.push(pane('טסט מגרסת הקוד הישנה', 'agent',
-    `<img loading="lazy" src="design/${enc(s.chen)}" alt="">`));
-  if (s.chen2) panes.push(pane('טסט ישן · המשך', 'agent',
-    `<img loading="lazy" src="design/${enc(s.chen2)}" alt="">`));
 
   return `<article class="screen" id="s-${s.id}">
     <div class="head">
@@ -128,14 +125,7 @@ document.getElementById('app').innerHTML = SECTIONS.map((sec, i) => `
     <div class="sec-h"><h2>${esc(sec.title)}</h2>
       ${sec.sub ? `<p>${esc(sec.sub)}</p>` : ''}</div>
     ${sec.screens.map(screenBlock).join('')}
-  </section>`).join('') + `
-  <section id="sec-orphans">
-    <div class="sec-h"><h2>טסטים ישנים בלי מסך מקביל</h2>
-      <p>צילומים מגרסת הקוד הישנה. שמורים ב־_archive-old-mockups, לעיון בלבד.</p></div>
-    <div class="orphans">${ORPHANS.map(o => `<figure>
-      <img loading="lazy" src="design/${enc(o.file)}" alt="">
-      <figcaption>${esc(o.label)}</figcaption></figure>`).join('')}</div>
-  </section>`;
+  </section>`).join('');
 
 // 47 מסגרות חיות בבת אחת מקפיאות את הדפדפן.
 // נטענת רק מה שקרוב למסך, ומתפנה כשמתרחקים.
@@ -149,8 +139,7 @@ const io = new IntersectionObserver(entries => {
 document.querySelectorAll('iframe[data-src]').forEach(f => io.observe(f));
 
 document.getElementById('toc').innerHTML =
-  SECTIONS.map((s, i) => `<a href="#sec-${i}">${esc(s.title)}</a>`).join('') +
-  `<a href="#sec-orphans">טסטים ישנים</a>`;
+  SECTIONS.map((s, i) => `<a href="#sec-${i}">${esc(s.title)}</a>`).join('');
 </script>
 </body>
 </html>

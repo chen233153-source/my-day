@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "35-habit-resistance.html",
+  "entry": "35-habit-resistance.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-27T08:14:46.562Z",
+  "updatedAt": "2026-07-27T08:14:46.562Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

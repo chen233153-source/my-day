@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - רגע הפעולה</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  :root {
+    --fg: #1e1b2e; --accent: #9b5de5; --accent-secondary: #34d399;
+    --surface: #ffffff; --muted: #8b85a1; --border: #d4cfe8;
+    --radius: 16px; --radius-lg: 24px; --radius-pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+  html, body { height: 100%; overflow: hidden }
+  body { font-family: var(--font); color: var(--fg); display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 28% 12%, color-mix(in oklch, var(--accent) 18%, transparent), transparent 34%), var(--bg);
+  }
+
+  .phone {
+    width: 390px; height: 844px;
+    background: radial-gradient(ellipse at 20% 8%, color-mix(in oklch, var(--surface) 20%, transparent), transparent 32%),
+    radial-gradient(ellipse at 92% 80%, color-mix(in oklch, var(--bg) 42%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in oklch, var(--fg) 30%, var(--accent)) 0%, var(--accent) 42%, var(--accent) 72%, color-mix(in oklch, var(--accent) 62%, var(--bg)) 88%, var(--bg) 108%);
+    border-radius: 44px; position: relative; overflow: hidden;
+    box-shadow: 0 40px 80px color-mix(in oklch, var(--fg) 22%, transparent),
+    0 8px 24px color-mix(in oklch, var(--fg) 18%, transparent);
+    display: flex; flex-direction: column;
+  }
+  /* רקע אחיד לכל האפליקציה, זהה ל-habit-flow.css. 30.7 */
+  .phone:before {
+    content: "";
+    position: absolute;
+    inset: 250px auto auto -80px;
+    width: 470px;
+    height: 470px;
+    border: 1px solid color-mix(in oklch, var(--surface) 9%, transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+
+  /* ── Main content ── */
+  .main {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    /* 30.7 · עיגול הצ'אט הצף נכנס 23 פיקסלים לתוך כרטיס משימה ב׳,
+       והמסך הזה לא נגלל. הריווח מנקה את שורת הטאבים ואת העיגול יחד. */
+    padding: 56px 28px 132px; gap: 8px;
+  }
+
+  /* ── Task label ── */
+  .task-label { font-size: 13px; color: color-mix(in oklch, var(--surface) 50%, transparent); margin-bottom: 4px }
+  .task-name {
+    font-size: 22px; font-weight: 800; color: var(--surface);
+    text-align: center; line-height: 1.3; margin-bottom: 24px;
+  }
+
+  /* ── Timer ring ── */
+  .timer-wrap { position: relative; width: 220px; height: 220px; margin-bottom: 28px }
+  .timer-ring {
+    width: 100%; height: 100%;
+    transform: rotate(-90deg);
+  }
+  .ring-bg { fill: none; stroke: color-mix(in oklch, var(--surface) 12%, transparent); stroke-width: 6 }
+  .ring-progress { fill: none; stroke: var(--surface); stroke-width: 6; stroke-linecap: round;
+    stroke-dasharray: 628; stroke-dashoffset: 0; transition: stroke-dashoffset .5s linear;
+  }
+  .timer-text {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .timer-mins { font-size: 56px; font-weight: 800; color: var(--surface); line-height: 1; direction: ltr }
+  .timer-secs { font-size: 16px; color: color-mix(in oklch, var(--surface) 50%, transparent); margin-top: 2px }
+
+  /* ── Controls ── */
+  .controls { display: flex; gap: 16px; align-items: center; margin-bottom: 20px }
+  .btn-start {
+    width: 64px; height: 64px; border-radius: 50%; border: none;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; box-shadow: 0 6px 24px color-mix(in oklch, var(--fg) 15%, transparent);
+  }
+  .btn-start svg { width: 28px; height: 28px; fill: var(--accent); margin-right: -2px }
+  .btn-start.running svg { fill: var(--accent) }
+  /* א3 · שלושת הפריטים בשורה באותו גובה, והטקסט בשורה אחת.
+     קודם: play 64, להחליף משימה 63 בשתי שורות, סיימתי 45. */
+  .btn-start { flex-shrink: 0 }
+  .btn-skip-task {
+    height: 64px; padding: 0 22px; white-space: nowrap;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: var(--radius-pill);
+    border: 1px solid color-mix(in oklch, var(--surface) 25%, transparent); background: color-mix(in oklch, var(--surface) 10%, transparent);
+    backdrop-filter: blur(4px);
+    font-family: var(--font); font-size: 14px; font-weight: 600;
+    color: var(--surface); cursor: pointer;
+  }
+
+  /* ── Task queue ── */
+  .queue { width: 100%; padding: 0 4px }
+  .queue-title { font-size: 12px; color: color-mix(in oklch, var(--surface) 40%, transparent); margin-bottom: 10px; text-align: center }
+  .queue-list { display: flex; flex-direction: column; gap: 8px }
+  .queue-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px;
+    background: color-mix(in oklch, var(--surface) 10%, transparent);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    border: 1px solid color-mix(in oklch, var(--surface) 10%, transparent);
+  }
+  .queue-item.active {
+    background: var(--surface);
+    border-color: var(--surface);
+    box-shadow: 0 4px 16px color-mix(in oklch, var(--fg) 10%, transparent);
+  }
+  .queue-num {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: color-mix(in oklch, var(--surface) 15%, transparent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: var(--surface);
+    flex-shrink: 0;
+  }
+  .queue-item.active .queue-num { background: var(--accent); color: var(--surface) }
+  .queue-item.done .queue-num { background: var(--accent-secondary); color: var(--fg) }
+  .queue-item-text { font-size: 14px; font-weight: 500; color: color-mix(in oklch, var(--surface) 70%, transparent) }
+  .queue-item.active .queue-item-text { color: var(--fg); font-weight: 600 }
+  .queue-item.done .queue-item-text { color: color-mix(in oklch, var(--surface) 40%, transparent); text-decoration: line-through }
+  .queue-time { margin-right: auto; font-size: 12px; color: color-mix(in oklch, var(--surface) 35%, transparent); direction: ltr }
+  .queue-item.active .queue-time { color: var(--muted) }
+
+  /* ── Tab bar ── */
+
+  .tab.active svg { stroke-width: 2.2 }
+  /* OD cohesive app layer: approved v2 visual language */
+  :root {
+    --bg: #ede9fe;
+    --fg: #1e1b2e;
+    --accent: #9b5de5;
+    --accent-secondary: #34d399;
+    --mint: #34d399;
+    --surface: #ffffff;
+    --muted: #8b85a1;
+    --border: #d4cfe8;
+    --radius: 16px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --pill: 999px;
+    --font: 'Assistant', system-ui, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  body {
+    font-family: var(--font);
+    background:
+      radial-gradient(ellipse at 30% 12%, color-mix(in oklch, var(--accent) 20%, transparent), transparent 34%),
+      radial-gradient(ellipse at 68% 88%, color-mix(in oklch, var(--accent-secondary) 14%, transparent), transparent 32%),
+      var(--bg);
+  }
+
+  .phone {
+    background:
+      radial-gradient(ellipse at 20% 8%, color-mix(in oklch, var(--surface) 20%, transparent), transparent 32%),
+    radial-gradient(ellipse at 92% 80%, color-mix(in oklch, var(--bg) 42%, transparent), transparent 42%),
+    linear-gradient(180deg, color-mix(in oklch, var(--fg) 30%, var(--accent)) 0%, var(--accent) 42%, var(--accent) 72%, color-mix(in oklch, var(--accent) 62%, var(--bg)) 88%, var(--bg) 108%);
+    box-shadow: 0 40px 80px color-mix(in oklch, var(--fg) 22%, transparent),
+    0 8px 24px color-mix(in oklch, var(--fg) 18%, transparent);
+  }
+
+  .scroll { padding-inline: 20px; }
+  .glow-1 { background: color-mix(in oklch, var(--surface) 28%, transparent) !important; }
+  .glow-2 { background: color-mix(in oklch, var(--accent-secondary) 18%, transparent) !important; }
+  .glow-3 { background: color-mix(in oklch, var(--accent) 24%, transparent) !important; }
+  .ring { border-color: color-mix(in oklch, var(--surface) 8%, transparent) !important; }
+
+  .card,
+  .tasks-card,
+  .habit-card,
+  .time-card,
+  .queue-item,
+  .glass,
+  .reflect-card,
+  .quote-card,
+  .card-pink {
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in oklch, var(--surface) 14%, transparent);
+  }
+
+  .tasks-card,
+  .glass,
+  .quote-card,
+  .reflect-card,
+  .card-pink,
+  .queue-item:not(.active) {
+    background: color-mix(in oklch, var(--surface) 14%, transparent);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+
+  .quote-card,
+  .reflect-card,
+  .card-pink,
+  .glass-purple {
+    color: var(--surface);
+  }
+
+  .quote-card::before,
+  .reflect-card::before {
+    background: color-mix(in oklch, var(--mint) 78%, var(--surface));
+  }
+
+  .actions,
+  .quick-actions {
+    gap: 9px;
+    margin-bottom: 18px;
+  }
+
+  .action-card,
+  .action-btn,
+  .qa-btn,
+  .pill {
+    min-height: 44px;
+    border-radius: var(--radius);
+    transition: transform .15s cubic-bezier(.2,0,0,1), box-shadow .15s cubic-bezier(.2,0,0,1), opacity .15s cubic-bezier(.2,0,0,1);
+  }
+
+  .action-card,
+  .action-btn,
+  .qa-btn {
+    box-shadow: 0 14px 24px color-mix(in oklch, var(--fg) 10%, transparent);
+  }
+
+  .action-card:active,
+  .action-btn:active,
+  .qa-btn:active,
+  .cta:active,
+  .cta-purple:active,
+  .btn-pill:active,
+  .btn-save:active,
+  .btn-sm:active,
+  .btn-start:active,
+  .btn-skip-task:active,
+  .preset:active,
+  .fab:active {
+    transform: translateY(1px) scale(.985);
+    opacity: .9;
+  }
+
+  .cta,
+  .cta-purple,
+  .btn-pill,
+  .btn-save,
+  .btn-sm,
+  .pill-mint,
+  .preset.active {
+    background: var(--accent-secondary) !important;
+    color: var(--fg) !important;
+    border-color: color-mix(in oklch, var(--accent-secondary) 72%, var(--surface)) !important;
+    box-shadow: 0 16px 28px color-mix(in oklch, var(--fg) 14%, transparent) !important;
+  }
+
+  .btn-ghost,
+  .btn-skip,
+  .btn-skip-task {
+    color: color-mix(in oklch, var(--surface) 78%, transparent) !important;
+    border-color: color-mix(in oklch, var(--surface) 22%, transparent) !important;
+  }
+
+  .manifest-card {
+    background: linear-gradient(135deg, color-mix(in oklch, var(--mint) 72%, var(--surface)), color-mix(in oklch, var(--mint) 36%, var(--bg)));
+    color: var(--fg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: .01ms !important;
+    }
+  }
+  
+
+  .btn-gratitude,
+  .qa-gratitude,
+  .pill-mint,
+  .card-gratitude {
+    background: var(--accent-secondary) !important;
+    color: var(--fg) !important;
+  }
+
+  .btn-growth,
+  .pill-pink,
+  .qa-stuck,
+  .qa-calm,
+  .habit-icon.pink,
+  .habit-icon.blue,
+  .habit-icon.orange,
+  .habit-card.selected .habit-icon.pink,
+  .habit-card.selected .habit-icon.blue,
+  .habit-card.selected .habit-icon.orange,
+  .glass-pink {
+    background: color-mix(in oklch, var(--surface) 16%, transparent) !important;
+    color: var(--surface) !important;
+    border-color: color-mix(in oklch, var(--surface) 20%, transparent) !important;
+  }
+
+  .card-growth,
+  .qa-stuck,
+  .qa-calm {
+    color: var(--fg) !important;
+  }
+
+  .card-growth {
+    background: var(--surface) !important;
+    box-shadow: 0 14px 24px color-mix(in oklch, var(--fg) 10%, transparent) !important;
+  }
+  /* End OD cohesive app layer */
+
+  /* שורת טאבים · זכוכית סגולה כהה. אישור חן 30.7 */
+
+.tab-bar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 14px;
+  height: 76px;
+  border-radius: 30px;
+  background: linear-gradient(165deg, color-mix(in oklch, var(--fg) 54%, transparent), color-mix(in oklch, var(--fg) 34%, transparent));
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  border: 1px solid color-mix(in oklch, var(--surface) 18%, transparent);
+  box-shadow: 0 20px 48px color-mix(in oklch, var(--fg) 48%, transparent), inset 0 1px 0 color-mix(in oklch, var(--surface) 26%, transparent);
+  color: color-mix(in oklch, var(--surface) 66%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  overflow: visible;
+}
+.tab {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  display: grid;
+  place-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  min-width: 54px;
+}
+.tab svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tab.active { color: var(--surface); }
+.fab {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 70px;
+  background: linear-gradient(150deg, color-mix(in oklch, var(--accent) 78%, var(--surface)), var(--accent));
+  color: #ffffff;
+  border: 1px solid color-mix(in oklch, var(--surface) 34%, transparent);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 18px 38px color-mix(in oklch, var(--fg) 52%, transparent), 0 0 30px color-mix(in oklch, var(--accent) 70%, transparent);
+}
+.fab svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* 1.5 · דלתות לתקועה ולרגיעה, שקטות ולא כפתורים ראשיים */
+  .doors { display: flex; gap: 18px; justify-content: center; margin-top: 14px }
+  .doors .text-link {
+    width: auto; text-decoration: none; font-size: 14px; font-weight: 700;
+    color: color-mix(in oklch, var(--surface) 72%, transparent);
+  }
+  [data-od-id="done-btn"] {
+    background: color-mix(in oklch, var(--accent-secondary) 22%, transparent);
+    border-color: color-mix(in oklch, var(--accent-secondary) 46%, transparent);
+  }
+</style>
+</head>
+<body>
+<div class="phone" data-od-id="phone-frame">
+  <div class="main">
+    <p class="task-label" data-od-id="task-label">בלוק 1 · משימה א׳</p>
+    <h1 class="task-name" data-od-id="task-name">לערוך את הריל על פרידות</h1>
+
+    <div class="timer-wrap" data-od-id="timer">
+      <svg class="timer-ring" viewBox="0 0 220 220">
+        <circle class="ring-bg" cx="110" cy="110" r="100"/>
+        <circle class="ring-progress" id="ring" cx="110" cy="110" r="100"/>
+      </svg>
+      <div class="timer-text">
+        <div class="timer-mins" id="timer-display">20:00</div>
+        <div class="timer-secs">דקות : שניות</div>
+      </div>
+    </div>
+
+    <div class="controls" data-od-id="controls">
+      <button class="btn-start" id="startBtn" data-od-id="start-btn" onclick="toggle()">
+        <svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+      </button>
+      <button class="btn-skip-task" data-od-id="skip-btn" onclick="nextTask()">← להחליף משימה</button>
+      <button class="btn-skip-task" data-od-id="done-btn" onclick="finishTask()">סיימתי</button>
+    </div>
+
+    <!-- 1.5 · עשרת הגיליונות נבנו כדי לעלות מכאן, ולא היו אליהם דלתות. 30.7 -->
+    <div class="doors" data-od-id="doors">
+      <a class="text-link" href="stuck-choice.html">זה מרגיש גדול מדי</a>
+      <a class="text-link" href="calm-where.html">אני בהצפה</a>
+    </div>
+
+    <div class="queue" data-od-id="queue">
+      <div class="queue-title">שתי המשימות שלך</div>
+      <div class="queue-list" id="queueList">
+        <div class="queue-item active">
+          <div class="queue-num">א׳</div>
+          <span class="queue-item-text">לערוך את הריל על פרידות</span>
+          <span class="queue-time">20 דק׳</span>
+        </div>
+        <div class="queue-item">
+          <div class="queue-num">ב׳</div>
+          <span class="queue-item-text">לענות לשלוש פניות מהדיירקט</span>
+          <span class="queue-time">20 דק׳</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-4 6-2-3"/></svg>המצפן</button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M9 6h11"/><path d="M9 12h11"/><path d="M9 18h11"/><path d="M4 6l1 1 2-2"/><path d="M4 12l1 1 2-2"/></svg>משימות</button>
+    <button class="fab"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4z"/></svg></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8 14a6 6 0 118 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z"/></svg>הרגלים</button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>היום שלי</button>
+  </div>
+</div>
+
+<script>
+var total = 20*60, left = total, running = false, iv = null, cur = 0, round = 1;
+var done = [false,false];
+var tasks = ['לערוך את הריל על פרידות','לענות לשלוש פניות מהדיירקט'];
+var labels = ['א׳','ב׳'];
+var ring = document.getElementById('ring');
+var circ = 2 * Math.PI * 100;
+ring.style.strokeDasharray = circ;
+
+function render() {
+  var m = Math.floor(left/60), s = left%60;
+  document.getElementById('timer-display').textContent =
+    String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  ring.style.strokeDashoffset = circ * (1 - left/total);
+  document.querySelector('.task-name').textContent = tasks[cur];
+  document.querySelector('.task-label').textContent = 'בלוק '+round+' · משימה '+labels[cur];
+  document.querySelectorAll('.queue-item').forEach(function(el,i){
+    el.className = 'queue-item' + (done[i]?' done':'') + (i===cur?' active':'');
+  });
+}
+function toggle() {
+  if (running) { clearInterval(iv); running=false; }
+  else { running=true; iv=setInterval(function(){ if(left>0){left--;render();}else{clearInterval(iv);running=false;nextTask();}},1000); }
+  var btn = document.getElementById('startBtn');
+  btn.innerHTML = running
+    ? '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" fill="#9b5de5"/><rect x="14" y="4" width="4" height="16" fill="#9b5de5"/></svg>'
+    : '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21" fill="#9b5de5"/></svg>';
+}
+function finishTask() {
+  clearInterval(iv); running=false;
+  done[cur] = true;
+  render();
+  location.href = 'action-celebrate.html';
+}
+function nextTask() {
+  clearInterval(iv); running=false;
+  cur = cur===0 ? 1 : 0;
+  if (cur===0) round++;
+  left=total; render();
+  document.getElementById('startBtn').innerHTML = '<svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21" fill="#9b5de5"/></svg>';
+}
+render();
+</script>
+</body>
+</html>

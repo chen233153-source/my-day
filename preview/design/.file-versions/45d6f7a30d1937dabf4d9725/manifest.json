@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "fileName": "24-habits-empty.html",
+  "entries": [
+    {
+      "id": "189a2e46-23a1-4268-b6e0-c33ced947678",
+      "fileName": "24-habits-empty.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785140772981,
+      "source": "ai",
+      "prompt": "אני בהלם ראית את העיצוב? מה זה?? זה לא ק/שור בשום צורה למה שעשית עד עכשיו.",
+      "size": 4104,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-189a2e46-23a1-4268-b6e0-c33ced947678.html",
+      "promptSource": "message"
+    }
+  ]
+}

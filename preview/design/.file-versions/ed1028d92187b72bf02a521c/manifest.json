@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "fileName": "36-habit-break.html",
+  "entries": [
+    {
+      "id": "91d879d7-f590-49df-9e4c-8ff713f3a919",
+      "fileName": "36-habit-break.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785140772981,
+      "source": "ai",
+      "prompt": "אני בהלם ראית את העיצוב? מה זה?? זה לא ק/שור בשום צורה למה שעשית עד עכשיו.",
+      "size": 6045,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-91d879d7-f590-49df-9e4c-8ff713f3a919.html",
+      "promptSource": "message"
+    }
+  ]
+}

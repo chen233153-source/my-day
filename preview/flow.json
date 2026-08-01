@@ -1,0 +1,193 @@
+{
+ "01-onboarding-welcome.html": [],
+ "02-onboarding-identity.html": [],
+ "03-onboarding-goals.html": [],
+ "04-onboarding-evening.html": [],
+ "06-now-morning-full-v2.html": [],
+ "07-now-action.html": [
+  [
+   "זה מרגיש גדול מדי",
+   "stuck-choice.html"
+  ],
+  [
+   "אני בהצפה",
+   "calm-where.html"
+  ],
+  [
+   "(בקוד)",
+   "action-celebrate.html"
+  ]
+ ],
+ "24-habits-empty.html": [],
+ "25-habits.html": [],
+ "26-habits-editor.html": [
+  [
+   "(בקוד)",
+   "24-habits-empty.html"
+  ]
+ ],
+ "35-habit-resistance.html": [],
+ "36-habit-break.html": [
+  [
+   "(בקוד)",
+   "24-habits-empty.html"
+  ]
+ ],
+ "action-block.html": [],
+ "action-celebrate.html": [
+  [
+   "(בקוד)",
+   "07-now-action.html"
+  ],
+  [
+   "(בקוד)",
+   "today-day.html"
+  ]
+ ],
+ "action-countdown.html": [],
+ "action-move.html": [],
+ "artist-date.html": [],
+ "calm-breath.html": [
+  [
+   "סיימתי",
+   "calm-tools.html"
+  ]
+ ],
+ "calm-glimmer.html": [
+  [
+   "שמרי",
+   "today-day.html"
+  ],
+  [
+   "סגרי",
+   "calm-tools.html"
+  ]
+ ],
+ "calm-ground.html": [
+  [
+   "סיימתי",
+   "calm-tools.html"
+  ]
+ ],
+ "calm-ladder.html": [
+  [
+   "סגרי",
+   "calm-tools.html"
+  ]
+ ],
+ "calm-tools.html": [
+  [
+   "אנחה פיזיולוגיתשתי שאיפות דרך האף, השנייה קצ",
+   "calm-ladder.html"
+  ],
+  [
+   "חזרה",
+   "calm-where.html"
+  ]
+ ],
+ "calm-where.html": [
+  [
+   "מגויסתלחוצה, כועסת, הלב דופק, לא מצליחה לשבת",
+   "calm-tools.html"
+  ],
+  [
+   "כבויהמרוקנת, מנותקת, אין כוח לכלום",
+   "calm-tools.html"
+  ],
+  [
+   "בסדר, רק צריכה רגעלא בהצפה, רק רוצה לעצור",
+   "calm-tools.html"
+  ],
+  [
+   "לא עכשיו",
+   "today-day.html"
+  ]
+ ],
+ "compass-goal-editor.html": [
+  [
+   "(בקוד)",
+   "compass-home.html"
+  ]
+ ],
+ "compass-home.html": [],
+ "compass-horizons.html": [],
+ "compass-stuck.html": [
+  [
+   "(בקוד)",
+   "compass-goal-editor.html"
+  ]
+ ],
+ "compass-weekly.html": [],
+ "gratitude-empty.html": [],
+ "gratitude-writing.html": [],
+ "gratitude.html": [],
+ "morning-build.html": [],
+ "morning-run.html": [],
+ "onboarding-break-habit.html": [],
+ "stuck-choice.html": [
+  [
+   "זה גדול מדי",
+   "stuck-question.html"
+  ],
+  [
+   "לא יודעת איפה להתחיל",
+   "stuck-question.html"
+  ],
+  [
+   "זה מפחיד אותי",
+   "stuck-fear.html"
+  ],
+  [
+   "הקול בראש",
+   "stuck-question.html"
+  ],
+  [
+   "אני בהצפה",
+   "stuck-question.html"
+  ],
+  [
+   "לא עכשיו",
+   "today-day.html"
+  ]
+ ],
+ "stuck-fear.html": [
+  [
+   "כאב או אובדן",
+   "stuck-summary.html"
+  ],
+  [
+   "התהליך יהיה קשה",
+   "stuck-summary.html"
+  ],
+  [
+   "מה יגידו, או שאכשל",
+   "stuck-summary.html"
+  ]
+ ],
+ "stuck-question.html": [
+  [
+   "הלאה",
+   "stuck-summary.html"
+  ]
+ ],
+ "stuck-summary.html": [
+  [
+   "להחליף את המשימה בזה",
+   "today-day.html"
+  ],
+  [
+   "5-4-3-2-1, מתחילה",
+   "action-countdown.html"
+  ],
+  [
+   "סגרי",
+   "today-day.html"
+  ]
+ ],
+ "tasks-empty.html": [],
+ "tasks.html": [],
+ "today-closed.html": [],
+ "today-day.html": [],
+ "today-evening.html": [],
+ "today-morning.html": []
+}

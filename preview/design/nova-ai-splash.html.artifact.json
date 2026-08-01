@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "nova-ai-splash.html",
+  "entry": "nova-ai-splash.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "createdAt": "2026-07-25T17:50:12.895Z",
+  "updatedAt": "2026-07-25T17:50:12.895Z",
+  "metadata": {
+    "inferred": true,
+    "reconciled": true
+  }
+}

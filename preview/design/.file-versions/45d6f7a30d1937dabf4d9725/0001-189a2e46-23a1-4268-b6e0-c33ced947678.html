@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - כניסה להרגלים</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="habits-entry-screen">
+  <section class="content with-tabs">
+    <div class="top-bar" data-od-id="top-bar">
+      <span class="step-label">הרגל אחד בכל פעם</span>
+      <button class="back-btn" aria-label="חזרה" data-od-id="back-button"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    </div>
+
+    <header class="heading" data-od-id="entry-heading">
+      <h1 data-od-id="screen-title">איזה שינוי את רוצה לבנות?</h1>
+      <p class="subtitle">את לא בונה הרגל. את אוספת הוכחות למי שאת נעשית.</p>
+    </header>
+
+    <section class="cards" data-od-id="routing-options">
+      <button class="choice-card selected" data-od-id="route-new">
+        <span class="radio"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span class="card-text"><strong>זה משהו חדש שלא עשיתי</strong><span>זהות, פעולה זעירה, עוגן וחגיגה</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+      </button>
+      <button class="choice-card" data-od-id="route-steady">
+        <span class="radio"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span class="card-text"><strong>אני עושה את זה, אבל לא בעקביות</strong><span>זמן, מקום והכנה מראש</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 12h5l2 4 4-8 2 4h3"/></svg></span>
+      </button>
+      <button class="choice-card" data-od-id="route-replace">
+        <span class="radio"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span class="card-text"><strong>אני רוצה להפסיק משהו</strong><span>נזהה רמז ותגמול, ונחליף שגרה</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M7 7h10v10H7z"/><path d="M4 4l16 16"/></svg></span>
+      </button>
+      <button class="choice-card" data-od-id="route-grow">
+        <span class="radio"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+        <span class="card-text"><strong>זה כבר קורה מעצמו ואני רוצה יותר</strong><span>נגדיל רק בקצה היכולת</span></span>
+        <span class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 18c5-1 8-4 9-9"/><path d="M13 9h5v5"/></svg></span>
+      </button>
+    </section>
+
+    <div class="bottom">
+      <button class="cta" data-od-id="continue-button">המשיכי</button>
+    </div>
+  </section>
+
+  <nav class="tab-bar" data-od-id="tab-bar">
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-4 6-2-3"/></svg><span>המצפן</span></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.6-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.4-7 10-7 10z"/></svg><span>תודות</span></button>
+    <button class="fab" aria-label="שיחה"><svg viewBox="0 0 24 24"><path d="M21 15a4 4 0 01-4 4H8l-5 3V7a4 4 0 014-4h10a4 4 0 014 4z"/></svg></button>
+    <button class="tab active"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M8 14a6 6 0 118 0c-1 1-1 2-1 3H9c0-1 0-2-1-3z"/></svg><span>הרגלים</span></button>
+    <button class="tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>עכשיו</span></button>
+  </nav>
+</main>
+<script>
+  document.querySelectorAll('.choice-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.choice-card').forEach(item => item.classList.remove('selected'));
+      card.classList.add('selected');
+      localStorage.setItem('habitRoute', card.dataset.odId);
+    });
+  });
+</script>
+</body>
+</html>

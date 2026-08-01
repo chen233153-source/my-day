@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "fileName": "07-now-action.html",
+  "entries": [
+    {
+      "id": "eb2c1bc8-62a1-45d3-833c-2f01bfe32981",
+      "fileName": "07-now-action.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1785013675036,
+      "source": "ai",
+      "prompt": "Continue the remaining unfinished tasks from the previous run. Do not redo completed work. Focus only on these unfinished todos:\n\n1. [pending] מסך 07 — עכשיו רגע הפעולה\n2. [pending] מסך 08 — עכשיו ערב\n3. [pending] מסך 09 — עכשיו היום סגור\n\nBefore making changes, inspect the current project files as needed. Update TodoWrite as you complete each remaining task.",
+      "size": 9455,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-eb2c1bc8-62a1-45d3-833c-2f01bfe32981.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "bf7c4c01-bb71-488e-ac4b-dd1cebbf6ef7",
+      "fileName": "07-now-action.html",
+      "version": 2,
+      "label": "Version 2",
+      "createdAt": 1785015674292,
+      "source": "ai",
+      "prompt": "מסך 7 לא אהבתי. לא נראה טוב",
+      "size": 9738,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0002-bf7c4c01-bb71-488e-ac4b-dd1cebbf6ef7.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "42b37b52-7a09-4d7b-9641-2a639816006e",
+      "fileName": "07-now-action.html",
+      "version": 3,
+      "label": "Version 3",
+      "createdAt": 1785052918726,
+      "source": "ai",
+      "prompt": "להוריד את השאלה לגמרי, שתופיע רק במסך הראשי של האפליקציה. לא יודעת אם יש לנו כזה או לא. במסך המשימה אני רוצה לעבוד באינטרוולים, זו השיטה שעובדת לי. 20 דקות משימה א, 20 דקת משימה ב.",
+      "size": 10248,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0003-42b37b52-7a09-4d7b-9641-2a639816006e.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "015bebb4-3c55-4b00-965d-63e358d75713",
+      "fileName": "07-now-action.html",
+      "version": 4,
+      "label": "Version 4",
+      "createdAt": 1785053063055,
+      "source": "ai",
+      "prompt": "אהבתי, רק דיוק. אינטרוולים בין שתי משימות בלבד עד להשלמה של שתיהן או אחת מהן אבל במקביל תמיד שתי משימות.",
+      "size": 10088,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0004-015bebb4-3c55-4b00-965d-63e358d75713.html",
+      "promptSource": "message"
+    },
+    {
+      "id": "bd97b6a6-e338-4657-badf-9985486db486",
+      "fileName": "07-now-action.html",
+      "version": 5,
+      "label": "Version 5",
+      "createdAt": 1785063092146,
+      "source": "ai",
+      "prompt": "נדיר ממש אהבתי. עכשיו את מה שיישמנט כאן אתה צריך ליישם על כל המסכים לוודא שכולם נראים חלק מאותה אפליקציה. רקע, כפתורים, רווחים, הכל",
+      "size": 16623,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0005-bd97b6a6-e338-4657-badf-9985486db486.html",
+      "promptSource": "message"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>היום שלי - ספירה לאחור</title>
+<link rel="stylesheet" href="habit-flow.css">
+</head>
+<body>
+<main class="phone" data-od-id="action-countdown-screen">
+  <section class="content">
+    <div class="empty" data-od-id="countdown-body">
+      <h1 class="count-number" data-od-id="countdown-number">5</h1>
+    </div>
+
+    <div class="bottom" data-od-id="countdown-exit">
+      <div class="pill-row">
+        <button class="pill" data-od-id="not-now">לא עכשיו</button>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+  // הספירה מתחילה לבד. אין כפתור התחלה.
+  var number = document.querySelector('[data-od-id="countdown-number"]');
+  var left = 5;
+  var tick = setInterval(function () {
+    left = left - 1;
+    if (left > 0) { number.textContent = left; return; }
+    clearInterval(tick);
+    number.textContent = 'זוזי';
+  }, 1000);
+</script>
+</body>
+</html>
